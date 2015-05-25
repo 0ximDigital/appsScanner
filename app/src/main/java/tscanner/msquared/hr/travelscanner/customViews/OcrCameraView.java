@@ -63,6 +63,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
     private String decodedImageText;
 
+    private OcrFocusView ocrFocusView;
+
     private OcrTextListener ocrTextListener;
     public interface OcrTextListener{
         void onDecodedText(String text);
@@ -129,6 +131,7 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             @Override
             public void onPreviewFrame(byte[] bytes, Camera camera) {
                 if(scanImage){
+                    scanButton.setVisibility(INVISIBLE);
                     scanImage = false;
                     Camera.Parameters parameters = camera.getParameters();
 
@@ -141,10 +144,12 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
                     yuvimage.compressToJpeg(rect, 100, outstr);
                     frameInProcessing = BitmapFactory.decodeByteArray(outstr.toByteArray(), 0, outstr.size());
 
-                    decodedImageText = ocrHelper.detectText(frameInProcessing);
+
+                    decodedImageText = ocrHelper.detectText((ocrFocusView == null) ? frameInProcessing : ocrFocusView.cropFocusedBitmap(frameInProcessing));
 
                     if(ocrTextListener != null){
                         ocrTextListener.onDecodedText(decodedImageText);
+                        scanButton.setVisibility(VISIBLE);
                     }
                 }
             }
@@ -236,6 +241,10 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         camera.setPreviewCallback(cameraPreviewCallback);
         Log.i(TAG, "Set camera preview callback");
 
+    }
+
+    public void setOcrFocusView(OcrFocusView focusView){
+        this.ocrFocusView = focusView;
     }
 
     public void turnFlashOn() throws UnsupportedOperationException{
