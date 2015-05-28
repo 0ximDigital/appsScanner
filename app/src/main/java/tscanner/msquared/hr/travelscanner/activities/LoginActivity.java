@@ -43,11 +43,12 @@ public class LoginActivity extends Activity {
         }else{
             //wrong password
             Toast.makeText(getApplicationContext(),"sve je: \"admin\" ",Toast.LENGTH_LONG).show();
-            Log.d("Sifra i user je:", "admin");
+            Log.d("Login:", "User");
         }
     }
 
     public void anonymousOnClick(View view){
+        Log.d("Login:","Anonymous");
         if(GLOBAL_FAST_ENTRY){
             AcceptedLogin();
         }
