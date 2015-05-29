@@ -1,4 +1,4 @@
-package tscanner.msquared.hr.travelscanner.activities;
+package tscanner.msquared.hr.travelscanner;
 
 /**
  * Created by Mihael on 28.5.2015..
