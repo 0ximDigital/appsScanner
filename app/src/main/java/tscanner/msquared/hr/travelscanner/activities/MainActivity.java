@@ -12,7 +12,8 @@ import android.widget.Button;
 import tscanner.msquared.hr.travelscanner.R;
 
 public class MainActivity extends Activity {
-    Button goToDestInfo;
+
+    private Button goToDestInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
