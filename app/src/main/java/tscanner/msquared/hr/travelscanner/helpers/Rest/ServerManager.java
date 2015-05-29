@@ -198,16 +198,90 @@ public class ServerManager {
         }
     }
 
-    public List<Purchase> getAllPurchases(){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getAllPurchases(final Callback<List<Purchase>> purchasesCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatiSvePurchase));
+        try {
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        purchasesCallback.requestResult(null);
+                    }
+                    Purchase[] purchases = gson.fromJson(response, Purchase[].class);
+                    purchasesCallback.requestResult(Arrays.asList(purchases));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            purchasesCallback.requestResult(null);
+        }
     }
 
-    public Purchase getPurchaseById(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getPurchaseById(Integer id, final Callback<Purchase> purchaseCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatPurchaseaSaId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        purchaseCallback.requestResult(null);
+                    }
+                    response = response.replaceAll("\\[|\\]", "");
+                    Purchase purchase = gson.fromJson(response, Purchase.class);
+                    purchaseCallback.requestResult(purchase);
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            purchaseCallback.requestResult(null);
+        }
     }
 
-    public List<Purchase> getAllPurchasesFromUserId(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    /**
+     * Returns all purchases by user..
+     * If user is regular.. all his purchases
+     * If user is salesman, method returns all purchases he sold so far
+     * @param id
+     * @return
+     */
+    public void getAllPurchasesFromUserId(Integer id, final Callback<List<Purchase>> purchasesCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatPurchaseaOdUseraSaId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        purchasesCallback.requestResult(null);
+                    }
+                    Purchase[] purchases = gson.fromJson(response, Purchase[].class);
+                    purchasesCallback.requestResult(Arrays.asList(purchases));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            purchasesCallback.requestResult(null);
+        }
     }
 
     public List<Traveler> getAllTravelers(){

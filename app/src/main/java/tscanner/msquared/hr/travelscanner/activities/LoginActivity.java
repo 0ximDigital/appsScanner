@@ -19,6 +19,7 @@ import java.util.List;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
+import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 //pocetna
@@ -60,7 +61,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchDestinationById(8);
+                fetchPurchasesMadeByUserWithId(4);
             }
         });
     }
@@ -201,6 +202,64 @@ public class LoginActivity extends Activity {
                 if (travelDestination != null) {
                     loadToast.success();
                     Log.i(TAG, travelDestination.toString());
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchAllPurchases(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching purchases..").show();
+        serverManager.getAllPurchases(new ServerManager.Callback<List<Purchase>>() {
+            @Override
+            public void requestResult(List<Purchase> purchases) {
+                if (purchases != null) {
+                    loadToast.success();
+                    for (Purchase purchase : purchases) {
+                        Log.i(TAG, purchase.toString());
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchPurchaseById(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching purchase..").show();
+        serverManager.getPurchaseById(id, new ServerManager.Callback<Purchase>() {
+            @Override
+            public void requestResult(Purchase purchase) {
+                if (purchase != null) {
+                    loadToast.success();
+                    Log.i(TAG, purchase.toString());
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchPurchasesMadeByUserWithId(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching purchase..").show();
+        serverManager.getAllPurchasesFromUserId(id, new ServerManager.Callback<List<Purchase>>() {
+            @Override
+            public void requestResult(List<Purchase> purchases) {
+                if (purchases != null) {
+                    loadToast.success();
+                    for (Purchase purchase : purchases) {
+                        Log.i(TAG, purchase.toString());
+                    }
                 } else {
                     loadToast.error();
                 }
