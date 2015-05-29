@@ -141,7 +141,7 @@ public class TessBaseAPI {
 
         /** Symbol/character within a word. */
         public static final int RIL_SYMBOL = 4;
-    };
+    }
 
     private ProgressNotifier progressNotifier;
 
