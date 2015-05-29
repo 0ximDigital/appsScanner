@@ -23,7 +23,7 @@ import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 //pocetna
 public class LoginActivity extends Activity {
 
-    private final String TAG = this.getClass().getName();
+    private final String TAG = this.getClass().getSimpleName();
 
     private Button login;
     private EditText username=null;
@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchUserById(5);
+                fetchSalesmanUsers();
             }
         });
     }
@@ -119,11 +119,30 @@ public class LoginActivity extends Activity {
         serverManager.getAppUserById(id, new ServerManager.Callback<AppUser>() {
             @Override
             public void requestResult(AppUser appUser) {
-                if(appUser != null){
+                if (appUser != null) {
                     loadToast.success();
                     Log.i(TAG, appUser.toString());
+                } else {
+                    loadToast.error();
                 }
-                else{
+            }
+        });
+    }
+
+    private void fetchSalesmanUsers(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching salesmans..").show();
+        serverManager.getAllSalesmanUsers(new ServerManager.Callback<List<AppUser>>() {
+            @Override
+            public void requestResult(List<AppUser> appUsers) {
+                if (appUsers != null) {
+                    loadToast.success();
+                    for(AppUser appUser : appUsers) {
+                        Log.i(TAG, appUser.toString());
+                    }
+                } else {
                     loadToast.error();
                 }
             }
