@@ -26,4 +26,8 @@ dependencies {
 
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.google.code.gson:gson:2.2.+'
+    compile 'me.drakeet.materialdialog:library:1.2.2'
+
+
 }
+
