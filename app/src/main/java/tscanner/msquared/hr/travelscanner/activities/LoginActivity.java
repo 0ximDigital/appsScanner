@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchSalesmanUsers();
+                fetchNonSalesmanUsers();
             }
         });
     }
@@ -135,6 +135,26 @@ public class LoginActivity extends Activity {
         }
         loadToast.setText("Fetching salesmans..").show();
         serverManager.getAllSalesmanUsers(new ServerManager.Callback<List<AppUser>>() {
+            @Override
+            public void requestResult(List<AppUser> appUsers) {
+                if (appUsers != null) {
+                    loadToast.success();
+                    for (AppUser appUser : appUsers) {
+                        Log.i(TAG, appUser.toString());
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchNonSalesmanUsers(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching regulars..").show();
+        serverManager.getAllNonSalesmanUsers(new ServerManager.Callback<List<AppUser>>() {
             @Override
             public void requestResult(List<AppUser> appUsers) {
                 if (appUsers != null) {

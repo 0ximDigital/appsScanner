@@ -119,8 +119,30 @@ public class ServerManager {
         }
     }
 
-    public List<AppUser> getAllNonSalesmanUsers(){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getAllNonSalesmanUsers(final Callback<List<AppUser>> appUsersCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatObicnihUsera));
+        try {
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        appUsersCallback.requestResult(null);
+                    }
+                    AppUser[] appUsersArray = gson.fromJson(response, AppUser[].class);
+                    appUsersCallback.requestResult(Arrays.asList(appUsersArray));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            appUsersCallback.requestResult(null);
+        }
     }
 
     public List<TravelDestination> getAllTravelDestiantions(){
