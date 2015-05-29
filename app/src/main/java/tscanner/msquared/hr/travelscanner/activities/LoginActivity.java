@@ -19,6 +19,7 @@ import java.util.List;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
+import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 //pocetna
 public class LoginActivity extends Activity {
@@ -59,7 +60,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchNonSalesmanUsers();
+                fetchAllTravelDestinations();
             }
         });
     }
@@ -159,8 +160,28 @@ public class LoginActivity extends Activity {
             public void requestResult(List<AppUser> appUsers) {
                 if (appUsers != null) {
                     loadToast.success();
-                    for(AppUser appUser : appUsers) {
+                    for (AppUser appUser : appUsers) {
                         Log.i(TAG, appUser.toString());
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchAllTravelDestinations(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching destinations..").show();
+        serverManager.getAllTravelDestinations(new ServerManager.Callback<List<TravelDestination>>() {
+            @Override
+            public void requestResult(List<TravelDestination> travelDestinations) {
+                if (travelDestinations != null) {
+                    loadToast.success();
+                    for (TravelDestination travelDestination : travelDestinations) {
+                        Log.i(TAG, travelDestination.toString());
                     }
                 } else {
                     loadToast.error();

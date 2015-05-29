@@ -145,8 +145,30 @@ public class ServerManager {
         }
     }
 
-    public List<TravelDestination> getAllTravelDestiantions(){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getAllTravelDestinations(final Callback<List<TravelDestination>> travelDestinationsCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatSvihDestinacija));
+        try {
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        travelDestinationsCallback.requestResult(null);
+                    }
+                    TravelDestination[] travelDestinations = gson.fromJson(response, TravelDestination[].class);
+                    travelDestinationsCallback.requestResult(Arrays.asList(travelDestinations));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            travelDestinationsCallback.requestResult(null);
+        }
     }
 
     public TravelDestination getTravelDestinationById(Integer id){
