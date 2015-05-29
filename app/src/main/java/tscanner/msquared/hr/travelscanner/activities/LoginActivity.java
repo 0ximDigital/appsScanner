@@ -54,11 +54,12 @@ public class LoginActivity extends Activity {
 
         this.testButton = (Button) findViewById(R.id.btnTest);
         this.loadToast = new LoadToast(this);
+        this.loadToast.setTranslationY(300);
 
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchAllUsers();
+                fetchUserById(5);
             }
         });
     }
@@ -94,17 +95,33 @@ public class LoginActivity extends Activity {
         if(serverManager == null){
             serverManager = new ServerManager();
         }
-        loadToast.setText("Fetching all users..");
-        loadToast.setTranslationY(200);
-        loadToast.show();
+        loadToast.setText("Fetching all users..").show();
         serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
             @Override
             public void requestResult(List<AppUser> appUsers) {
-                if(appUsers != null){
+                if (appUsers != null) {
                     loadToast.success();
-                    for(AppUser user : appUsers){
+                    for (AppUser user : appUsers) {
                         Log.i(TAG, "User -> " + user);
                     }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchUserById(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching user..").show();
+        serverManager.getAppUserById(id, new ServerManager.Callback<AppUser>() {
+            @Override
+            public void requestResult(AppUser appUser) {
+                if(appUser != null){
+                    loadToast.success();
+                    Log.i(TAG, appUser.toString());
                 }
                 else{
                     loadToast.error();
@@ -112,8 +129,6 @@ public class LoginActivity extends Activity {
             }
         });
     }
-
-
 
 
 }

@@ -40,7 +40,7 @@ public class ServerManager {
         void requestResult(T t);
     }
 
-    public void getAllAppUsers(final Callback<List<AppUser>> appUsers){
+    public void getAllAppUsers(final Callback<List<AppUser>> appUsersCallback){
         String response = null;
         if(this.getRestService == null){
             this.getRestService = new GetRestService(null);
@@ -52,22 +52,45 @@ public class ServerManager {
                 public void onResponse(String response) {
                     Log.i(TAG, response);
                     if(response == null){
-                        appUsers.requestResult(null);
+                        appUsersCallback.requestResult(null);
                     }
                     AppUser[] appUsersArray = gson.fromJson(response, AppUser[].class);
-                    appUsers.requestResult(Arrays.asList(appUsersArray));
+                    appUsersCallback.requestResult(Arrays.asList(appUsersArray));
                 }
             });
             this.getRestService.executeRequest();
         }
         catch (Exception e){
             e.printStackTrace();
-            appUsers.requestResult(null);
+            appUsersCallback.requestResult(null);
         }
     }
 
-    public AppUser getAppUserById(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getAppUserById(Integer id, final Callback<AppUser> appUserCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatUseraSaId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        appUserCallback.requestResult(null);
+                    }
+                    response = response.replaceAll("\\[|\\]", "");
+                    AppUser appUser = gson.fromJson(response, AppUser.class);
+                    appUserCallback.requestResult(appUser);
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            appUserCallback.requestResult(null);
+        }
     }
 
     public List<AppUser> getAllSalesmanUsers(){
@@ -113,4 +136,9 @@ public class ServerManager {
     private String getURLRequest(String request){
         return ApiConstants.serverPrefix + request + ApiConstants.returnFormat;
     }
+
+    private String getURLRequestWithIdParameter(String request, int id){
+        return ApiConstants.serverPrefix + request + id + ApiConstants.returnFormat;
+    }
+
 }
