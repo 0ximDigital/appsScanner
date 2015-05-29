@@ -171,8 +171,31 @@ public class ServerManager {
         }
     }
 
-    public TravelDestination getTravelDestinationById(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getTravelDestinationById(Integer id, final Callback<TravelDestination> travelDestinationCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatDestinacijeSaId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        travelDestinationCallback.requestResult(null);
+                    }
+                    response = response.replaceAll("\\[|\\]", "");
+                    TravelDestination travelDestination = gson.fromJson(response, TravelDestination.class);
+                    travelDestinationCallback.requestResult(travelDestination);
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            travelDestinationCallback.requestResult(null);
+        }
     }
 
     public List<Purchase> getAllPurchases(){

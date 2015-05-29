@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchAllTravelDestinations();
+                fetchDestinationById(8);
             }
         });
     }
@@ -183,6 +183,24 @@ public class LoginActivity extends Activity {
                     for (TravelDestination travelDestination : travelDestinations) {
                         Log.i(TAG, travelDestination.toString());
                     }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchDestinationById(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching destiantion..").show();
+        serverManager.getTravelDestinationById(id, new ServerManager.Callback<TravelDestination>() {
+            @Override
+            public void requestResult(TravelDestination travelDestination) {
+                if (travelDestination != null) {
+                    loadToast.success();
+                    Log.i(TAG, travelDestination.toString());
                 } else {
                     loadToast.error();
                 }
