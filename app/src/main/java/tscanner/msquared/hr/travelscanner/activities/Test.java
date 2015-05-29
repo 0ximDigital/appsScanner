@@ -11,6 +11,7 @@ import tscanner.msquared.hr.travelscanner.R;
  * Created by Matej on 5/29/2015.
  */
 public class Test extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,7 +14,6 @@ public class GetRestService {
     String url;
     OkHttpClient client;
 
-
     public GetRestService(String url) {
         this.url = url;
 
@@ -24,7 +23,6 @@ public class GetRestService {
     public String execute() throws ExecutionException, InterruptedException {
         GetWorker getWorker= new GetWorker();
         return getWorker.execute().get();
-
     }
 
     public String getUrl() {

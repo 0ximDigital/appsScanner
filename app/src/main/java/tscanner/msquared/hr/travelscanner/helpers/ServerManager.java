@@ -1,5 +1,7 @@
 package tscanner.msquared.hr.travelscanner.helpers;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
@@ -39,7 +41,7 @@ public class ServerManager {
         if(this.getRestService == null){
             this.getRestService = new GetRestService(null);
         }
-        this.getRestService.setUrl(ApiConstants.dohvatSvihUsera);
+        this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatSvihUsera));
         try {
             response = this.getRestService.execute();
         }
@@ -50,6 +52,8 @@ public class ServerManager {
         if(response == null){
             return null;
         }
+
+        Log.i(TAG, response);
 
         AppUser[] appUsers = gson.fromJson(response, AppUser[].class);
         return Arrays.asList(appUsers);
@@ -97,5 +101,9 @@ public class ServerManager {
 
     public List<Traveler> getTravelersWithPurchaseId(Integer id){
         throw new UnsupportedOperationException("TODO - Implement this !");
+    }
+
+    private String getURLRequest(String request){
+        return ApiConstants.serverPrefix + request + ApiConstants.returnFormat;
     }
 }

@@ -9,7 +9,7 @@ xmlns:tools="http://schemas.android.com/tools"
         tools:context=".MainActivity" >
 
 <TextView
-    android:id="@+id/textView1"
+    android:id="@+id/tvTitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
@@ -23,7 +23,7 @@ xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
-    android:layout_below="@+id/textView1"
+    android:layout_below="@+id/tvTitle"
     android:layout_marginTop="50dp"
     android:text="@string/username"
     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -81,6 +81,23 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_gravity="left"
         android:clickable="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        android:id="@+id/btnTest"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/tvTitle"
+        android:layout_toEndOf="@+id/tvTitle" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarTest"
+        android:layout_alignTop="@+id/btnTest"
+        android:layout_toLeftOf="@+id/btnTest"
+        android:layout_toStartOf="@+id/btnTest" />
 
 
 </RelativeLayout>
