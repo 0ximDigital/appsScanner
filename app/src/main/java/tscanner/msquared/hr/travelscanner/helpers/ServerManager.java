@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +22,7 @@ import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
  */
 public class ServerManager {
 
-    private final String TAG = this.getClass().getName();
+    private final String TAG = this.getClass().getSimpleName();
 
     private GetRestService getRestService;
     private PostRestService postRestService;

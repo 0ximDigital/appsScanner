@@ -15,26 +15,38 @@ import java.util.concurrent.ExecutionException;
  * Created by Cveki on 17.12.2014..
  */
 public class DeleteRestService {
-    String url;
-    OkHttpClient client;
+
+    private String url;
+    private OkHttpClient client;
+
     public static final MediaType JSON
             = MediaType.parse("Content-Type=application/json; charset=unicode");
 
+    private DeleteRestServiceListener deleteRestServiceListener;
+
+    public void setDeleteRestServiceListener(DeleteRestServiceListener deleteRestServiceListener) {
+        this.deleteRestServiceListener = deleteRestServiceListener;
+    }
+
+    public interface DeleteRestServiceListener{
+        void onResponse(String result);
+    }
 
     public DeleteRestService(String url, String json) {
         this.url = url;
         this.client = new OkHttpClient();
     }
 
-    public String execute() throws ExecutionException, InterruptedException {
+    public void executeRequest() throws ExecutionException, InterruptedException {
         DeleteWorker deleteWorker = new DeleteWorker();
-        return deleteWorker.execute().get();
-
+        deleteWorker.execute();
     }
 
-    private class DeleteWorker extends AsyncTask<Void, Void, String> {
+    private class DeleteWorker extends AsyncTask<Void, Void, Void> {
+        private String response;
+
         @Override
-        protected String doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
             RequestBody body = RequestBody.create(JSON, "");
             Request request = new Request.Builder()
                     .url(url)
@@ -50,14 +62,19 @@ public class DeleteRestService {
             }
             if (response != null) {
                 try {
-                    return response.body().string();
+                    this.response = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-
             return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(deleteRestServiceListener != null){
+                deleteRestServiceListener.onResponse(this.response);
+            }
         }
     }
 
