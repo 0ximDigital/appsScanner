@@ -1,7 +1,12 @@
 package tscanner.msquared.hr.travelscanner.helpers;
 
+import com.google.gson.Gson;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
+import tscanner.msquared.hr.travelscanner.helpers.Rest.ApiConstants;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.DeleteRestService;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.GetRestService;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.PostRestService;
@@ -23,11 +28,31 @@ public class ServerManager {
     private PutRestService putRestService;
     private DeleteRestService deleteRestService;
 
+    private Gson gson;
+
     public ServerManager() {
+        this.gson = new Gson();
     }
 
     public List<AppUser> getAllAppUsers(){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(ApiConstants.dohvatSvihUsera);
+        try {
+            response = this.getRestService.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        if(response == null){
+            return null;
+        }
+
+        AppUser[] appUsers = gson.fromJson(response, AppUser[].class);
+        return Arrays.asList(appUsers);
     }
 
     public AppUser getAppUserById(Integer id){
