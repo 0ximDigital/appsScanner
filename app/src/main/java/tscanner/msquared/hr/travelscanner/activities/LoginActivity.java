@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
-import tscanner.msquared.hr.travelscanner.helpers.ServerManager;
+import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 
 //pocetna
@@ -52,19 +51,24 @@ public class LoginActivity extends Activity {
 
         this.testButton = (Button) findViewById(R.id.btnTest);
         this.progressBar = (ProgressBar) findViewById(R.id.progressBarTest);
+        this.progressBar.setVisibility(View.INVISIBLE);
+
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(serverManager == null){
                    serverManager = new ServerManager();
                 }
-                Log.i(TAG, "Pocinje dohvat");
-                appUserList = serverManager.getAllAppUsers();
-                Log.i(TAG, "Gotov dohvat");
+                progressBar.setVisibility(View.VISIBLE);
 
-                for(AppUser user : appUserList){
-                    Log.i(TAG, "User -> " + user);
-                }
+                serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
+                    @Override
+                    public void requestResult(List<AppUser> appUsers) {
+                        for(AppUser user : appUsers){
+                            Log.i(TAG, "User -> " + user);
+                        }
+                    }
+                });
             }
         });
     }

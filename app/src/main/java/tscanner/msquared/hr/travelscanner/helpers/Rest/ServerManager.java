@@ -1,6 +1,7 @@
-package tscanner.msquared.hr.travelscanner.helpers;
+package tscanner.msquared.hr.travelscanner.helpers.Rest;
 
 import android.util.Log;
+import android.view.SurfaceHolder;
 
 import com.google.gson.Gson;
 
@@ -35,27 +36,34 @@ public class ServerManager {
         this.gson = new Gson();
     }
 
-    public List<AppUser> getAllAppUsers(){
+    public interface Callback<T>{
+        void requestResult(T t);
+    }
+
+    public void getAllAppUsers(final Callback<List<AppUser>> appUsers){
         String response = null;
         if(this.getRestService == null){
             this.getRestService = new GetRestService(null);
         }
         this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatSvihUsera));
         try {
-            response = this.getRestService.execute();
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        appUsers.requestResult(null);
+                    }
+                    AppUser[] appUsersArray = gson.fromJson(response, AppUser[].class);
+                    appUsers.requestResult(Arrays.asList(appUsersArray));
+                }
+            });
+            this.getRestService.executeRequest();
         }
         catch (Exception e){
             e.printStackTrace();
-            return null;
+            appUsers.requestResult(null);
         }
-        if(response == null){
-            return null;
-        }
-
-        Log.i(TAG, response);
-
-        AppUser[] appUsers = gson.fromJson(response, AppUser[].class);
-        return Arrays.asList(appUsers);
     }
 
     public AppUser getAppUserById(Integer id){
