@@ -11,18 +11,27 @@ import java.util.concurrent.ExecutionException;
 
 public class GetRestService {
 
-    String url;
-    OkHttpClient client;
+    private String url;
+    private OkHttpClient client;
+
+    private GetRestServiceListener getRestServiceListener;
+
+    public void setGetRestServiceListener(GetRestServiceListener getRestServiceListener) {
+        this.getRestServiceListener = getRestServiceListener;
+    }
+
+    public interface GetRestServiceListener{
+        void onResponse(String response);
+    }
 
     public GetRestService(String url) {
         this.url = url;
-
         this.client = new OkHttpClient();
     }
 
-    public String execute() throws ExecutionException, InterruptedException {
-        GetWorker getWorker= new GetWorker();
-        return getWorker.execute().get();
+    public void executeRequest() throws ExecutionException, InterruptedException {
+        GetWorker getWorker = new GetWorker();
+        getWorker.execute();
     }
 
     public String getUrl() {
@@ -33,15 +42,16 @@ public class GetRestService {
         this.url = url;
     }
 
-    private class GetWorker extends AsyncTask<Void, Void, String> {
+    private class GetWorker extends AsyncTask<Void, Void, Void> {
+
+        private String response;
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
 
             Request request = new Request.Builder()
                     .url(url)
                     .build();
-
 
             Response response = null;
             try {
@@ -51,12 +61,20 @@ public class GetRestService {
             }
             if (response != null) {
                 try {
-                    return response.body().string();
+                    this.response = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    this.response = null;
                 }
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if(getRestServiceListener != null){
+                getRestServiceListener.onResponse(this.response);
+            }
         }
     }
 

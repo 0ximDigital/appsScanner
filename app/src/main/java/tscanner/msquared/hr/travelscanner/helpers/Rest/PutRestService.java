@@ -15,12 +15,23 @@ import java.util.concurrent.ExecutionException;
  * Created by Cveki on 17.12.2014..
  */
 public class PutRestService {
-    String url;
-    OkHttpClient client;
-    String json;
+
+    private String url;
+    private OkHttpClient client;
+    private String json;
+
+    private PutRestServiceListener putRestServiceListener;
+
+    public void setPutRestServiceListener(PutRestServiceListener putRestServiceListener) {
+        this.putRestServiceListener = putRestServiceListener;
+    }
+
     public static final MediaType JSON
             = MediaType.parse("Content-Type=application/json; charset=unicode");
 
+    public interface PutRestServiceListener{
+        void onResponse(String response);
+    }
 
     public PutRestService(String url, String json) {
         this.url = url;
@@ -28,13 +39,15 @@ public class PutRestService {
         this.client = new OkHttpClient();
     }
 
-    public String execute() throws ExecutionException, InterruptedException {
+    public void execute() throws ExecutionException, InterruptedException {
         PutWorker putWorker = new PutWorker();
-        return putWorker.execute().get();
-
+        putWorker.execute();
     }
 
     private class PutWorker extends AsyncTask<Void, Void, String> {
+
+        private String response;
+
         @Override
         protected String doInBackground(Void... params) {
             RequestBody body = RequestBody.create(JSON, json);
@@ -52,14 +65,20 @@ public class PutRestService {
             }
             if (response != null) {
                 try {
-                    return response.body().string();
+                    this.response = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    this.response = null;
                 }
             }
-
             return null;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            if(putRestServiceListener != null){
+                putRestServiceListener.onResponse(this.response);
+            }
         }
     }
 

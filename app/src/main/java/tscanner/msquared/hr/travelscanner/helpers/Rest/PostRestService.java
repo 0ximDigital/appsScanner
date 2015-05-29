@@ -15,12 +15,23 @@ import java.util.concurrent.ExecutionException;
  * Created by Cveki on 17.12.2014..
  */
 public class PostRestService {
-    String url;
-    OkHttpClient client;
-    String json;
+
+    private String url;
+    private OkHttpClient client;
+    private String json;
+
+    private PostRestServicelistener postRestServicelistener;
+
+    public void setPostRestServicelistener(PostRestServicelistener postRestServicelistener) {
+        this.postRestServicelistener = postRestServicelistener;
+    }
+
     public static final MediaType JSON
             = MediaType.parse("Content-Type=application/json; charset=unicode");
 
+    public interface PostRestServicelistener{
+        void onResponse(String response);
+    }
 
     public PostRestService(String url, String json) {
         this.url = url;
@@ -28,13 +39,15 @@ public class PostRestService {
         this.client = new OkHttpClient();
     }
 
-    public String execute() throws ExecutionException, InterruptedException {
+    public void execute() throws ExecutionException, InterruptedException {
         PostWorker postWorker = new PostWorker();
-        return postWorker.execute().get();
-
+        postWorker.execute();
     }
 
     private class PostWorker extends AsyncTask<Void, Void, String> {
+
+        private String response;
+
         @Override
         protected String doInBackground(Void... params) {
             RequestBody body = RequestBody.create(JSON, json);
@@ -52,14 +65,20 @@ public class PostRestService {
             }
             if (response != null) {
                 try {
-                    return response.body().string();
+                    this.response = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    this.response = null;
                 }
             }
-
             return null;
+        }
 
+        @Override
+        protected void onPostExecute(String s) {
+            if(postRestServicelistener != null){
+                postRestServicelistener.onResponse(this.response);
+            }
         }
     }
 

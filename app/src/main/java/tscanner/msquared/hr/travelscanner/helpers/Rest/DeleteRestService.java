@@ -43,6 +43,7 @@ public class DeleteRestService {
     }
 
     private class DeleteWorker extends AsyncTask<Void, Void, Void> {
+
         private String response;
 
         @Override
@@ -65,6 +66,7 @@ public class DeleteRestService {
                     this.response = response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
+                    this.response = null;
                 }
             }
             return null;
