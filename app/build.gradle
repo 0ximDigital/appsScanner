@@ -28,6 +28,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'me.drakeet.materialdialog:library:1.2.2'
 
+    compile 'net.steamcrafted:load-toast:1.0.6'
+
 
 }
 

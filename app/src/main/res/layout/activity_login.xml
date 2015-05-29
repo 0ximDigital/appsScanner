@@ -90,14 +90,4 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_toRightOf="@+id/tvTitle"
         android:layout_toEndOf="@+id/tvTitle" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBarTest"
-        android:layout_alignTop="@+id/btnTest"
-        android:layout_toLeftOf="@+id/btnTest"
-        android:layout_toStartOf="@+id/btnTest" />
-
-
 </RelativeLayout>

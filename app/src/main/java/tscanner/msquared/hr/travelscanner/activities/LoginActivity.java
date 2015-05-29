@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.steamcrafted.loadtoast.LoadToast;
+import net.steamcrafted.loadtoast.LoadToastView;
+
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
@@ -31,7 +34,7 @@ public class LoginActivity extends Activity {
     private Button testButton;
 
     private ServerManager serverManager;
-    private ProgressBar progressBar;
+    private LoadToast loadToast;
 
     private List<AppUser> appUserList;
 
@@ -50,29 +53,15 @@ public class LoginActivity extends Activity {
         this.loginAnonymous=(TextView)findViewById(R.id.loginAnonymous);
 
         this.testButton = (Button) findViewById(R.id.btnTest);
-        this.progressBar = (ProgressBar) findViewById(R.id.progressBarTest);
-        this.progressBar.setVisibility(View.INVISIBLE);
+        this.loadToast = new LoadToast(this);
 
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(serverManager == null){
-                   serverManager = new ServerManager();
-                }
-                progressBar.setVisibility(View.VISIBLE);
-
-                serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
-                    @Override
-                    public void requestResult(List<AppUser> appUsers) {
-                        for(AppUser user : appUsers){
-                            Log.i(TAG, "User -> " + user);
-                        }
-                    }
-                });
+                fetchAllUsers();
             }
         });
     }
-
 
     public void login(View view){
         if(username.getText().toString().equals("admin") &&
@@ -95,11 +84,33 @@ public class LoginActivity extends Activity {
         }
     }
 
-
     private void AcceptedLogin(){
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void fetchAllUsers(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching all users..");
+        loadToast.setTranslationY(200);
+        loadToast.show();
+        serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
+            @Override
+            public void requestResult(List<AppUser> appUsers) {
+                if(appUsers != null){
+                    loadToast.success();
+                    for(AppUser user : appUsers){
+                        Log.i(TAG, "User -> " + user);
+                    }
+                }
+                else{
+                    loadToast.error();
+                }
+            }
+        });
     }
 
 
