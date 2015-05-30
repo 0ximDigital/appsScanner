@@ -20,6 +20,7 @@ import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
+import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
@@ -62,7 +63,8 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchTravelersWitchPurchaseId(5);
+                AppUser newAppUser = new AppUser("androidUser@mail.hr", null, true, "awsmPassword", 0, "androidUser");
+                addNewAppUser(newAppUser);
             }
         });
     }
@@ -320,6 +322,25 @@ public class LoginActivity extends Activity {
                         Log.i(TAG, traveler.toString());
                     }
                 } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void addNewAppUser(AppUser appUser){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Adding user..").show();
+        serverManager.addNewAppUser(appUser, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if(responseMessage.getError() == null){
+                    loadToast.success();
+                }
+                else{
+                    Log.e(TAG, responseMessage.getError());
                     loadToast.error();
                 }
             }

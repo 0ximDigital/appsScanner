@@ -15,6 +15,7 @@ import tscanner.msquared.hr.travelscanner.helpers.Rest.PostRestService;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.PutRestService;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
+import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
@@ -39,6 +40,8 @@ public class ServerManager {
     public interface Callback<T>{
         void requestResult(T t);
     }
+
+    // ### AppUser REST
 
     public void getAllAppUsers(final Callback<List<AppUser>> appUsersCallback){
         String response = null;
@@ -145,6 +148,35 @@ public class ServerManager {
         }
     }
 
+    // POST
+    public void addNewAppUser(AppUser user, final Callback<ResponseMessage> messageCallback){
+        if(this.postRestService == null){
+            this.postRestService = new PostRestService(null, null);
+        }
+        this.postRestService.setUrl(this.getURLRequest(ApiConstants.postAppUser));
+        this.postRestService.setJson(gson.toJson(user));
+        try {
+            this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        messageCallback.requestResult(new ResponseMessage(null));
+                    }
+                    ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
+                    messageCallback.requestResult(message);
+                }
+            });
+            this.postRestService.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            messageCallback.requestResult(new ResponseMessage(null));
+        }
+    }
+
+    // ### TravelDestination REST
+
     public void getAllTravelDestinations(final Callback<List<TravelDestination>> travelDestinationsCallback){
         String response = null;
         if(this.getRestService == null){
@@ -197,6 +229,8 @@ public class ServerManager {
             travelDestinationCallback.requestResult(null);
         }
     }
+
+    // ### Purchases REST
 
     public void getAllPurchases(final Callback<List<Purchase>> purchasesCallback){
         String response = null;
@@ -283,6 +317,8 @@ public class ServerManager {
             purchasesCallback.requestResult(null);
         }
     }
+
+    // ### Travelers REST
 
     public void getAllTravelers(final Callback<List<Traveler>> travelersCallback){
         String response = null;

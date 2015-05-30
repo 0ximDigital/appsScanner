@@ -21,10 +21,21 @@ public class AppUser {
     @Expose
     private String email;
 
+    private String password;
+
     public AppUser(String email, Integer id, Boolean isSalesman, Integer travelPoints, String username) {
         this.email = email;
         this.id = id;
         this.isSalesman = isSalesman;
+        this.travelPoints = travelPoints;
+        this.username = username;
+    }
+
+    public AppUser(String email, Integer id, Boolean isSalesman, String password, Integer travelPoints, String username) {
+        this.email = email;
+        this.id = id;
+        this.isSalesman = isSalesman;
+        this.password = password;
         this.travelPoints = travelPoints;
         this.username = username;
     }
@@ -67,6 +78,10 @@ public class AppUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

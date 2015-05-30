@@ -7,6 +7,8 @@ public final class ApiConstants {
 
     public static final String returnFormat = ".json";
 
+    // GET
+
     public static final String dohvatSvihUsera = "/Traveler/api/data/app_users";
     public static final String dohvatUseraSaId = "/Traveler/api/data/app_user/id/";
     public static final String dohvatSalesmanUsera = "/Traveler/api/data/app_users/is_salesman/true";
@@ -22,6 +24,10 @@ public final class ApiConstants {
     public static final String dohvatSvihTravelera = "/Traveler/api/data/travelers";
     public static final String dohvatTraveleraSaId = "/Traveler/api/data/traveler/id/";
     public static final String dohvatTravelersaSaPurchaseId = "/Traveler/api/data/travelers/purchase_id/";     // Svi koji su bili negdje (Hawaii)
+
+    // POST
+
+    public static final String postAppUser = "/Traveler/api/data/app_user";
 
 }
 
