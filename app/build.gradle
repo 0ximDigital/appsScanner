@@ -34,6 +34,7 @@ dependencies {
     compile 'me.drakeet.materialdialog:library:1.2.2'
 
     compile 'net.steamcrafted:load-toast:1.0.6'
+    compile 'com.github.clans:fab:1.4.0'
 
     compile 'com.kogitune:pre-lollipop-activity-transition:1.0.0'
 
