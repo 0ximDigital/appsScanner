@@ -1,18 +1,12 @@
 package tscanner.msquared.hr.travelscanner.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-
 import android.app.Activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -84,11 +78,6 @@ public class RegistrationActivity extends Activity {
 
 
     }
-
-
-
-
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
