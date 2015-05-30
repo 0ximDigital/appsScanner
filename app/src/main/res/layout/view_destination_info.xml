@@ -15,20 +15,27 @@
             android:paddingTop="10dp"
             android:orientation="vertical">
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="batun"/>
+                style="@style/TravelerSubtitleText"
+                android:text="Destination name:"
+                android:id="@+id/txtTitleDestinationName" />
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="batun"/>
+                style="@style/TravelerPargraphText"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+                android:id="@+id/txtGroupName" />
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="batun"/>
+                style="@style/TravelerSubtitleText"
+                android:text="Group description:"
+                android:id="@+id/txtGroupDescription" />
+
 
         </LinearLayout>
 

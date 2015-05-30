@@ -7,4 +7,15 @@
     <color name="traveler_black">#000</color>
     <color name="traveler_transparent">#00000000</color>
 
+    <color name="traveler_primary">#009688</color>
+    <color name="traveler_primary_dark">#00796B</color>
+    <color name="traveler_primary_light">#B2DFDB</color>
+    <color name="traveler_accent">#00BCD4</color>
+    <color name="traveler_primary_text">#212121</color>
+    <color name="traveler_secondary_text">#727272</color>
+    <color name="traveler_icons">#FFFFFF</color>
+    <color name="traveler_divider">#B6B6B6</color>
+
+
+
 </resources>

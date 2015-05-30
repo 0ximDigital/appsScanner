@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp" android:layout_height="80dp"
+    android:background="@drawable/shape_circle_background">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imgTravelByIcon"
+            android:src="@drawable/ic_traveler_plane"
+            android:layout_margin="10dp" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right|bottom"
+        android:background="@drawable/shape_circle_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/traveler_white"
+            android:textStyle="bold"
+            android:text="##"
+            android:id="@+id/txtTravelerPoints"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</FrameLayout>
