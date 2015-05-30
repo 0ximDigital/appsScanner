@@ -23,4 +23,27 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="TravelerTitleTextStyle" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/traveler_primary_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="TravelerSubtitleText" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/traveler_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="TravelerPargraphText" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/traveler_secondary_text</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
 </resources>

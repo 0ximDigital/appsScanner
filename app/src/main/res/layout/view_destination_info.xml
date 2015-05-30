@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerTitleTextStyle"
+                    android:text="Destination name:"
+                    android:id="@+id/txtTitleDestinationName" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerPargraphText"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+                    android:id="@+id/txtTravelDestinationLongDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerTitleTextStyle"
+                    android:text="Additional info:"
+                    android:id="@+id/txtTravelDestionationPriceSubtitle"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerSubtitleText"
+                            android:text="Travel price :"
+                            android:layout_weight="3"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerPargraphText"
+                            android:id="@+id/txtTravelPrice"
+                            android:text="Value neki"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerSubtitleText"
+                            android:text="Departure Date :"
+                            android:layout_weight="3"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerPargraphText"
+                            android:id="@+id/txtDepartureDate"
+                            android:text="Value neki"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerSubtitleText"
+                            android:text="Duration :"
+                            android:layout_weight="3"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerPargraphText"
+                            android:id="@+id/txtTravelDuration"
+                            android:text="# Days"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerSubtitleText"
+                            android:text="Travel by :"
+                            android:layout_weight="3"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerPargraphText"
+                            android:id="@+id/txtTraveVehicleType"
+                            android:text="Plane"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerSubtitleText"
+                            android:text="Travel points :"
+                            android:layout_weight="3"
+                            android:layout_marginLeft="20dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            style="@style/TravelerPargraphText"
+                            android:id="@+id/txtAwardingTravelPoints"
+                            android:text="50"
+                            android:layout_weight="2"
+                            android:gravity="center_vertical" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/shader_layout_shadow"/>
+
+    </RelativeLayout>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/btnselectTravelDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_traveler_proceed_icon"
+        fab:fab_colorNormal="@color/traveler_primary"
+        fab:fab_colorPressed="@color/traveler_primary"
+        fab:fab_colorRipple="@color/traveler_primary"
+        fab:fab_label="Proceed" />
+
+</FrameLayout>

@@ -1,6 +1,7 @@
 package tscanner.msquared.hr.travelscanner.customViews;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,6 +28,15 @@ public class TravelerView extends FrameLayout {
         this.init(context);
     }
 
+    public TravelerView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.init(context);
+    }
+
+    public TravelerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.init(context);
+    }
 
     private void init(Context context) {
         this.context = context;
