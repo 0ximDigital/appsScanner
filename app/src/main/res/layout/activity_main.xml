@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tscanner.msquared.hr.travelscanner.activities.MainActivity">
+    tools:context="tscanner.msquared.hr.travelscanner.activities.MainActivity"
+    android:background="@color/traveler_black">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
