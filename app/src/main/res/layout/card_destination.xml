@@ -56,6 +56,15 @@
                 android:id="@+id/txtCardDestinationPrice"
                 style="@style/TravelerDestinationCardDestinationPriceStyle"
                 android:layout_gravity="right|bottom" />
+
+            <view
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                class="tscanner.msquared.hr.travelscanner.customViews.TravelPointsCardIndicatorView"
+                android:id="@+id/travelPointsView"
+                android:layout_gravity="right|top"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp" />
         </FrameLayout>
     </LinearLayout>
 

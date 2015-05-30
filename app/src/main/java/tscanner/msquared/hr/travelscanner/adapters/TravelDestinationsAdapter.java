@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.activities.DestinationInfoActivity;
+import tscanner.msquared.hr.travelscanner.customViews.TravelPointsCardIndicatorView;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 /**
@@ -44,6 +45,8 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
         Picasso.with(activity).load(destinations[position].getPicture()).into(holder.destinationPicture);
         holder.destinationTitle.setText(destinations[position].getName());
         holder.destinationPrice.setText("E"+destinations[position].getPrice());
+        holder.travelPointsView.setTravelPointsText(destinations[position].getTravelPoints());
+        holder.travelPointsView.setTravelByIcon(destinations[position].getTravelBy());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +68,14 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
         protected TextView destinationTitle;
         protected TextView destinationPrice;
         protected ImageView destinationPicture;
+        protected TravelPointsCardIndicatorView travelPointsView;
 
         public DestinationViewHolder(View itemView) {
             super(itemView);
             this.destinationTitle = (TextView) itemView.findViewById(R.id.txtCardDestinationTitle);
             this.destinationPrice = (TextView) itemView.findViewById(R.id.txtCardDestinationPrice);
             this.destinationPicture = (ImageView) itemView.findViewById(R.id.imgCardDestinationPicture);
+            this.travelPointsView = (TravelPointsCardIndicatorView) itemView.findViewById(R.id.travelPointsView);
         }
     }
 }
