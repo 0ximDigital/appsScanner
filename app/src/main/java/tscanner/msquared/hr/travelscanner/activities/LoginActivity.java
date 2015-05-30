@@ -7,9 +7,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
 import net.steamcrafted.loadtoast.LoadToastView;
@@ -36,6 +40,8 @@ public class LoginActivity extends Activity {
     private TextView loginAnonymous;
     private boolean GLOBAL_FAST_ENTRY=true;
 
+    private ImageView destinationImagePreviewView;
+
     private Button testButton;
 
     private ServerManager serverManager;
@@ -61,11 +67,12 @@ public class LoginActivity extends Activity {
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
+        this.destinationImagePreviewView = (ImageView) findViewById(R.id.imgDestinationPreview);
+
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUser user = new AppUser("pero@mail.hr", 6, true, "1234567", 9001, "Pero");
-                updateUser(user);
+                fetchDestinationById(4);
             }
         });
     }
@@ -206,6 +213,7 @@ public class LoginActivity extends Activity {
                 if (travelDestination != null) {
                     loadToast.success();
                     Log.i(TAG, travelDestination.toString());
+                    Picasso.with(LoginActivity.this).load(travelDestination.getPicture()).into(destinationImagePreviewView);
                 } else {
                     loadToast.error();
                 }
