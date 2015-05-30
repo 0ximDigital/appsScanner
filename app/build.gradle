@@ -32,6 +32,6 @@ dependencies {
 
     compile 'net.steamcrafted:load-toast:1.0.6'
 
-
+    compile 'com.kogitune:pre-lollipop-activity-transition:1.0.0'
 }
 

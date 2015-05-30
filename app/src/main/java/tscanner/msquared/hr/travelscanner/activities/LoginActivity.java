@@ -2,6 +2,7 @@ package tscanner.msquared.hr.travelscanner.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
@@ -67,7 +69,22 @@ public class LoginActivity extends Activity {
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
+        findViewById(R.id.imgNumbers).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
+                ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
+            }
+        });
+
         this.destinationImagePreviewView = (ImageView) findViewById(R.id.imgDestinationPreview);
+        this.destinationImagePreviewView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
+                ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
+            }
+        });
 
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override

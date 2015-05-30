@@ -99,4 +99,13 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_alignEnd="@+id/login"
         android:layout_marginTop="32dp" />
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgNumbers"
+        android:layout_below="@+id/editUsername"
+        android:layout_alignRight="@+id/imgDestinationPreview"
+        android:layout_alignEnd="@+id/imgDestinationPreview"
+        android:src="@drawable/test_numbers" />
+
 </RelativeLayout>
