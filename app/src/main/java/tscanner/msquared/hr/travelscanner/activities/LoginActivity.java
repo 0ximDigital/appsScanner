@@ -14,6 +14,7 @@ import android.widget.Toast;
 import net.steamcrafted.loadtoast.LoadToast;
 import net.steamcrafted.loadtoast.LoadToastView;
 
+import java.util.Date;
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
@@ -63,8 +64,8 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUser newAppUser = new AppUser("androidUser@mail.hr", null, true, "awsmPassword", 0, "androidUser");
-                addNewAppUser(newAppUser);
+                Purchase newPurchase = new Purchase(5, null, null, 14);
+                addNewPurchase(newPurchase);
             }
         });
     }
@@ -336,10 +337,28 @@ public class LoginActivity extends Activity {
         serverManager.addNewAppUser(appUser, new ServerManager.Callback<ResponseMessage>() {
             @Override
             public void requestResult(ResponseMessage responseMessage) {
-                if(responseMessage.getError() == null){
+                if (responseMessage.getError() == null) {
                     loadToast.success();
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                    loadToast.error();
                 }
-                else{
+            }
+        });
+    }
+
+    private void addNewPurchase(Purchase purchase){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        purchase.setPurchaseDate(null);
+        loadToast.setText("Adding purchase..").show();
+        serverManager.addNewPurchase(purchase, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    loadToast.success();
+                } else {
                     Log.e(TAG, responseMessage.getError());
                     loadToast.error();
                 }

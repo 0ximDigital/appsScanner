@@ -28,6 +28,12 @@ public final class ApiConstants {
     // POST
 
     public static final String postAppUser = "/Traveler/api/data/app_user";
+    public static final String postPurchase = "/Traveler/api/data/purchase";
+    public static final String postTraveler = "/Traveler/api/data/traveler";
+
+    // PUT
+
+    // DELETE
 
 }
 

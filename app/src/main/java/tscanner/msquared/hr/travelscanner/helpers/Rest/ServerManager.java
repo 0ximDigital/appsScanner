@@ -161,7 +161,7 @@ public class ServerManager {
                 public void onResponse(String response) {
                     Log.i(TAG, response);
                     if(response == null){
-                        messageCallback.requestResult(new ResponseMessage(null));
+                        messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
                     ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
                     messageCallback.requestResult(message);
@@ -171,7 +171,7 @@ public class ServerManager {
         }
         catch (Exception e){
             e.printStackTrace();
-            messageCallback.requestResult(new ResponseMessage(null));
+            messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
         }
     }
 
@@ -315,6 +315,32 @@ public class ServerManager {
         catch (Exception e){
             e.printStackTrace();
             purchasesCallback.requestResult(null);
+        }
+    }
+
+    public void addNewPurchase(Purchase purchase, final Callback<ResponseMessage> messageCallback){
+        if(this.postRestService == null){
+            this.postRestService = new PostRestService(null, null);
+        }
+        this.postRestService.setUrl(this.getURLRequest(ApiConstants.postPurchase));
+        this.postRestService.setJson(gson.toJson(purchase));
+        try {
+            this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if (response == null) {
+                        messageCallback.requestResult(new ResponseMessage("Response is null"));
+                    }
+                    ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
+                    messageCallback.requestResult(message);
+                }
+            });
+            this.postRestService.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
         }
     }
 
