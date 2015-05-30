@@ -284,16 +284,88 @@ public class ServerManager {
         }
     }
 
-    public List<Traveler> getAllTravelers(){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getAllTravelers(final Callback<List<Traveler>> travelersCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequest(ApiConstants.dohvatSvihTravelera));
+        try {
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        travelersCallback.requestResult(null);
+                    }
+                    Traveler[] travelers = gson.fromJson(response, Traveler[].class);
+                    travelersCallback.requestResult(Arrays.asList(travelers));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            travelersCallback.requestResult(null);
+        }
     }
 
-    public Traveler getTravelerById(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    public void getTravelerById(Integer id, final Callback<Traveler> travelerCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatTraveleraSaId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        travelerCallback.requestResult(null);
+                    }
+                    response = response.replaceAll("\\[|\\]", "");
+                    Traveler traveler = gson.fromJson(response, Traveler.class);
+                    travelerCallback.requestResult(traveler);
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            travelerCallback.requestResult(null);
+        }
     }
 
-    public List<Traveler> getTravelersWithPurchaseId(Integer id){
-        throw new UnsupportedOperationException("TODO - Implement this !");
+    /**
+     * Returns traveleres that were together scanned
+     * @param id
+     * @return
+     */
+    public void getTravelersWithPurchaseId(Integer id, final Callback<List<Traveler>> travelersCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.dohvatTravelersaSaPurchaseId, id));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        travelersCallback.requestResult(null);
+                    }
+                    Traveler[] travelers = gson.fromJson(response, Traveler[].class);
+                    travelersCallback.requestResult(Arrays.asList(travelers));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            travelersCallback.requestResult(null);
+        }
     }
 
     private String getURLRequest(String request){

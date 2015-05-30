@@ -21,6 +21,7 @@ import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
+import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
 //pocetna
 public class LoginActivity extends Activity {
@@ -61,7 +62,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchPurchasesMadeByUserWithId(4);
+                fetchTravelersWitchPurchaseId(5);
             }
         });
     }
@@ -251,7 +252,7 @@ public class LoginActivity extends Activity {
         if(serverManager == null){
             serverManager = new ServerManager();
         }
-        loadToast.setText("Fetching purchase..").show();
+        loadToast.setText("Fetching purchases..").show();
         serverManager.getAllPurchasesFromUserId(id, new ServerManager.Callback<List<Purchase>>() {
             @Override
             public void requestResult(List<Purchase> purchases) {
@@ -259,6 +260,64 @@ public class LoginActivity extends Activity {
                     loadToast.success();
                     for (Purchase purchase : purchases) {
                         Log.i(TAG, purchase.toString());
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchAllTravelers(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching travelers..").show();
+        serverManager.getAllTravelers(new ServerManager.Callback<List<Traveler>>() {
+            @Override
+            public void requestResult(List<Traveler> travelers) {
+                if (travelers != null) {
+                    loadToast.success();
+                    for (Traveler traveler : travelers) {
+                        Log.i(TAG, traveler.toString());
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchTravelerById(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching traveler..").show();
+        serverManager.getTravelerById(id, new ServerManager.Callback<Traveler>() {
+            @Override
+            public void requestResult(Traveler traveler) {
+                if (traveler != null) {
+                    loadToast.success();
+                    Log.i(TAG, traveler.toString());
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchTravelersWitchPurchaseId(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching travelers..").show();
+        serverManager.getTravelersWithPurchaseId(id, new ServerManager.Callback<List<Traveler>>() {
+            @Override
+            public void requestResult(List<Traveler> travelers) {
+                if (travelers != null) {
+                    loadToast.success();
+                    for (Traveler traveler : travelers) {
+                        Log.i(TAG, traveler.toString());
                     }
                 } else {
                     loadToast.error();
