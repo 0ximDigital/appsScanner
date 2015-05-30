@@ -70,14 +70,26 @@ xmlns:tools="http://schemas.android.com/tools"
     android:text="@string/login" />
 
     <TextView
-        android:id="@+id/loginAnonymous"
+    android:id="@+id/loginAnonymous"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:text="@string/loginAnonymous"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:layout_below="@+id/login"
+    android:onClick="anonymousOnClick"
+    android:layout_gravity="left"
+    android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="@string/loginAnonymous"
+        android:text="Registration"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/login"
-        android:onClick="anonymousOnClick"
+        android:layout_below="@+id/loginAnonymous"
+        android:onClick="registrationOnClick"
         android:layout_gravity="left"
         android:clickable="true"/>
 

@@ -106,7 +106,13 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void AcceptedLogin(){
+    public void registrationOnClick(View view){
+        Intent intent;
+        intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+        startActivity(intent);
+    }
+
+    public void AcceptedLogin(){
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
