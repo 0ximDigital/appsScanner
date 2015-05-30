@@ -15,7 +15,12 @@ import com.squareup.picasso.Picasso;
 import tscanner.msquared.hr.travelscanner.R;
 
 public class DestinationInfoActivity extends Activity {
-    Button goToPay;
+
+    private final String TAG = this.getClass().getSimpleName();
+
+    public static final String DESTINATION_IMAGE_URL_EXTRA = "destination_image_url_extra";
+
+    private Button goToPay;
 
     private ExitActivityTransition exitTransition;
 
@@ -29,9 +34,7 @@ public class DestinationInfoActivity extends Activity {
         setContentView(R.layout.activity_destination_info);
 
         topDestinationImageView = (ImageView) findViewById(R.id.topImgView);
-
-        String imgUrl = getIntent().getStringExtra("imgURL");
-
+        String imgUrl = getIntent().getStringExtra(this.DESTINATION_IMAGE_URL_EXTRA);
         Picasso.with(this).load(imgUrl).into(topDestinationImageView);
 
         // sexy animacija :D

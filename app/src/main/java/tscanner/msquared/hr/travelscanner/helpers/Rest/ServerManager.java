@@ -233,7 +233,7 @@ public class ServerManager {
 
     // ### TravelDestination REST
 
-    public void getAllTravelDestinations(final Callback<List<TravelDestination>> travelDestinationsCallback){
+    public void getAllTravelDestinations(final Callback<TravelDestination[]> travelDestinationsCallback){
         String response = null;
         if(this.getRestService == null){
             this.getRestService = new GetRestService(null);
@@ -248,7 +248,7 @@ public class ServerManager {
                         travelDestinationsCallback.requestResult(null);
                     }
                     TravelDestination[] travelDestinations = gson.fromJson(response, TravelDestination[].class);
-                    travelDestinationsCallback.requestResult(Arrays.asList(travelDestinations));
+                    travelDestinationsCallback.requestResult(travelDestinations);
                 }
             });
             this.getRestService.executeRequest();

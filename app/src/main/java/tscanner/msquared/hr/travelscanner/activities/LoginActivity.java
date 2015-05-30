@@ -67,14 +67,6 @@ public class LoginActivity extends Activity {
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
-        findViewById(R.id.imgNumbers).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
-                ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
-            }
-        });
-
         this.destinationImagePreviewView = (ImageView) findViewById(R.id.imgDestinationPreview);
         this.destinationImagePreviewView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,9 +195,9 @@ public class LoginActivity extends Activity {
             serverManager = new ServerManager();
         }
         loadToast.setText("Fetching destinations..").show();
-        serverManager.getAllTravelDestinations(new ServerManager.Callback<List<TravelDestination>>() {
+        serverManager.getAllTravelDestinations(new ServerManager.Callback<TravelDestination[]>() {
             @Override
-            public void requestResult(List<TravelDestination> travelDestinations) {
+            public void requestResult(TravelDestination[] travelDestinations) {
                 if (travelDestinations != null) {
                     loadToast.success();
                     for (TravelDestination travelDestination : travelDestinations) {

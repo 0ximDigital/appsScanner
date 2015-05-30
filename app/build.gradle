@@ -4,6 +4,8 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    compileOptions.encoding = 'UTF-8'
+
     defaultConfig {
         applicationId "tscanner.msquared.hr.travelscanner"
         minSdkVersion 16
@@ -34,5 +36,8 @@ dependencies {
     compile 'net.steamcrafted:load-toast:1.0.6'
 
     compile 'com.kogitune:pre-lollipop-activity-transition:1.0.0'
+
+    compile 'com.android.support:cardview-v7:21.0.0'
+    compile 'com.android.support:recyclerview-v7:21.0.0'
 }
 

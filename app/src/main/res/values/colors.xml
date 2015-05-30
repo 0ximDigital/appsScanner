@@ -3,4 +3,8 @@
 
     <color name="travelScanner_ocr_mask_gray">#33000000</color>
 
+    <color name="traveler_white">#FFF</color>
+    <color name="traveler_black">#000</color>
+    <color name="traveler_transparent">#00000000</color>
+
 </resources>
