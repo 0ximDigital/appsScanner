@@ -39,7 +39,7 @@ public class PutRestService {
         this.client = new OkHttpClient();
     }
 
-    public void execute() throws ExecutionException, InterruptedException {
+    public void executeRequest() throws ExecutionException, InterruptedException {
         PutWorker putWorker = new PutWorker();
         putWorker.execute();
     }

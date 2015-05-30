@@ -64,8 +64,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Traveler newTraveler = new Traveler(25, Traveler.GENDER_FEMALE, null, "androidTraveler", 9, "andiSurname");
-                addNewTraveler(newTraveler);
+                deleteAppUserWithId(12);
             }
         });
     }
@@ -372,6 +371,24 @@ public class LoginActivity extends Activity {
         }
         loadToast.setText("Adding traveler..").show();
         serverManager.addNewTraveler(traveler, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    loadToast.success();
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void deleteAppUserWithId(int id){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Removing user..").show();
+        serverManager.deleteAppUserWithId(id, new ServerManager.Callback<ResponseMessage>() {
             @Override
             public void requestResult(ResponseMessage responseMessage) {
                 if (responseMessage.getError() == null) {

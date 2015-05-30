@@ -39,7 +39,7 @@ public class PostRestService {
         this.client = new OkHttpClient();
     }
 
-    public void execute() throws ExecutionException, InterruptedException {
+    public void executeRequest() throws ExecutionException, InterruptedException {
         PostWorker postWorker = new PostWorker();
         postWorker.execute();
     }

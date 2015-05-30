@@ -35,5 +35,7 @@ public final class ApiConstants {
 
     // DELETE
 
+    public static final String deleteAppUserWithId = "/Traveler/api/data/app_user/";
+
 }
 

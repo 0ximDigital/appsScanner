@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.google.gson.Gson;
+import com.googlecode.leptonica.android.Constants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -160,14 +161,39 @@ public class ServerManager {
                 @Override
                 public void onResponse(String response) {
                     Log.i(TAG, response);
-                    if(response == null){
+                    if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
                     ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
                     messageCallback.requestResult(message);
                 }
             });
-            this.postRestService.execute();
+            this.postRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
+        }
+    }
+
+    public void deleteAppUserWithId(Integer id, final Callback<ResponseMessage> messageCallback){
+        if(this.deleteRestService == null){
+            this.deleteRestService = new DeleteRestService(null, null);
+        }
+        this.deleteRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.deleteAppUserWithId, id));
+        try {
+            this.deleteRestService.setDeleteRestServiceListener(new DeleteRestService.DeleteRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if (response == null) {
+                        messageCallback.requestResult(new ResponseMessage("Response is null"));
+                    }
+                    ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
+                    messageCallback.requestResult(message);
+                }
+            });
+            this.deleteRestService.executeRequest();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -336,7 +362,7 @@ public class ServerManager {
                     messageCallback.requestResult(message);
                 }
             });
-            this.postRestService.execute();
+            this.postRestService.executeRequest();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -448,7 +474,7 @@ public class ServerManager {
                     messageCallback.requestResult(message);
                 }
             });
-            this.postRestService.execute();
+            this.postRestService.executeRequest();
         }
         catch (Exception e){
             e.printStackTrace();
