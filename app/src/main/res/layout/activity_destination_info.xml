@@ -7,8 +7,9 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/topImgView"/>
+        android:layout_height="200dp"
+        android:id="@+id/topImgView"
+        android:src="@drawable/test_numbers"/>
 
     <TextView android:text="Ovdje korisnik potvrdi kupnju i ode na slikanje osobne." android:layout_width="wrap_content"
         android:layout_height="wrap_content"

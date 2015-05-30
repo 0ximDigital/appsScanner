@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "tscanner.msquared.hr.travelscanner"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -22,6 +22,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:support-v4:+'
     compile project(':tess-two')
 
     compile 'com.squareup.picasso:picasso:2.5.2'

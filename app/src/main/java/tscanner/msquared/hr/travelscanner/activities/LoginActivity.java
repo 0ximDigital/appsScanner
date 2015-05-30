@@ -2,15 +2,13 @@ package tscanner.msquared.hr.travelscanner.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +16,7 @@ import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.squareup.picasso.Picasso;
 
 import net.steamcrafted.loadtoast.LoadToast;
-import net.steamcrafted.loadtoast.LoadToastView;
 
-import java.util.Date;
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
@@ -45,6 +41,8 @@ public class LoginActivity extends Activity {
     private ImageView destinationImagePreviewView;
 
     private Button testButton;
+
+    private String imagePath;
 
     private ServerManager serverManager;
     private LoadToast loadToast;
@@ -82,6 +80,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
+                intent.putExtra("imgURL", imagePath);
                 ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
             }
         });
@@ -231,6 +230,7 @@ public class LoginActivity extends Activity {
                     loadToast.success();
                     Log.i(TAG, travelDestination.toString());
                     Picasso.with(LoginActivity.this).load(travelDestination.getPicture()).into(destinationImagePreviewView);
+                    imagePath = travelDestination.getPicture();
                 } else {
                     loadToast.error();
                 }
