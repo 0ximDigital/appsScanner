@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     style="@style/TravelerTitleTextStyle"
                     android:text="Destination name:"
-                    android:id="@+id/txtTitleDestinationName" />
+                    android:id="@+id/txtTravelDestinationName" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -40,7 +40,6 @@
                     android:layout_height="wrap_content"
                     style="@style/TravelerTitleTextStyle"
                     android:text="Additional info:"
-                    android:id="@+id/txtTravelDestionationPriceSubtitle"
                     android:layout_marginTop="10dp" />
 
                 <LinearLayout

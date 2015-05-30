@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.squareup.picasso.Picasso;
 
@@ -53,6 +54,8 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
             public void onClick(View view) {
                 final Intent intent = new Intent(activity.getBaseContext(), DestinationInfoActivity.class);
                 intent.putExtra(DestinationInfoActivity.DESTINATION_IMAGE_URL_EXTRA, destinations[position].getPicture());
+                Gson gson = new Gson();
+                intent.putExtra(DestinationInfoActivity.DESTINATION_SERIALIZED_DATA, gson.toJson(destinations[position]));
                 ActivityTransitionLauncher.with(activity).from(view).launch(intent);
             }
         });

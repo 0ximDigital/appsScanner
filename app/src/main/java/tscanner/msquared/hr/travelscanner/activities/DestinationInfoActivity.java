@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
 import com.kogitune.activity_transition.ActivityTransition;
 import com.kogitune.activity_transition.ExitActivityTransition;
 import com.squareup.picasso.Picasso;
@@ -18,6 +20,7 @@ import java.util.TimerTask;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.customViews.CustomDestinationInfoView;
+import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 public class DestinationInfoActivity extends Activity{
 
@@ -25,6 +28,7 @@ public class DestinationInfoActivity extends Activity{
 
     private final int SharedAnimationDurationMillis = 750;
     public static final String DESTINATION_IMAGE_URL_EXTRA = "destination_image_url_extra";
+    public static final String DESTINATION_SERIALIZED_DATA = "destination_serialized_data";
 
     private LinearLayout rootLinearLayout;
 
@@ -32,6 +36,9 @@ public class DestinationInfoActivity extends Activity{
     private ActivityTransition entryTransition;
 
     private ImageView topDestinationImageView;
+
+    private TravelDestination travelDestination;
+    private String destinationData;
 
     private Timer timer;
     private TimerTask timerTask;
@@ -46,6 +53,7 @@ public class DestinationInfoActivity extends Activity{
 
         this.topDestinationImageView = (ImageView) findViewById(R.id.topImgView);
         String imgUrl = getIntent().getStringExtra(this.DESTINATION_IMAGE_URL_EXTRA);
+        destinationData = getIntent().getStringExtra(this.DESTINATION_SERIALIZED_DATA);
         Picasso.with(this).load(imgUrl).into(topDestinationImageView);
 
         // sexy animacija :D
@@ -58,16 +66,6 @@ public class DestinationInfoActivity extends Activity{
 
     private void referenceViews(){
         this.rootLinearLayout = (LinearLayout) findViewById(R.id.rootLinearLayout);
-
-        this.topDestinationImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DestinationInfoActivity.this, ScanActivity.class);
-                startActivity(intent);
-                finish();
-                overridePendingTransition(0, 0);
-            }
-        });
     }
 
     private void startTimer(){
@@ -79,7 +77,32 @@ public class DestinationInfoActivity extends Activity{
                     @Override
                     public void run() {
                         CustomDestinationInfoView infoView = new CustomDestinationInfoView(DestinationInfoActivity.this);
-                        rootLinearLayout.addView(infoView);
+                        if(travelDestination == null){
+                            Gson gson = new Gson();
+                            travelDestination = gson.fromJson(destinationData, TravelDestination.class);
+                        }
+                        if(travelDestination != null) {
+                            infoView.setDestinationName(travelDestination.getName());
+                            infoView.setDestinationLongDescription(travelDestination.getDescriptionLong());
+                            infoView.setDestinationPrice(travelDestination.getPrice());
+                            infoView.setDestinationDepartureDate(travelDestination.getDepartureDate());
+                            infoView.setDestinationDuration(travelDestination.getDuration());
+                            infoView.setDestinationTransportType(travelDestination.getTravelBy());
+                            infoView.setDestinationTravelPoints(travelDestination.getTravelPoints());
+                            infoView.setFABOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(DestinationInfoActivity.this, ScanActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                }
+                            });
+                        }
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+                        rootLinearLayout.addView(infoView, params);
                     }
                 }, SharedAnimationDurationMillis);
                 stopTimer();
