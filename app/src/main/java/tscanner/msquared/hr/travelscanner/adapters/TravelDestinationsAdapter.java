@@ -43,7 +43,7 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
     public void onBindViewHolder(final DestinationViewHolder holder, final int position) {
         Picasso.with(activity).load(destinations[position].getPicture()).into(holder.destinationPicture);
         holder.destinationTitle.setText(destinations[position].getName());
-        holder.destinationPrice.setText("€"+destinations[position].getPrice());
+        holder.destinationPrice.setText("E"+destinations[position].getPrice());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,6 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
                 ActivityTransitionLauncher.with(activity).from(view).launch(intent);
             }
         });
-
     }
 
     @Override
