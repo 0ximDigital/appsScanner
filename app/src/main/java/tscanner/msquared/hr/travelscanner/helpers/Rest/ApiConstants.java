@@ -33,6 +33,8 @@ public final class ApiConstants {
 
     // PUT
 
+    public static final String putAppUser = "/Traveler/api/data/app_user/";
+
     // DELETE
 
     public static final String deleteAppUserWithId = "/Traveler/api/data/app_user/";

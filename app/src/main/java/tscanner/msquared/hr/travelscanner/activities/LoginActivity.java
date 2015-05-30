@@ -64,7 +64,8 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteAppUserWithId(12);
+                AppUser user = new AppUser("pero@mail.hr", 6, true, "1234567", 9001, "Pero");
+                updateUser(user);
             }
         });
     }
@@ -389,6 +390,24 @@ public class LoginActivity extends Activity {
         }
         loadToast.setText("Removing user..").show();
         serverManager.deleteAppUserWithId(id, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    loadToast.success();
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void updateUser(AppUser user){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Updating user..").show();
+        serverManager.updateAppUserWithId(user.getId(), user, new ServerManager.Callback<ResponseMessage>() {
             @Override
             public void requestResult(ResponseMessage responseMessage) {
                 if (responseMessage.getError() == null) {

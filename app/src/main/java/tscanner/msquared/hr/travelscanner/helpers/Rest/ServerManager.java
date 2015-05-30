@@ -176,6 +176,7 @@ public class ServerManager {
         }
     }
 
+    // DELETE
     public void deleteAppUserWithId(Integer id, final Callback<ResponseMessage> messageCallback){
         if(this.deleteRestService == null){
             this.deleteRestService = new DeleteRestService(null, null);
@@ -200,6 +201,35 @@ public class ServerManager {
             messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
         }
     }
+
+    public void updateAppUserWithId(Integer id, AppUser appUser, final Callback<ResponseMessage> messageCallback){
+        if(this.putRestService == null){
+            this.putRestService = new PutRestService(null, null);
+        }
+        this.putRestService.setUrl(this.getURLRequestWithIdParameter(ApiConstants.putAppUser, id));
+        this.putRestService.setJson(gson.toJson(appUser));
+        try {
+            this.putRestService.setPutRestServiceListener(new PutRestService.PutRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if (response == null) {
+                        messageCallback.requestResult(new ResponseMessage("Response is null"));
+                    }
+                    ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
+                    messageCallback.requestResult(message);
+                }
+            });
+            this.putRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
+        }
+    }
+
+    // PUT
+
 
     // ### TravelDestination REST
 
