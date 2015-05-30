@@ -430,6 +430,32 @@ public class ServerManager {
         }
     }
 
+    public void addNewTraveler(Traveler travel, final Callback<ResponseMessage> messageCallback){
+        if(this.postRestService == null){
+            this.postRestService = new PostRestService(null, null);
+        }
+        this.postRestService.setUrl(this.getURLRequest(ApiConstants.postTraveler));
+        this.postRestService.setJson(gson.toJson(travel));
+        try {
+            this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if (response == null) {
+                        messageCallback.requestResult(new ResponseMessage("Response is null"));
+                    }
+                    ResponseMessage message = gson.fromJson(response, ResponseMessage.class);
+                    messageCallback.requestResult(message);
+                }
+            });
+            this.postRestService.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            messageCallback.requestResult(new ResponseMessage("Exception has been thrown"));
+        }
+    }
+
     private String getURLRequest(String request){
         return ApiConstants.serverPrefix + request + ApiConstants.returnFormat;
     }

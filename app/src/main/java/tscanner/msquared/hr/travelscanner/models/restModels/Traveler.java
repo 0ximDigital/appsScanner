@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Traveler {
 
+    public final static String GENDER_MALE = "M";
+    public final static String GENDER_FEMALE = "F";
+
     @SerializedName("purchase_id")
     @Expose
     private Integer purchaseId;

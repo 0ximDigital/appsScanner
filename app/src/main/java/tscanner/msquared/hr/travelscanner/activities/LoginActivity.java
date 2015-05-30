@@ -64,8 +64,8 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Purchase newPurchase = new Purchase(5, null, null, 14);
-                addNewPurchase(newPurchase);
+                Traveler newTraveler = new Traveler(25, Traveler.GENDER_FEMALE, null, "androidTraveler", 9, "andiSurname");
+                addNewTraveler(newTraveler);
             }
         });
     }
@@ -354,6 +354,24 @@ public class LoginActivity extends Activity {
         purchase.setPurchaseDate(null);
         loadToast.setText("Adding purchase..").show();
         serverManager.addNewPurchase(purchase, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    loadToast.success();
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void addNewTraveler(Traveler traveler){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Adding traveler..").show();
+        serverManager.addNewTraveler(traveler, new ServerManager.Callback<ResponseMessage>() {
             @Override
             public void requestResult(ResponseMessage responseMessage) {
                 if (responseMessage.getError() == null) {
