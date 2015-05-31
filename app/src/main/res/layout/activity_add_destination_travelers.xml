@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/contentRelativeLayout">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -41,19 +42,6 @@
 
     </RelativeLayout>
 
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/btnAddDestinationTraveler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_add_traveler_icon"
-        fab:fab_colorNormal="@color/traveler_primary"
-        fab:fab_colorPressed="@color/traveler_primary"
-        fab:fab_colorRipple="@color/traveler_primary"
-        fab:fab_label="Proceed" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -66,6 +54,20 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@drawable/shader_top_to_bottom_blend"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:id="@+id/shaderFrameLayout" />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/btnAddDestinationTraveler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_add_traveler_icon"
+        fab:fab_colorNormal="@color/traveler_primary"
+        fab:fab_colorPressed="@color/traveler_primary"
+        fab:fab_colorRipple="@color/traveler_primary"
+        fab:fab_label="Proceed" />
 
 </FrameLayout>

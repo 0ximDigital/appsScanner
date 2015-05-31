@@ -1,5 +1,6 @@
 package tscanner.msquared.hr.travelscanner.activities;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class DestinationInfoActivity extends Activity{
     private TimerTask timerTask;
     private final Handler handler = new Handler();
 
+    private Intent nextActivityIntent;
+
     private Gson gson;
 
     @Override
@@ -80,7 +83,7 @@ public class DestinationInfoActivity extends Activity{
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        CustomDestinationInfoView infoView = new CustomDestinationInfoView(DestinationInfoActivity.this);
+                        final CustomDestinationInfoView infoView = new CustomDestinationInfoView(DestinationInfoActivity.this);
                         if(travelDestination == null){
                             travelDestination = gson.fromJson(destinationData, TravelDestination.class);
                         }
@@ -95,10 +98,30 @@ public class DestinationInfoActivity extends Activity{
                             infoView.setFABOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(DestinationInfoActivity.this, AddDestinationTravelersActivity.class);
-                                    intent.putExtra(AddDestinationTravelersActivity.DESTINATION_IMAGE_URL_EXTRA, travelDestination.getPicture());
-                                    intent.putExtra(AddDestinationTravelersActivity.DESTINATION_SERIALIZED_DATA, gson.toJson(travelDestination));
-                                    ActivityTransitionLauncher.with(DestinationInfoActivity.this).from(topDestinationImageView).launch(intent);
+                                    nextActivityIntent = new Intent(DestinationInfoActivity.this, AddDestinationTravelersActivity.class);
+                                    nextActivityIntent.putExtra(AddDestinationTravelersActivity.DESTINATION_IMAGE_URL_EXTRA, travelDestination.getPicture());
+                                    nextActivityIntent.putExtra(AddDestinationTravelersActivity.DESTINATION_SERIALIZED_DATA, gson.toJson(travelDestination));
+                                    infoView.animate().alpha(0.0f).setDuration(SharedAnimationDurationMillis/2).setListener(new Animator.AnimatorListener() {
+                                        @Override
+                                        public void onAnimationStart(Animator animator) {
+
+                                        }
+
+                                        @Override
+                                        public void onAnimationEnd(Animator animator) {
+                                            ActivityTransitionLauncher.with(DestinationInfoActivity.this).from(topDestinationImageView).launch(nextActivityIntent);
+                                        }
+
+                                        @Override
+                                        public void onAnimationCancel(Animator animator) {
+
+                                        }
+
+                                        @Override
+                                        public void onAnimationRepeat(Animator animator) {
+
+                                        }
+                                    });
                                 }
                             });
                         }
