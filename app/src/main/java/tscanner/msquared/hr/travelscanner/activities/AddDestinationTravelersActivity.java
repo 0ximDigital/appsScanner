@@ -20,6 +20,7 @@ import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 /**
  * Created by Matej on 5/29/2015.
+ * Done by Mihael xD
  */
 public class AddDestinationTravelersActivity extends Activity {
 

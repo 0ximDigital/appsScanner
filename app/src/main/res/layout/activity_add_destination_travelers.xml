@@ -10,25 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_alignParentBottom="true">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imgDestinationBottom"
-                android:src="@drawable/dubai"
-                android:scaleType="centerCrop" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shader_top_to_bottom_blend"/>
-
-        </FrameLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,5 +53,19 @@
         fab:fab_colorPressed="@color/traveler_primary"
         fab:fab_colorRipple="@color/traveler_primary"
         fab:fab_label="Proceed" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imgDestinationBottom"
+        android:src="@drawable/dubai"
+        android:scaleType="centerCrop"
+        android:layout_gravity="bottom" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/shader_top_to_bottom_blend"
+        android:layout_gravity="bottom" />
 
 </FrameLayout>
