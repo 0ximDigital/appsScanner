@@ -29,7 +29,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp">
+                android:paddingBottom="15dp"
+                android:id="@+id/AllDataLinearLayout">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -211,6 +212,20 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/spinnerContainer">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:id="@+id/progressSpinner"
+                    android:layout_gravity="center" />
+
+            </FrameLayout>
 
         </FrameLayout>
 

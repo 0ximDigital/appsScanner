@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -70,14 +71,10 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
     private MediaPlayer mediaPlayer;
 
-    private OcrTextListener ocrTextListener;
-    public interface OcrTextListener{
-        void onDecodedText(String text);
-    }
+    private DialogOCRDataReview ocrDataReviewDialog;
 
-    public void setOcrTextListener(OcrTextListener ocrTextListener) {
-        this.ocrTextListener = ocrTextListener;
-    }
+    private OcrWorker ocrWorker;
+    private ViewGroup parent;
 
     public OcrCameraView(Context context) {
         super(context);
@@ -98,6 +95,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         this.context = context;
         inflate(this.context, R.layout.view_ocr_camera, this);
         this.referenceViews();
+
+        this.ocrWorker = new OcrWorker();
     }
 
     private void referenceViews(){
@@ -154,15 +153,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
                     yuvimage = new YuvImage(bytes, ImageFormat.NV21, width, height, null);
                     yuvimage.compressToJpeg(rect, 100, outstr);
                     frameInProcessing = BitmapFactory.decodeByteArray(outstr.toByteArray(), 0, outstr.size());
-
-
-                    decodedImageText = ocrHelper.detectText((ocrFocusView == null) ? frameInProcessing : ocrFocusView.cropFocusedBitmap(frameInProcessing));
-
-                    if(ocrTextListener != null){
-                        ocrTextListener.onDecodedText(decodedImageText);
-                    }
-
-                    scanButton.setVisibility(VISIBLE);
+                    ocrWorker = new OcrWorker();
+                    ocrWorker.execute();
                 }
             }
         };
@@ -412,6 +404,10 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         return optimalSize;
     }
 
+    public void setParent(ViewGroup parent){
+        this.parent = parent;
+    }
+
     private int getClosestSupportedRatio(double targetRatio){
         /*Return values:
             1 - 1.33
@@ -430,5 +426,37 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             }
         }
         return retValue+1;
+    }
+
+    private class OcrWorker extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected void onPreExecute() {
+            scanButton.setVisibility(INVISIBLE);
+            if(ocrDataReviewDialog == null){
+                ocrDataReviewDialog = new DialogOCRDataReview(context);
+                parent.addView(ocrDataReviewDialog);
+            }
+            ocrDataReviewDialog.hideData();
+            ocrDataReviewDialog.setVisibility(VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            decodedImageText = ocrHelper.detectText((ocrFocusView == null) ? frameInProcessing : ocrFocusView.cropFocusedBitmap(frameInProcessing));
+
+
+            Log.e(TAG, "Obradio sliku " + decodedImageText);
+            //TODO izvuc podatke iz slike
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            scanButton.setVisibility(VISIBLE);
+            ocrDataReviewDialog.showData();
+            ocrDataReviewDialog.setVisibility(VISIBLE);
+        }
     }
 }

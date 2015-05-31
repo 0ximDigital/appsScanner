@@ -1,7 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScanActivity">
+    tools:context=".ScanActivity"
+    android:id="@+id/rootFrameLayout">
 
     <view
         android:layout_width="match_parent"
@@ -19,7 +21,6 @@
         android:id="@+id/txtResult"
         android:textColor="#FF0000"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="149dp" />
+        android:layout_gravity="center" />
 
-</RelativeLayout>
+</FrameLayout>

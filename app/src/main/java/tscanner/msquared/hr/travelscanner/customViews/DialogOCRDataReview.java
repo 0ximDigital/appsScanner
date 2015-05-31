@@ -2,7 +2,13 @@ package tscanner.msquared.hr.travelscanner.customViews;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import tscanner.msquared.hr.travelscanner.R;
 
@@ -14,6 +20,17 @@ public class DialogOCRDataReview extends FrameLayout {
     private final String TAG = this.getClass().getSimpleName();
 
     private Context context;
+
+    private FloatingActionButton cancelButton;
+    private FloatingActionButton acceptButton;
+
+    private EditText editName;
+    private EditText editBirth;
+    private EditText editCardId;
+
+    private LinearLayout dataContainer;
+    private FrameLayout spinnerContainer;
+    private ProgressBar progressSpinner;
 
     public DialogOCRDataReview(Context context) {
         super(context);
@@ -34,9 +51,54 @@ public class DialogOCRDataReview extends FrameLayout {
         this.context = context;
         inflate(this.context, R.layout.view_ocr_data_review_dialog, this);
         this.referenceViews();
+
+        this.hideData();
     }
 
     private void referenceViews(){
+        this.editName = (EditText) findViewById(R.id.edTxtTravelerNameAndSurname);
+        this.editBirth = (EditText) findViewById(R.id.edTxtTravelerBirthDate);
+        this.editCardId = (EditText) findViewById(R.id.edTxtTravelerIdNumber);
 
+        this.dataContainer = (LinearLayout) findViewById(R.id.AllDataLinearLayout);
+        this.spinnerContainer = (FrameLayout) findViewById(R.id.spinnerContainer);
+        this.progressSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
+
+        this.cancelButton = (FloatingActionButton) findViewById(R.id.btnReshootID);
+        this.cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideDialog();
+            }
+        });
+        this.acceptButton = (FloatingActionButton) findViewById(R.id.btnConfirmDestinationTravelerData);
+    }
+
+    public void showData(){
+        this.progressSpinner.setVisibility(INVISIBLE);
+        this.spinnerContainer.setVisibility(INVISIBLE);
+        this.dataContainer.setVisibility(VISIBLE);
+    }
+
+    public void hideData(){
+        this.progressSpinner.setVisibility(VISIBLE);
+        this.spinnerContainer.setVisibility(VISIBLE);
+        this.dataContainer.setVisibility(INVISIBLE);
+    }
+
+    public void setEditName(String name){
+        this.editName.setText(name);
+    }
+
+    public void setEditBirth(String birthDate){
+        this.editBirth.setText(birthDate);
+    }
+
+    public void setEditCardId(String cardId){
+        this.editCardId.setText(cardId);
+    }
+
+    private void hideDialog(){
+        this.setVisibility(GONE);
     }
 }
