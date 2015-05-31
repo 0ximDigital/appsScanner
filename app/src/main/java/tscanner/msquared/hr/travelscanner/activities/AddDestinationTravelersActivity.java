@@ -20,14 +20,22 @@ import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.kogitune.activity_transition.ExitActivityTransition;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.customViews.CustomDestinationInfoView;
+import tscanner.msquared.hr.travelscanner.customViews.PurchaseDialog;
 import tscanner.msquared.hr.travelscanner.customViews.TravelerView;
+import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
+import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
+import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
 /**
  * Created by Matej on 5/29/2015.
@@ -41,6 +49,12 @@ public class AddDestinationTravelersActivity extends Activity {
     public static final String DESTINATION_IMAGE_URL_EXTRA = "destination_image_url_extra";
     public static final String DESTINATION_SERIALIZED_DATA = "destination_serialized_data";
 
+    public static final String NEW_TRAVELER_SERIALIZED_DATA = "new_traveler_serialized_data";
+
+    private final String SAVED_TRAVELERS_STATE = "saved_travelers_state";
+
+    private final int TRAVELER_RESULT_REQUEST_CODE = 1978;
+
     private LinearLayout containerLinearLayout;
 
     private ImageView destinationBottomImage;
@@ -48,7 +62,12 @@ public class AddDestinationTravelersActivity extends Activity {
 
     // this needs to be hidden first - GONE
     private FloatingActionButton addTravelerButton;
+    private FloatingActionButton purchaseButton;
     private FrameLayout contentFrameLayout;
+
+    private PurchaseDialog purchaseDialog;
+
+    PrefsHelper prefsHelper;
 
     private Gson gson;
 
@@ -64,8 +83,10 @@ public class AddDestinationTravelersActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate");
         setContentView(R.layout.activity_add_destination_travelers);
 
+        this.prefsHelper = new PrefsHelper(this);
         this.gson = new Gson();
         this.referenceViews();
 
@@ -76,6 +97,12 @@ public class AddDestinationTravelersActivity extends Activity {
         this.entryAnimation = ActivityTransition.with(getIntent()).to(this.destinationBottomImage).duration(SharedAnimationDurationMillis);
         this.exitActivityTransition = this.entryAnimation.start(savedInstanceState);
         this.startTimer();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.w(TAG, "On resume");
     }
 
     private void referenceViews(){
@@ -97,12 +124,20 @@ public class AddDestinationTravelersActivity extends Activity {
         this.addTravelerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // inace ce tu bit start activity for result sa acr-activitijem
-                TravelerView travelerView = new TravelerView(AddDestinationTravelersActivity.this);
-                travelerView.setParent(containerLinearLayout);
-                travelerView.setTravelerTitleName("Traveler -> " + new Random().nextInt());
-                containerLinearLayout.addView(travelerView);
-                firstTravelerText.setVisibility(View.GONE);
+                Intent intentForTravelerData = new Intent(AddDestinationTravelersActivity.this, ScanActivity.class);
+                startActivityForResult(intentForTravelerData, TRAVELER_RESULT_REQUEST_CODE);
+            }
+        });
+
+        this.purchaseDialog = (PurchaseDialog) findViewById(R.id.purchaseDialog);
+        this.purchaseDialog.setVisibility(View.GONE);
+
+        this.purchaseButton = (FloatingActionButton) findViewById(R.id.btnFinishAndPay);
+        this.purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                purchaseDialog.showStatus(containerLinearLayout.getChildCount() > 0);
+                purchaseDialog.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -160,7 +195,7 @@ public class AddDestinationTravelersActivity extends Activity {
                 stopTimer();
             }
         };
-        this.timer.schedule(this.timerTask, 0, this.SharedAnimationDurationMillis + 100);
+        this.timer.schedule(this.timerTask, 0, this.SharedAnimationDurationMillis + 200);
     }
 
     private void stopTimer(){
@@ -178,5 +213,61 @@ public class AddDestinationTravelersActivity extends Activity {
                 exitActivityTransition.exit(AddDestinationTravelersActivity.this);
             }
         });
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.w(TAG, "Restoring instance state");
+        Set<String> travelers = prefsHelper.getStringSet(PrefsHelper.TRAVELERS_DATA, null);
+        if(travelers != null){
+            for(String s : travelers){
+                TravelerDataValues values = gson.fromJson(s, TravelerDataValues.class);
+                containerLinearLayout.addView(getViewFromData(values));
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == TRAVELER_RESULT_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                String travelerData = data.getStringExtra(NEW_TRAVELER_SERIALIZED_DATA);
+                if(travelerData != null){
+                    TravelerDataValues dataValues = gson.fromJson(travelerData, TravelerDataValues.class);
+                    if(dataValues != null){
+                        Set<String> travelers = prefsHelper.getStringSet(PrefsHelper.TRAVELERS_DATA, null);
+                        if(travelers == null){
+                            travelers = new HashSet<String>();
+                        }
+                        travelers.add(gson.toJson(dataValues));
+                        prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, travelers);
+                        containerLinearLayout.addView(getViewFromData(dataValues));
+                        firstTravelerText.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
+    }
+
+    private TravelerView getViewFromData(TravelerDataValues dataValues){
+        TravelerView travelerView = new TravelerView(AddDestinationTravelersActivity.this);
+        travelerView.setDeleteCallback(new TravelerView.DeleteViewInterface() {
+            @Override
+            public void deleteView(TravelerView view) {
+                TravelerDataValues values = view.getData();
+                String dataString = gson.toJson(values);
+                Set<String> travelers = prefsHelper.getStringSet(PrefsHelper.TRAVELERS_DATA, null);
+                travelers.remove(dataString);
+                containerLinearLayout.removeView(view);
+            }
+        });
+        travelerView.setTravelerTitleName(dataValues.getName());
+        travelerView.setTravelerNameAndSurname(dataValues.getName() + " " + dataValues.getSurname());
+        travelerView.setTravelerBirthDate(dataValues.getDateOfBirth());
+        travelerView.setTravelerIdNumber(dataValues.getIdNumber());
+        travelerView.setData(dataValues);
+        return travelerView;
     }
 }

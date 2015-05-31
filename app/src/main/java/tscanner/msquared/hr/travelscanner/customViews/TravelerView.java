@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tscanner.msquared.hr.travelscanner.R;
+import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
 
 /**
  * Created by Matej on 5/29/2015.
@@ -22,10 +23,10 @@ public class TravelerView extends FrameLayout {
     private final String TAG = getClass().getSimpleName();
     private Context context;
 
-    private ViewGroup parent;
-
     private FrameLayout travelersContainer;
     private LinearLayout travelersInfo;
+
+    private TravelerDataValues data;
 
     private TextView travelerTitleName;
     private TextView travelerNameAndSurname;
@@ -67,9 +68,7 @@ public class TravelerView extends FrameLayout {
         this.deleteTravelerIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (parent != null) {
-                    parent.removeView(TravelerView.this);
-                }
+                delteSelf();
             }
         });
 
@@ -86,8 +85,28 @@ public class TravelerView extends FrameLayout {
         });
     }
 
-    public void setParent(ViewGroup parent){
-        this.parent = parent;
+    public TravelerDataValues getData() {
+        return data;
+    }
+
+    public void setData(TravelerDataValues data) {
+        this.data = data;
+    }
+
+    private void delteSelf(){
+        if (deleteCallback != null) {
+            deleteCallback.deleteView(this);
+        }
+    }
+
+    public interface DeleteViewInterface{
+        void deleteView(TravelerView view);
+    }
+
+    private DeleteViewInterface deleteCallback;
+
+    public void setDeleteCallback(DeleteViewInterface deleteCallback) {
+        this.deleteCallback = deleteCallback;
     }
 
     public void setTravelerTitleName(String travelerTitleName){

@@ -64,19 +64,45 @@
 
         </RelativeLayout>
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/btnAddDestinationTraveler"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_add_traveler_icon"
-            fab:fab_colorNormal="@color/traveler_primary"
-            fab:fab_colorPressed="@color/traveler_primary"
-            fab:fab_colorRipple="@color/traveler_primary"
-            fab:fab_label="Proceed" />
+            android:layout_gravity="right|bottom">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/btnAddDestinationTraveler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_add_traveler_icon"
+                fab:fab_colorNormal="@color/traveler_primary"
+                fab:fab_colorPressed="@color/traveler_primary"
+                fab:fab_colorRipple="@color/traveler_primary"
+                fab:fab_label="Proceed" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/btnFinishAndPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/ic_action_shopping_cart"
+                fab:fab_colorNormal="@color/traveler_primary"
+                fab:fab_colorPressed="@color/traveler_primary"
+                fab:fab_colorRipple="@color/traveler_primary"
+                fab:fab_label="Proceed" />
+        </LinearLayout>
 
     </FrameLayout>
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="tscanner.msquared.hr.travelscanner.customViews.PurchaseDialog"
+        android:id="@+id/purchaseDialog"
+        android:layout_gravity="center" />
 
 </FrameLayout>
