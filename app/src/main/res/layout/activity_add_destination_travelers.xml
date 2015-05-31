@@ -4,43 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rootFrameLayout"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/contentRelativeLayout">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:animateLayoutChanges="true"
-                android:id="@+id/containerLinearLayout">
-
-            </LinearLayout>
-
-        </ScrollView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Add your first\n traveler :)"
-            style="@style/TravelerTitleTextStyle"
-            android:textColor="@color/traveler_secondary_text"
-            android:id="@+id/txtAddFirstTraveler"
-            android:layout_below="@+id/scrollView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:gravity="center_horizontal" />
-
-    </RelativeLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -52,22 +17,66 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/shader_top_to_bottom_blend"
-        android:layout_gravity="bottom"
-        android:id="@+id/shaderFrameLayout" />
+        android:layout_height="match_parent"
+        android:id="@+id/contentFrameLayout">
 
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/btnAddDestinationTraveler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_add_traveler_icon"
-        fab:fab_colorNormal="@color/traveler_primary"
-        fab:fab_colorPressed="@color/traveler_primary"
-        fab:fab_colorRipple="@color/traveler_primary"
-        fab:fab_label="Proceed" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/contentRelativeLayout">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/shader_top_to_bottom_blend"
+                android:layout_gravity="bottom"
+                android:id="@+id/shaderFrameLayout"
+                android:layout_alignParentBottom="true" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true"
+                    android:id="@+id/containerLinearLayout">
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Add your first\n traveler :)"
+                style="@style/TravelerTitleTextStyle"
+                android:textColor="@color/traveler_secondary_text"
+                android:id="@+id/txtAddFirstTraveler"
+                android:layout_below="@+id/scrollView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnAddDestinationTraveler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_add_traveler_icon"
+            fab:fab_colorNormal="@color/traveler_primary"
+            fab:fab_colorPressed="@color/traveler_primary"
+            fab:fab_colorRipple="@color/traveler_primary"
+            fab:fab_label="Proceed" />
+
+    </FrameLayout>
 
 </FrameLayout>
