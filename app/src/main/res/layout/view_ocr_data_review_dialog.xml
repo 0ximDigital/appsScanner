@@ -66,7 +66,9 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginLeft="14dp">
 
                     <ScrollView
                         android:layout_width="match_parent"
@@ -220,10 +222,21 @@
 
                 <ProgressBar
                     style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:id="@+id/progressSpinner"
-                    android:layout_gravity="center" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressSpinnerClockwise"
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/shape_circle_for_progress_indicator_clockwise"
+                    android:visibility="visible" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressSpinnerAntiClockwise"
+                    android:layout_gravity="center"
+                    android:indeterminateDrawable="@drawable/shape_circle_for_progress_indicator_anticlockwise"
+                    android:visibility="visible" />
 
             </FrameLayout>
 

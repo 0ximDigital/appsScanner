@@ -30,7 +30,8 @@ public class DialogOCRDataReview extends FrameLayout {
 
     private LinearLayout dataContainer;
     private FrameLayout spinnerContainer;
-    private ProgressBar progressSpinner;
+    private ProgressBar progressSpinnerClockwise;
+    private ProgressBar progressSpinnerAnticlockwise;
 
     public DialogOCRDataReview(Context context) {
         super(context);
@@ -62,7 +63,8 @@ public class DialogOCRDataReview extends FrameLayout {
 
         this.dataContainer = (LinearLayout) findViewById(R.id.AllDataLinearLayout);
         this.spinnerContainer = (FrameLayout) findViewById(R.id.spinnerContainer);
-        this.progressSpinner = (ProgressBar) findViewById(R.id.progressSpinner);
+        this.progressSpinnerClockwise = (ProgressBar) findViewById(R.id.progressSpinnerClockwise);
+        this.progressSpinnerAnticlockwise = (ProgressBar) findViewById(R.id.progressSpinnerAntiClockwise);
 
         this.cancelButton = (FloatingActionButton) findViewById(R.id.btnReshootID);
         this.cancelButton.setOnClickListener(new OnClickListener() {
@@ -75,13 +77,15 @@ public class DialogOCRDataReview extends FrameLayout {
     }
 
     public void showData(){
-        this.progressSpinner.setVisibility(INVISIBLE);
+        this.progressSpinnerClockwise.setVisibility(INVISIBLE);
+        this.progressSpinnerAnticlockwise.setVisibility(INVISIBLE);
         this.spinnerContainer.setVisibility(INVISIBLE);
         this.dataContainer.setVisibility(VISIBLE);
     }
 
     public void hideData(){
-        this.progressSpinner.setVisibility(VISIBLE);
+        this.progressSpinnerClockwise.setVisibility(VISIBLE);
+        this.progressSpinnerAnticlockwise.setVisibility(VISIBLE);
         this.spinnerContainer.setVisibility(VISIBLE);
         this.dataContainer.setVisibility(INVISIBLE);
     }

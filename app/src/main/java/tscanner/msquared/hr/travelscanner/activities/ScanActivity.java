@@ -26,7 +26,6 @@ import tscanner.msquared.hr.travelscanner.customViews.OcrFocusView;
 
 public class ScanActivity extends Activity {
 
-    private TextView resultTextView;
     private OcrCameraView ocrCameraView;
     private OcrFocusView ocrFocusView;
 
@@ -39,7 +38,6 @@ public class ScanActivity extends Activity {
 
         this.rootFrameLayout = (FrameLayout) findViewById(R.id.rootFrameLayout);
 
-        this.resultTextView = (TextView) findViewById(R.id.txtResult);
         this.ocrCameraView = (OcrCameraView) findViewById(R.id.ocrView);
 
         this.ocrFocusView = (OcrFocusView) findViewById(R.id.ocrFocusView);
