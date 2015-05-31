@@ -42,7 +42,9 @@ public class DestinationInfoActivity extends Activity{
 
     private Timer timer;
     private TimerTask timerTask;
-    final Handler handler = new Handler();
+    private final Handler handler = new Handler();
+
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class DestinationInfoActivity extends Activity{
 
         setContentView(R.layout.activity_destination_info);
 
+        gson = new Gson();
         this.topDestinationImageView = (ImageView) findViewById(R.id.topImgView);
         String imgUrl = getIntent().getStringExtra(this.DESTINATION_IMAGE_URL_EXTRA);
         destinationData = getIntent().getStringExtra(this.DESTINATION_SERIALIZED_DATA);
@@ -78,7 +81,6 @@ public class DestinationInfoActivity extends Activity{
                     public void run() {
                         CustomDestinationInfoView infoView = new CustomDestinationInfoView(DestinationInfoActivity.this);
                         if(travelDestination == null){
-                            Gson gson = new Gson();
                             travelDestination = gson.fromJson(destinationData, TravelDestination.class);
                         }
                         if(travelDestination != null) {
@@ -92,10 +94,10 @@ public class DestinationInfoActivity extends Activity{
                             infoView.setFABOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(DestinationInfoActivity.this, ScanActivity.class);
+                                    Intent intent = new Intent(DestinationInfoActivity.this, AddDestinationTravelersActivity.class);
+                                    intent.putExtra(AddDestinationTravelersActivity.DESTINATION_SERIALIZED_DATA, gson.toJson(travelDestination));
+                                    // intent put destination objekt
                                     startActivity(intent);
-                                    finish();
-                                    overridePendingTransition(0, 0);
                                 }
                             });
                         }
