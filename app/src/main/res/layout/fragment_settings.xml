@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="tscanner.msquared.hr.travelscanner.activities.RegistrationActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <RelativeLayout
+            android:id="@+id/ActivitySettingsRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/txtUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="50dp"
+                android:text="Username"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/usernameS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_alignBottom="@+id/txtUsername"
+                android:layout_toRightOf="@+id/txtUsername"
+                android:layout_alignLeft="@+id/emailS"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textViewEmailS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="50dp"
+                android:text="Email"
+                android:layout_below="@+id/txtUsername"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <AutoCompleteTextView
+                android:id="@+id/emailS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:layout_marginLeft="52dp"
+                android:layout_alignBottom="@+id/textViewEmailS"
+                android:layout_toRightOf="@+id/textViewEmailS"
+                android:singleLine="true"
+                android:gravity="center" />
+            <TextView
+                android:id="@+id/textViewPassword1S"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="50dp"
+                android:text="Password"
+                android:layout_below="@+id/textViewEmailS"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/passwordS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="New password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_alignLeft="@+id/emailS"
+                android:layout_below="@+id/textView2"
+                android:layout_alignBottom="@+id/textViewPassword1S"
+                android:layout_toRightOf="@+id/textViewPassword1S"
+                android:password="false"
+                android:gravity="center" />
+
+
+            <EditText
+                android:id="@+id/passwordRepeatS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Repeat password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_alignLeft="@+id/passwordS"
+                android:layout_toRightOf="@+id/textViewPassword1S"
+                android:layout_marginTop="32dp"
+                android:layout_below="@+id/passwordS"
+                android:password="false"
+                android:gravity="center" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/save"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="SAVE"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+</LinearLayout>

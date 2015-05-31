@@ -3,18 +3,16 @@ package tscanner.msquared.hr.travelscanner.activities;
 import android.app.Activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
@@ -31,8 +29,8 @@ public class RegistrationActivity extends Activity {
     private EditText mPasswordRepView;
     private EditText mUsernameView;
     private View mProgressView;
-    int MIN_PASSWORD_LENGTH=5;
-    int MIN_USERNAME_LENGTH=5;
+    public static int MIN_PASSWORD_LENGTH=5;
+    public static int MIN_USERNAME_LENGTH=5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +38,10 @@ public class RegistrationActivity extends Activity {
         setContentView(R.layout.activity_registration);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordRepView =(EditText) findViewById(R.id.passwordRepeat);
-        mUsernameView=(EditText) findViewById(R.id.username);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.emailS);
+        mPasswordView = (EditText) findViewById(R.id.passwordS);
+        mPasswordRepView =(EditText) findViewById(R.id.passwordRepeatS);
+        mUsernameView=(EditText) findViewById(R.id.usernameS);
 
        /* mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -150,7 +148,7 @@ public class RegistrationActivity extends Activity {
         }
 
         if (cancel) {
-            Log.d(TAG, "invalid registration");
+            Log.d(TAG, "invalid change settings");
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to

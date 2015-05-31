@@ -43,7 +43,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
-                    android:id="@+id/username"
+                    android:id="@+id/usernameS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Username"
@@ -51,11 +51,11 @@
                     android:singleLine="true"
                     android:layout_alignBottom="@+id/txtUsername"
                     android:layout_toRightOf="@+id/txtUsername"
-                    android:layout_alignLeft="@+id/email"
+                    android:layout_alignLeft="@+id/emailS"
                     android:gravity="center" />
 
                 <TextView
-                    android:id="@+id/textViewEmail"
+                    android:id="@+id/textViewEmailS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -65,39 +65,39 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/emailS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:layout_marginLeft="52dp"
-                    android:layout_alignBottom="@+id/textViewEmail"
-                    android:layout_toRightOf="@+id/textViewEmail"
+                    android:layout_alignBottom="@+id/textViewEmailS"
+                    android:layout_toRightOf="@+id/textViewEmailS"
                     android:singleLine="true"
                     android:gravity="center" />
                 <TextView
-                    android:id="@+id/textViewPassword1"
+                    android:id="@+id/textViewPassword1S"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="50dp"
                     android:text="Password"
-                    android:layout_below="@+id/textViewEmail"
+                    android:layout_below="@+id/textViewEmailS"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/passwordS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="New password"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:layout_alignLeft="@+id/email"
+                    android:layout_alignLeft="@+id/emailS"
                     android:layout_below="@+id/textView2"
-                    android:layout_alignBottom="@+id/textViewPassword1"
-                    android:layout_toRightOf="@+id/textViewPassword1"
+                    android:layout_alignBottom="@+id/textViewPassword1S"
+                    android:layout_toRightOf="@+id/textViewPassword1S"
                     android:password="false"
                     android:gravity="center" />
 
@@ -113,17 +113,17 @@
 
 
                 <EditText
-                    android:id="@+id/passwordRepeat"
+                    android:id="@+id/passwordRepeatS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Repeat password"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:layout_alignLeft="@+id/password"
-                     android:layout_toRightOf="@+id/textViewPassword1"
+                    android:layout_alignLeft="@+id/passwordS"
+                     android:layout_toRightOf="@+id/textViewPassword1S"
                     android:layout_marginTop="32dp"
-                    android:layout_below="@+id/password"
+                    android:layout_below="@+id/passwordS"
                     android:password="false"
                     android:gravity="center" />
 
@@ -137,7 +137,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Sign in"
-
                 android:textStyle="bold" />
         </LinearLayout>
 
