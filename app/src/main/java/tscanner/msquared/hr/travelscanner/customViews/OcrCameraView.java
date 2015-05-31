@@ -59,6 +59,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
     private boolean hasCamera = false;
     private int cameraId;
 
+    private boolean supportsWhiteBalance;
+
     private boolean isFlashSupported;
     private boolean isFlashOn;
 
@@ -205,23 +207,17 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             camParams.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         }
 
-        if (camParams.getSupportedFocusModes().contains(
-                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-            Log.i(TAG, "FOCUS_MODE_CONTINUOUS_VIDEO is supported");
-            camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-            this.focusButton.setVisibility(GONE);
-        }
-        else if(camParams.getSupportedFocusModes().contains(
-                Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)){
-            Log.i(TAG, "FOCUS_MODE_CONTINUOUS_PICTURE is supported");
-            camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            this.focusButton.setVisibility(GONE);
-        }
-        else if(camParams.getSupportedFocusModes().contains(
+        if(camParams.getSupportedFocusModes().contains(
                 Camera.Parameters.FOCUS_MODE_AUTO)){
             Log.i(TAG, "FOCUS_MODE_AUTO is supported");
             camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
             this.focusButton.setVisibility(VISIBLE);
+        }
+        if(camParams.getSupportedWhiteBalance().contains(
+                Camera.Parameters.WHITE_BALANCE_AUTO)){
+            Log.i(TAG, "WHITE_MODE_AUTO is supported");
+            camParams.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
+            supportsWhiteBalance = true;
         }
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
