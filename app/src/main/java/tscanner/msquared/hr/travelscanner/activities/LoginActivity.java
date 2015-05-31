@@ -42,6 +42,7 @@ public class LoginActivity extends Activity {
 
     private Button testButton;
     private Button testConnection;
+    private Button settings;
 
     private String imagePath;
 
@@ -66,6 +67,8 @@ public class LoginActivity extends Activity {
 
         this.testButton = (Button) findViewById(R.id.btnTest);
         this.testConnection = (Button) findViewById(R.id.btnTestConnection);
+        this.settings=(Button) findViewById(R.id.btnSetting);
+
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
@@ -83,6 +86,13 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, ScanActivity.class));
+            }
+        });
+
+        this.settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             }
         });
 
@@ -104,6 +114,7 @@ public class LoginActivity extends Activity {
 
         }else{
             //wrong password
+            //TODO  maknuti toast na kraju
             Toast.makeText(getApplicationContext(),"sve je: \"admin\" ",Toast.LENGTH_LONG).show();
             Log.d("Login:", "User");
         }
