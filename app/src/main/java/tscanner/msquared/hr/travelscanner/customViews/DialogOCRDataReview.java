@@ -1,6 +1,7 @@
 package tscanner.msquared.hr.travelscanner.customViews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -9,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.gson.Gson;
 
 import tscanner.msquared.hr.travelscanner.R;
+import tscanner.msquared.hr.travelscanner.activities.AddDestinationTravelersActivity;
 import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
 
 /**
@@ -34,7 +37,19 @@ public class DialogOCRDataReview extends FrameLayout {
     private ProgressBar progressSpinnerClockwise;
     private ProgressBar progressSpinnerAnticlockwise;
 
+    private Gson gson = new Gson();
+
     private TravelerDataValues values;
+
+    private DataReviewDialogCallback callback;
+
+    public void setCallback(DataReviewDialogCallback callback) {
+        this.callback = callback;
+    }
+
+    public interface DataReviewDialogCallback{
+        void onDataAccept(TravelerDataValues values);
+    }
 
     public DialogOCRDataReview(Context context) {
         super(context);
@@ -80,7 +95,10 @@ public class DialogOCRDataReview extends FrameLayout {
         this.acceptButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO return result
+                if(callback != null){
+                    TravelerDataValues values = new TravelerDataValues(editBirth.getText().toString(), editCardId.getText().toString(), editName.getText().toString(), null);
+                    callback.onDataAccept(values);
+                }
             }
         });
     }

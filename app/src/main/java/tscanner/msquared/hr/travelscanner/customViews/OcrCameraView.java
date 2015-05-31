@@ -78,6 +78,16 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
     private OcrWorker ocrWorker;
     private ViewGroup parent;
 
+    private OcrViewDataCallback callback;
+
+    public void setCallback(OcrViewDataCallback callback) {
+        this.callback = callback;
+    }
+
+    public interface OcrViewDataCallback {
+        void onTravelerData(TravelerDataValues values);
+    }
+
     public OcrCameraView(Context context) {
         super(context);
         this.initView(context);
@@ -441,6 +451,14 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             scanButton.setVisibility(INVISIBLE);
             if(ocrDataReviewDialog == null){
                 ocrDataReviewDialog = new DialogOCRDataReview(context);
+                ocrDataReviewDialog.setCallback(new DialogOCRDataReview.DataReviewDialogCallback() {
+                    @Override
+                    public void onDataAccept(TravelerDataValues values) {
+                        if(callback != null){
+                            callback.onTravelerData(values);
+                        }
+                    }
+                });
                 parent.addView(ocrDataReviewDialog);
             }
             ocrDataReviewDialog.hideData();
@@ -492,7 +510,7 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             datumRodenja = datumRodenja.substring(0, 6);
             Log.w(TAG, "DATUM RODENJA -->> " + datumRodenja);
 
-            String credentials = idData[2];
+            String credentials = clearWhitespaces(idData[2]);
             credentials = replacePossibleNumbersWithCharacters(credentials);
             String[] credentialsData = credentials.split("<+");
             if(credentialsData.length != 2){

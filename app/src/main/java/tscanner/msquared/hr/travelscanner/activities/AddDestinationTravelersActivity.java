@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.customViews.CustomDestinationInfoView;
 import tscanner.msquared.hr.travelscanner.customViews.TravelerView;
+import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 /**
@@ -40,6 +41,10 @@ public class AddDestinationTravelersActivity extends Activity {
     private final int SharedAnimationDurationMillis = 750;
     public static final String DESTINATION_IMAGE_URL_EXTRA = "destination_image_url_extra";
     public static final String DESTINATION_SERIALIZED_DATA = "destination_serialized_data";
+
+    public static final String NEW_TRAVELER_SERIALIZED_DATA = "new_traveler_serialized_data";
+
+    private final int TRAVELER_RESULT_REQUEST_CODE = 1978;
 
     private LinearLayout containerLinearLayout;
 
@@ -97,12 +102,8 @@ public class AddDestinationTravelersActivity extends Activity {
         this.addTravelerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // inace ce tu bit start activity for result sa acr-activitijem
-                TravelerView travelerView = new TravelerView(AddDestinationTravelersActivity.this);
-                travelerView.setParent(containerLinearLayout);
-                travelerView.setTravelerTitleName("Traveler -> " + new Random().nextInt());
-                containerLinearLayout.addView(travelerView);
-                firstTravelerText.setVisibility(View.GONE);
+                Intent intentForTravelerData = new Intent(AddDestinationTravelersActivity.this, ScanActivity.class);
+                startActivityForResult(intentForTravelerData, TRAVELER_RESULT_REQUEST_CODE);
             }
         });
     }
@@ -178,5 +179,27 @@ public class AddDestinationTravelersActivity extends Activity {
                 exitActivityTransition.exit(AddDestinationTravelersActivity.this);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == TRAVELER_RESULT_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                String travelerData = data.getStringExtra(NEW_TRAVELER_SERIALIZED_DATA);
+                if(travelerData != null){
+                    TravelerDataValues dataValues = gson.fromJson(travelerData, TravelerDataValues.class);
+                    if(dataValues != null){
+                        TravelerView travelerView = new TravelerView(AddDestinationTravelersActivity.this);
+                        travelerView.setParent(containerLinearLayout);
+                        travelerView.setTravelerTitleName(dataValues.getName());
+                        travelerView.setTravelerNameAndSurname(dataValues.getName() + " " + dataValues.getSurname());
+                        travelerView.setTravelerBirthDate(dataValues.getDateOfBirth());
+                        travelerView.setTravelerIdNumber(dataValues.getIdNumber());
+                        containerLinearLayout.addView(travelerView);
+                        firstTravelerText.setVisibility(View.GONE);
+                    }
+                }
+            }
+        }
     }
 }

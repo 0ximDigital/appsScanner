@@ -12,10 +12,19 @@ public class TravelerDataValues {
     private String idNumber;
 
     public TravelerDataValues(String dateOfBirth, String idNumber, String name, String surname) {
-        this.dateOfBirth = this.parseInputDate(dateOfBirth);
+        this.dateOfBirth = dateOfBirth;
         this.idNumber = idNumber;
-        this.name = name;
-        this.surname = surname;
+        if(surname == null){
+            String[] nameData = name.split("\\s+");
+            if(nameData.length == 2){
+                this.name = nameData[0];
+                this.surname = nameData[1];
+            }
+        }
+        else{
+            this.name = name;
+            this.surname = surname;
+        }
     }
 
     public String getDateOfBirth() {
@@ -34,7 +43,7 @@ public class TravelerDataValues {
         return surname;
     }
 
-    private String parseInputDate(String inDate){
+    public static String parseInputDate(String inDate){
         if(inDate == null || inDate.length() != 6){
             return "Undefined";
         }
