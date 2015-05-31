@@ -3,7 +3,6 @@ package tscanner.msquared.hr.travelscanner.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -80,7 +79,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, Test.class));
+                startActivity(new Intent(LoginActivity.this, AddDestinationTravelersActivity.class));
             }
         });
     }

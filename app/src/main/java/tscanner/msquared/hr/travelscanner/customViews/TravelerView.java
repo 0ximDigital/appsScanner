@@ -33,9 +33,8 @@ public class TravelerView extends FrameLayout {
     private TextView travelerIdNumber;
     private ImageView deleteTravelerIcon;
 
-    public TravelerView(Context context, ViewGroup parent) {
+    public TravelerView(Context context) {
         super(context);
-        this.parent = parent;
         this.init(context);
     }
 
@@ -85,6 +84,10 @@ public class TravelerView extends FrameLayout {
                 }
             }
         });
+    }
+
+    public void setParent(ViewGroup parent){
+        this.parent = parent;
     }
 
     public void setTravelerTitleName(String travelerTitleName){
