@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.github.clans.fab.FloatingActionButton;
 
 import tscanner.msquared.hr.travelscanner.R;
+import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
 
 /**
  * Created by Mihael on 31.5.2015..
@@ -76,7 +77,7 @@ public class DialogOCRDataReview extends FrameLayout {
         this.acceptButton = (FloatingActionButton) findViewById(R.id.btnConfirmDestinationTravelerData);
     }
 
-    public void showData(){
+    public void showData(TravelerDataValues values, boolean warning){
         this.progressSpinnerClockwise.setVisibility(INVISIBLE);
         this.progressSpinnerAnticlockwise.setVisibility(INVISIBLE);
         this.spinnerContainer.setVisibility(INVISIBLE);

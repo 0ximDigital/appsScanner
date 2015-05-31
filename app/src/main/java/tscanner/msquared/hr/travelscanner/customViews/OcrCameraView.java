@@ -31,6 +31,8 @@ import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.helpers.OCRHelper;
+import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
+import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
 /**
  * Created by Mihael on 24.5.2015..
@@ -430,6 +432,10 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
     private class OcrWorker extends AsyncTask<Void, Void, Void>{
 
+        private boolean success;
+
+        private TravelerDataValues travelerDataValues;
+
         @Override
         protected void onPreExecute() {
             scanButton.setVisibility(INVISIBLE);
@@ -445,18 +451,85 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         protected Void doInBackground(Void... voids) {
             decodedImageText = ocrHelper.detectText((ocrFocusView == null) ? frameInProcessing : ocrFocusView.cropFocusedBitmap(frameInProcessing));
 
+            if(decodedImageText == null){
+                travelerDataValues = new TravelerDataValues("480101", "123456789", "Name", "Surname");
+                return null;
+            }
 
-            Log.e(TAG, "Obradio sliku " + decodedImageText);
-            //TODO izvuc podatke iz slike
+            Log.e(TAG, "Obradio sliku -> \n" + decodedImageText);
 
+            String[] idData = decodedImageText.split("\n");
+            if(idData.length != 3){
+                travelerDataValues = new TravelerDataValues("480101", "123456789", "Name", "Surname");
+                return null;
+            }
+
+            // obrada prvog retka -> broj osobne
+            String idNumber = clearWhitespaces(idData[0]);
+            Log.w(TAG, "clean - " + idNumber);
+            int first = idNumber.indexOf("<");
+            idNumber = (first != -1) ? idNumber.substring(0, first) : idNumber;
+            idNumber = idNumber.substring(2, idNumber.length()).toUpperCase();
+            Log.w(TAG, "1 - " + idNumber);
+            idNumber = replacePossibleCharactersWithNumbers((idNumber));
+            Log.w(TAG, "2 - " + idNumber);
+            idNumber = idNumber.replaceAll("[^0-9]", "");
+            idNumber = idNumber.substring(0, idNumber.length() - 1);
+            Log.w(TAG, "IDNUMBER  ---> " + idNumber);
+
+            //ocrDataReviewDialog.setEditCardId(idNumber);
+
+            String datumRodenja = clearWhitespaces(idData[1]);
+            first = idNumber.indexOf("<");
+            datumRodenja = (first != -1 && first > 3) ? datumRodenja.substring(0, first - 3 )
+                    : datumRodenja.substring(0, (datumRodenja.length() > 3) ? datumRodenja.length() - 3 : datumRodenja.length());
+            datumRodenja = replacePossibleCharactersWithNumbers(datumRodenja);
+            datumRodenja = datumRodenja.replaceAll("[^\\d]", "");
+
+            if(! (datumRodenja.length() >= 6)){
+                datumRodenja = "480101";
+            }
+            datumRodenja = datumRodenja.substring(0, 6);
+            Log.w(TAG, "DATUM RODENJA -->> " + datumRodenja);
+
+            String credentials = idData[2];
+            credentials = replacePossibleNumbersWithCharacters(credentials);
+            String[] credentialsData = credentials.split("<+");
+            if(credentialsData.length != 2){
+                credentialsData = new String[]{"Name", "Surname"};
+            }
+
+            Log.w(TAG, "Name --- > " + credentialsData[1]);
+            Log.w(TAG, "Surname --- > " + credentialsData[0]);
+
+            travelerDataValues = new TravelerDataValues(datumRodenja, idNumber, credentialsData[1], credentialsData[0]);
+
+            success = true;
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             scanButton.setVisibility(VISIBLE);
-            ocrDataReviewDialog.showData();
+            ocrDataReviewDialog.showData(travelerDataValues, !success);
             ocrDataReviewDialog.setVisibility(VISIBLE);
         }
+
+        private String clearWhitespaces(String input){
+            Log.w(TAG, "A - " +  input);
+            return input.replaceAll("\\s+", "");
+        }
+
+        private String replacePossibleNumbersWithCharacters(String input){
+            Log.w(TAG, "B - " + input);
+            return input.replaceAll("0", "O").replaceAll("1", "I").replaceAll("2", "Z").replaceAll("[3\\|6\\|8]", "B").replaceAll("4", "A").replaceAll("5", "S").replaceAll("6", "G");
+        }
+
+        private String replacePossibleCharactersWithNumbers(String input){
+            Log.w(TAG, "C - " + input);
+            return input.replaceAll("O", "0").replaceAll("[I\\|l]", "1").replaceAll("B", "8").replaceAll("A", "4").replaceAll("S", "5").replaceAll("G", "6");
+        }
+
+        private class TravelerDataCL
     }
 }
