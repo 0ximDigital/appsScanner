@@ -27,7 +27,9 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp">
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -88,12 +90,13 @@
                                     android:layout_weight="1"
                                     android:layout_marginLeft="20dp" />
 
-                                <TextView
+
+                                <EditText
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     style="@style/TravelerPargraphText"
-                                    android:id="@+id/txtTravelerNameAndSurname"
-                                    android:text="Ime Prezime"
+                                    android:id="@+id/edTxtTravelerNameAndSurname"
+                                    android:hint="Ime Prezime"
                                     android:layout_weight="2"
                                     android:gravity="center_vertical" />
 
@@ -114,12 +117,12 @@
                                     android:layout_weight="1"
                                     android:layout_marginLeft="20dp" />
 
-                                <TextView
+                                <EditText
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     style="@style/TravelerPargraphText"
-                                    android:id="@+id/txtTravelerBirthDate"
-                                    android:text="19.9.1999"
+                                    android:id="@+id/edTxtTravelerBirthDate"
+                                    android:hint="19.9.1999"
                                     android:layout_weight="2"
                                     android:gravity="center_vertical" />
 
@@ -140,12 +143,12 @@
                                     android:layout_weight="1"
                                     android:layout_marginLeft="20dp" />
 
-                                <TextView
+                                <EditText
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     style="@style/TravelerPargraphText"
-                                    android:id="@+id/txtTravelerIdNumber"
-                                    android:text="123456789"
+                                    android:id="@+id/edTxtTravelerIdNumber"
+                                    android:hint="123456789"
                                     android:layout_weight="2"
                                     android:gravity="center_vertical" />
 
