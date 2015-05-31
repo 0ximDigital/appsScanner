@@ -20,6 +20,15 @@ public class InternetConnectionCheck {
         this.context = context;
     }
 
+    public OnCheckCallback callback;
+
+    public interface OnCheckCallback {
+        void onCheck(boolean hasConnection);
+    }
+
+    public void setCheckCallback(OnCheckCallback checkCallback) {
+        callback = checkCallback;
+    }
 
     public void checkConnection() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -47,14 +56,17 @@ public class InternetConnectionCheck {
                     .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // exit button
-
+                            if(callback != null){
+                                callback.onCheck(false);
+                            }
                         }
                     })
                     .create();
             builder.show();
         }else{
-            Toast.makeText(context,"Connection established",Toast.LENGTH_SHORT).show();
+            if(callback != null){
+                callback.onCheck(true);
+            }
         }
     }
 

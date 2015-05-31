@@ -102,7 +102,9 @@ public class AddDestinationTravelersActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.w(TAG, "On resume");
+        if(containerLinearLayout.getChildCount() > 0){
+            firstTravelerText.setVisibility(View.GONE);
+        }
     }
 
     private void referenceViews(){
@@ -211,6 +213,7 @@ public class AddDestinationTravelersActivity extends Activity {
             @Override
             public void onCompletion() {
                 exitActivityTransition.exit(AddDestinationTravelersActivity.this);
+                prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, null);
             }
         });
     }
@@ -226,6 +229,9 @@ public class AddDestinationTravelersActivity extends Activity {
                 TravelerDataValues values = gson.fromJson(s, TravelerDataValues.class);
                 containerLinearLayout.addView(getViewFromData(values));
             }
+        }
+        if(containerLinearLayout.getChildCount() > 0){
+            firstTravelerText.setVisibility(View.GONE);
         }
     }
 

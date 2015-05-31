@@ -22,6 +22,7 @@ public class PurchaseDialog extends FrameLayout {
 
     private TextView statusText;
     private FloatingActionButton button;
+    private FloatingActionButton buttonCancerl;
     private boolean exitPurchase;
 
     private PrefsHelper prefsHelper;
@@ -63,6 +64,14 @@ public class PurchaseDialog extends FrameLayout {
                 else{
                     setVisibility(GONE);
                 }
+            }
+        });
+
+        this.buttonCancerl = (FloatingActionButton) findViewById(R.id.btnCancel);
+        this.buttonCancerl.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setVisibility(GONE);
             }
         });
     }
