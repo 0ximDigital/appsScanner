@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,30 +26,23 @@ import tscanner.msquared.hr.travelscanner.customViews.OcrFocusView;
 
 public class ScanActivity extends Activity {
 
-    private TextView resultTextView;
     private OcrCameraView ocrCameraView;
     private OcrFocusView ocrFocusView;
 
-    private ImageView previewImage;
+    private FrameLayout rootFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        this.resultTextView = (TextView) findViewById(R.id.txtResult);
+        this.rootFrameLayout = (FrameLayout) findViewById(R.id.rootFrameLayout);
+
         this.ocrCameraView = (OcrCameraView) findViewById(R.id.ocrView);
-        this.previewImage = (ImageView) findViewById(R.id.imgView);
 
         this.ocrFocusView = (OcrFocusView) findViewById(R.id.ocrFocusView);
-        this.ocrFocusView.setPreviewImageView(this.previewImage);
 
         this.ocrCameraView.setOcrFocusView(this.ocrFocusView);
-        this.ocrCameraView.setOcrTextListener(new OcrCameraView.OcrTextListener() {
-            @Override
-            public void onDecodedText(String text) {
-                resultTextView.setText(text);
-            }
-        });
+        this.ocrCameraView.setParent(this.rootFrameLayout);
     }
 }

@@ -37,8 +37,6 @@ public class OcrFocusView extends View {
 
     private Paint paint;
 
-    private ImageView previewImage;
-
     public enum RectColor {
         GREENISH,
         REEDISH,
@@ -98,14 +96,7 @@ public class OcrFocusView extends View {
         int width = frame.getWidth();
         int height = frame.getHeight();
         Bitmap out = Bitmap.createBitmap(frame, (int)(width * 0.1), (int)(height * 0.6), (int)(width * 0.8), (int)(height * 0.3));
-        if(this.previewImage != null){
-            this.previewImage.setImageBitmap(out);
-        }
         return out;
-    }
-
-    public void setPreviewImageView(ImageView imageView){
-        this.previewImage = imageView;
     }
 
     @Override
