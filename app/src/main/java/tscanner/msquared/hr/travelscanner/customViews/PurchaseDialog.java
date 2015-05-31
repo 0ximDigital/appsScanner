@@ -11,6 +11,7 @@ import com.github.clans.fab.FloatingActionButton;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.activities.MainActivity;
+import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
 
 /**
  * Created by Mihael on 31.5.2015..
@@ -22,6 +23,8 @@ public class PurchaseDialog extends FrameLayout {
     private TextView statusText;
     private FloatingActionButton button;
     private boolean exitPurchase;
+
+    private PrefsHelper prefsHelper;
 
     public PurchaseDialog(Context context) {
         super(context);
@@ -41,6 +44,7 @@ public class PurchaseDialog extends FrameLayout {
     private void init(Context context){
         this.context = context;
         inflate(this.context, R.layout.dialog_purchase, this);
+        prefsHelper = new PrefsHelper(context);
         this.referenceViews();
     }
 
@@ -51,6 +55,7 @@ public class PurchaseDialog extends FrameLayout {
             @Override
             public void onClick(View view) {
                 if(exitPurchase) {
+                    prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, null);
                     Intent resetintent = new Intent(context, MainActivity.class);
                     resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(resetintent);
