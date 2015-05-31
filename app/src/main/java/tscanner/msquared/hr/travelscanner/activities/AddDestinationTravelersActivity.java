@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
+import com.kogitune.activity_transition.ActivityTransition;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -24,6 +25,8 @@ public class AddDestinationTravelersActivity extends Activity {
 
     private final String TAG = this.getClass().getSimpleName();
 
+    private final int SharedAnimationDurationMillis = 750;
+    public static final String DESTINATION_IMAGE_URL_EXTRA = "destination_image_url_extra";
     public static final String DESTINATION_SERIALIZED_DATA = "destination_serialized_data";
 
     private LinearLayout containerLinearLayout;
@@ -41,6 +44,12 @@ public class AddDestinationTravelersActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_destination_travelers);
+
+        this.destinationBottomImage = (ImageView) findViewById(R.id.imgDestinationBottom);
+        String imgUrl = getIntent().getStringExtra(this.DESTINATION_IMAGE_URL_EXTRA);
+        Picasso.with(this).load(imgUrl).into(this.destinationBottomImage);
+        ActivityTransition.with(getIntent()).to(findViewById(R.id.imgDestinationBottom)).duration(SharedAnimationDurationMillis).start(savedInstanceState);
+
         this.gson = new Gson();
         this.referenceViews();
     }

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.kogitune.activity_transition.ActivityTransition;
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.kogitune.activity_transition.ExitActivityTransition;
 import com.squareup.picasso.Picasso;
 
@@ -95,9 +96,9 @@ public class DestinationInfoActivity extends Activity{
                                 @Override
                                 public void onClick(View view) {
                                     Intent intent = new Intent(DestinationInfoActivity.this, AddDestinationTravelersActivity.class);
+                                    intent.putExtra(AddDestinationTravelersActivity.DESTINATION_IMAGE_URL_EXTRA, travelDestination.getPicture());
                                     intent.putExtra(AddDestinationTravelersActivity.DESTINATION_SERIALIZED_DATA, gson.toJson(travelDestination));
-                                    // intent put destination objekt
-                                    startActivity(intent);
+                                    ActivityTransitionLauncher.with(DestinationInfoActivity.this).from(topDestinationImageView).launch(intent);
                                 }
                             });
                         }
