@@ -83,6 +83,7 @@ public class AddDestinationTravelersActivity extends Activity {
         setContentView(R.layout.activity_add_destination_travelers);
 
         this.prefsHelper = new PrefsHelper(this);
+        prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, null);
         this.gson = new Gson();
         this.referenceViews();
 
