@@ -1,8 +1,11 @@
 package tscanner.msquared.hr.travelscanner.customViews;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,26 +48,44 @@ public class TravelerView extends FrameLayout {
     }
 
     private void reference() {
-        this.travelersContainer=(FrameLayout)findViewById(R.id.TravelerViewTravelersContainerFrameLayout);
+        this.travelersInfo = (LinearLayout) findViewById(R.id.TravelerViewTravelersInfoLinearLayout);
+        this.travelersContainer = (FrameLayout) findViewById(R.id.TravelerViewTravelersContainerFrameLayout);
         this.travelersContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(travelersInfo.getVisibility()==VISIBLE){
-                    travelersInfo.setVisibility(GONE);
-                }else{
+                if(travelersInfo.getVisibility() == VISIBLE){
+                    travelersInfo.animate().translationX(travelersInfo.getWidth() * -1).setDuration(400).setListener(travelerInfoAnimatorListener);
+                } else{
                     travelersInfo.setVisibility(VISIBLE);
+                    travelersInfo.animate().translationX(0).setDuration(399).setListener(travelerInfoAnimatorListener);
                 }
             }
         });
-
-        this.travelerName=(TextView) findViewById(R.id.txtTravelerName);
-        this.travelersInfo=(LinearLayout) findViewById(R.id.TravelerViewTravelersInfoLinearLayout);
-
     }
 
     public void setTravelerName(String travelerName){
         this.travelerName.setText(travelerName);
     }
 
+    private Animator.AnimatorListener travelerInfoAnimatorListener = new AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animator) {
 
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animator) {
+            travelersInfo.setVisibility((animator.getDuration() == 400) ? GONE : VISIBLE);
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animator) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animator) {
+
+        }
+    };
 }

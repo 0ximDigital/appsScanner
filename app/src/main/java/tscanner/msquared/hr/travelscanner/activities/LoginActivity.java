@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchDestinationById(4);
+                startActivity(new Intent(LoginActivity.this, Test.class));
             }
         });
     }

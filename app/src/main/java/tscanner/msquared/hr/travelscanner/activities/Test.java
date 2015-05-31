@@ -19,16 +19,13 @@ public class Test extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
-        this.reference();
+        this.referenceViews();
+    }
 
+    private void referenceViews(){
+        /*
         TravelerView tv=new TravelerView(this);
         this.cmd.addTravelerView(tv);
-
+         */
     }
-
-    private void reference() {
-        this.cmd=(CustomMaterialDialog) findViewById(R.id.travelerView);
-    }
-
-
 }
