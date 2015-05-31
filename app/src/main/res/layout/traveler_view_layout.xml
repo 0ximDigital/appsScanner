@@ -7,65 +7,140 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/traveler_divider"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/TravelerViewTravelersContainerFrameLayout">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="1dp"
-            android:layout_gravity="left" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_traveler_no_padding_primary_light" />
 
-        <TextView
-            android:layout_width="326dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:textSize="20sp"
-            android:text="Traveler 1"
-            android:gravity="center_vertical"
-            android:id="@+id/txtTravelerName" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="1dp"
-            android:layout_gravity="left" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    android:text="Traveler 1"
+                    style="@style/TravelerSubtitleText"
+                    android:textColor="@color/traveler_secondary_text"
+                    android:gravity="center_vertical"
+                    android:id="@+id/txtTravelerNameTitle"
+                    android:layout_weight="1" />
 
-    </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end|top"
+                android:src="@drawable/ic_traveler_x_icon_primary"
+                android:id="@+id/imgBtnRemoveTraveler"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp" />
+
         </FrameLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/TravelerViewTravelersInfoLinearLayout">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:text="Podatak 1"
-            android:gravity="center_vertical"
-            android:padding="0dp"
-            android:id="@+id/txtNumberOfPoints" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/TravelerViewTravelersInfoLinearLayout"
+            android:paddingBottom="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="0dp"
-            android:text="Podatak 2"
-            android:gravity="center_vertical|right"
-            android:id="@+id/txtResultPercentage"
-            android:layout_marginLeft="20dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerSubtitleText"
+                    android:text="Name :"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerPargraphText"
+                    android:id="@+id/txtTravelerNameAndSurname"
+                    android:text="Ime Prezime"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerSubtitleText"
+                    android:text="Birth :"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerPargraphText"
+                    android:id="@+id/txtTravelerAge"
+                    android:text="19.9.1999"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerSubtitleText"
+                    android:text="Id :"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/TravelerPargraphText"
+                    android:id="@+id/txtTravelerIdNumber"
+                    android:text="123456789"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    </LinearLayout>
 </FrameLayout>
 

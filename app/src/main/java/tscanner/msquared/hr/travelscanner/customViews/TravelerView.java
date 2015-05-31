@@ -14,7 +14,7 @@ import tscanner.msquared.hr.travelscanner.R;
  * Created by Matej on 5/29/2015.
  */
 public class TravelerView extends FrameLayout {
-    private final String TAG = getClass().getName();
+    private final String TAG = getClass().getSimpleName();
     private Context context;
 
     private FrameLayout travelersContainer;

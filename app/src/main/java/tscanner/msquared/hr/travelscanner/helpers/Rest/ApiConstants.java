@@ -13,6 +13,8 @@ public final class ApiConstants {
     public static final String dohvatUseraSaId = "/Traveler/api/data/app_user/id/";
     public static final String dohvatSalesmanUsera = "/Traveler/api/data/app_users/is_salesman/true";
     public static final String dohvatObicnihUsera = "/Traveler/api/data/app_users/is_salesman/false";
+    public static final String dohvatUseraSaEmailom = "/Traveler/api/data/app_users/login/";    // Za login -> salje se enkriptirani pass dobe useri -> provjera maila
+
 
     public static final String dohvatSvihDestinacija = "/Traveler/api/data/travel_destinations";
     public static final String dohvatDestinacijeSaId = "/Traveler/api/data/travel_destination/id/";

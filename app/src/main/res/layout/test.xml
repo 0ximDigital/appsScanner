@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <view
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="tscanner.msquared.hr.travelscanner.customViews.CustomMaterialDialog"
-        android:id="@+id/travelerView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="tscanner.msquared.hr.travelscanner.customViews.TravelerView"
+                android:id="@+id/view1"
+                android:layout_gravity="center_horizontal" />
+
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="tscanner.msquared.hr.travelscanner.customViews.TravelerView"
+                android:id="@+id/view2"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/btnselectTravelDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_add_traveler_icon"
+        fab:fab_colorNormal="@color/traveler_primary"
+        fab:fab_colorPressed="@color/traveler_primary"
+        fab:fab_colorRipple="@color/traveler_primary"
+        fab:fab_label="Proceed" />
+
+</FrameLayout>
