@@ -12,21 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                class="tscanner.msquared.hr.travelscanner.customViews.TravelerView"
-                android:id="@+id/view1"
-                android:layout_gravity="center_horizontal" />
-
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                class="tscanner.msquared.hr.travelscanner.customViews.TravelerView"
-                android:id="@+id/view2"
-                android:layout_gravity="center_horizontal" />
+            android:orientation="vertical"
+            android:id="@+id/containerLinearLayout">
 
         </LinearLayout>
 
