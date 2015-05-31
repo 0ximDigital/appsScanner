@@ -131,9 +131,9 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         this.scanButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                scanImage = true;
                 mediaPlayer.start();
                 scanButton.setVisibility(INVISIBLE);
+                scanImage = true;
             }
         });
 
