@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:animateLayoutChanges="true"
-                    android:id="@+id/containerLinearLayout">
+                    android:id="@+id/containerLinearLayout"
+                    android:paddingBottom="80dp">
 
                 </LinearLayout>
 
@@ -57,7 +58,6 @@
                 style="@style/TravelerTitleTextStyle"
                 android:textColor="@color/traveler_secondary_text"
                 android:id="@+id/txtAddFirstTraveler"
-                android:layout_below="@+id/scrollView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
                 android:gravity="center_horizontal" />
