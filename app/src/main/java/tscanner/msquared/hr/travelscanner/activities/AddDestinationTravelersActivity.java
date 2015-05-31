@@ -61,6 +61,7 @@ public class AddDestinationTravelersActivity extends Activity {
 
     // this needs to be hidden first - GONE
     private FloatingActionButton addTravelerButton;
+    private FloatingActionButton purchaseButton;
     private FrameLayout contentFrameLayout;
 
     PrefsHelper prefsHelper;
@@ -125,6 +126,14 @@ public class AddDestinationTravelersActivity extends Activity {
                 startActivityForResult(intentForTravelerData, TRAVELER_RESULT_REQUEST_CODE);
             }
         });
+
+        this.purchaseButton = (FloatingActionButton) findViewById(R.id.btnFinishAndPay);
+        this.purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private interface ViewsHideListener{
@@ -180,7 +189,7 @@ public class AddDestinationTravelersActivity extends Activity {
                 stopTimer();
             }
         };
-        this.timer.schedule(this.timerTask, 0, this.SharedAnimationDurationMillis + 100);
+        this.timer.schedule(this.timerTask, 0, this.SharedAnimationDurationMillis + 200);
     }
 
     private void stopTimer(){
