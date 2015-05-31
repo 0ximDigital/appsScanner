@@ -30,6 +30,7 @@ import java.util.TimerTask;
 
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.customViews.CustomDestinationInfoView;
+import tscanner.msquared.hr.travelscanner.customViews.PurchaseDialog;
 import tscanner.msquared.hr.travelscanner.customViews.TravelerView;
 import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
 import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
@@ -63,6 +64,8 @@ public class AddDestinationTravelersActivity extends Activity {
     private FloatingActionButton addTravelerButton;
     private FloatingActionButton purchaseButton;
     private FrameLayout contentFrameLayout;
+
+    private PurchaseDialog purchaseDialog;
 
     PrefsHelper prefsHelper;
 
@@ -127,11 +130,15 @@ public class AddDestinationTravelersActivity extends Activity {
             }
         });
 
+        this.purchaseDialog = (PurchaseDialog) findViewById(R.id.purchaseDialog);
+        this.purchaseDialog.setVisibility(View.GONE);
+
         this.purchaseButton = (FloatingActionButton) findViewById(R.id.btnFinishAndPay);
         this.purchaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                purchaseDialog.showStatus(containerLinearLayout.getChildCount() > 0);
+                purchaseDialog.setVisibility(View.VISIBLE);
             }
         });
     }

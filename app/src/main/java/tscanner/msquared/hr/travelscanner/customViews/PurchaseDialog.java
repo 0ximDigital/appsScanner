@@ -25,14 +25,17 @@ public class PurchaseDialog extends FrameLayout {
 
     public PurchaseDialog(Context context) {
         super(context);
+        this.init(context);
     }
 
     public PurchaseDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.init(context);
     }
 
     public PurchaseDialog(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.init(context);
     }
 
     private void init(Context context){
@@ -42,14 +45,19 @@ public class PurchaseDialog extends FrameLayout {
     }
 
     private void referenceViews(){
-        this.statusText = (TextView) findViewById(R.id.txtStatus);
+        this.statusText = (TextView) findViewById(R.id.txtStatusDialog);
         this.button = (FloatingActionButton) findViewById(R.id.btnFinishAndPay);
         this.button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent resetintent = new Intent(context, MainActivity.class);
-                resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(resetintent);
+                if(exitPurchase) {
+                    Intent resetintent = new Intent(context, MainActivity.class);
+                    resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(resetintent);
+                }
+                else{
+                    setVisibility(GONE);
+                }
             }
         });
     }

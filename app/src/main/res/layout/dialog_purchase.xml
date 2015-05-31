@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Thank you for traveling with us :D"
-                android:id="@+id/txtStatus"
+                android:id="@+id/txtStatusDialog"
                 android:layout_gravity="center"
                 style="@style/TravelerSubtitleText"
                 android:textColor="@color/traveler_secondary_text"
