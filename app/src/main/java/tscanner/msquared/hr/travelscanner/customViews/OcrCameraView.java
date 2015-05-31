@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 import android.widget.VideoView;
 
@@ -44,9 +46,9 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
     private Camera.Size optimalPreviewSize = null;
     private Camera.Parameters camParams;
 
-    private Button flashButton;
-    private Button focusButton;
-    private Button scanButton;
+    private ImageView flashButton;
+    private ImageView focusButton;
+    private ImageView scanButton;
 
     private boolean scanImage;
 
@@ -97,20 +99,22 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
     private void referenceViews(){
         this.videoView = (VideoView) findViewById(R.id.videoView);
-        this.flashButton = (Button) findViewById(R.id.btnFlash);
+        this.flashButton = (ImageView) findViewById(R.id.btnFlash);
 
         this.flashButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFlashOn) {
                     turnFlashOff();
+                    flashButton.setImageResource(R.drawable.ic_traveler_flash_off_icon);
                 } else {
                     turnFlashOn();
+                    flashButton.setImageResource(R.drawable.ic_traveler_flash_on_icon);
                 }
             }
         });
 
-        this.focusButton = (Button) findViewById(R.id.btnFocus);
+        this.focusButton = (ImageView) findViewById(R.id.btnFocus);
         this.focusButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +122,7 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             }
         });
 
-        this.scanButton = (Button) findViewById(R.id.btnScan);
+        this.scanButton = (ImageView) findViewById(R.id.btnScan);
         this.scanButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

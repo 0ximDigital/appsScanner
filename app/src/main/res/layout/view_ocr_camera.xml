@@ -12,27 +12,36 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom">
+        android:layout_gravity="top|right">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SCAN"
-            android:id="@+id/btnScan" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/btnScan"
+            android:src="@drawable/ic_traveler_take_photo_icon"
+            android:layout_marginRight="16dp"
+            android:scaleType="fitXY" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FOCUS"
-            android:id="@+id/btnFocus"
-            android:layout_gravity="right|center_vertical" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Flash"
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/btnFlash"
-            android:layout_gravity="right|bottom" />
+            android:src="@drawable/ic_traveler_flash_off_icon"
+            android:layout_gravity="right"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="16dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/btnFocus"
+            android:src="@drawable/ic_traveler_focus_icon"
+            android:layout_gravity="right"
+            android:layout_marginRight="16dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="12dp" />
+
     </LinearLayout>
 
     <view
