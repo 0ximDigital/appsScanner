@@ -480,16 +480,12 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
             // obrada prvog retka -> broj osobne
             String idNumber = clearWhitespaces(idData[0]);
-            Log.w(TAG, "clean - " + idNumber);
             int first = idNumber.indexOf("<");
             idNumber = (first != -1) ? idNumber.substring(0, first) : idNumber;
             idNumber = idNumber.substring(2, idNumber.length()).toUpperCase();
-            Log.w(TAG, "1 - " + idNumber);
             idNumber = replacePossibleCharactersWithNumbers((idNumber));
-            Log.w(TAG, "2 - " + idNumber);
             idNumber = idNumber.replaceAll("[^0-9]", "");
             idNumber = idNumber.substring(0, idNumber.length() - 1);
-            Log.w(TAG, "IDNUMBER  ---> " + idNumber);
 
             //ocrDataReviewDialog.setEditCardId(idNumber);
 
@@ -504,7 +500,6 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
                 datumRodenja = "480101";
             }
             datumRodenja = datumRodenja.substring(0, 6);
-            Log.w(TAG, "DATUM RODENJA -->> " + datumRodenja);
 
             String credentials = clearWhitespaces(idData[2]);
             credentials = replacePossibleNumbersWithCharacters(credentials);
@@ -512,12 +507,7 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             if(credentialsData.length != 2){
                 credentialsData = new String[]{"Name", "Surname"};
             }
-
-            Log.w(TAG, "Name --- > " + credentialsData[1]);
-            Log.w(TAG, "Surname --- > " + credentialsData[0]);
-
             travelerDataValues = new TravelerDataValues(TravelerDataValues.parseInputDate(datumRodenja), idNumber, credentialsData[1], credentialsData[0]);
-
             success = true;
             return null;
         }
@@ -530,17 +520,14 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         }
 
         private String clearWhitespaces(String input){
-            Log.w(TAG, "A - " +  input);
             return input.replaceAll("\\s+", "");
         }
 
         private String replacePossibleNumbersWithCharacters(String input){
-            Log.w(TAG, "B - " + input);
             return input.replaceAll("0", "O").replaceAll("1", "I").replaceAll("2", "Z").replaceAll("[3\\|6\\|8]", "B").replaceAll("4", "A").replaceAll("5", "S").replaceAll("6", "G");
         }
 
         private String replacePossibleCharactersWithNumbers(String input){
-            Log.w(TAG, "C - " + input);
             return input.replaceAll("O", "0").replaceAll("[I\\|l]", "1").replaceAll("B", "8").replaceAll("A", "4").replaceAll("S", "5").replaceAll("G", "6");
         }
 
