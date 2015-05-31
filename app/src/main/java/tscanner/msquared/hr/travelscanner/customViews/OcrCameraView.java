@@ -520,7 +520,7 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             Log.w(TAG, "Name --- > " + credentialsData[1]);
             Log.w(TAG, "Surname --- > " + credentialsData[0]);
 
-            travelerDataValues = new TravelerDataValues(datumRodenja, idNumber, credentialsData[1], credentialsData[0]);
+            travelerDataValues = new TravelerDataValues(TravelerDataValues.parseInputDate(datumRodenja), idNumber, credentialsData[1], credentialsData[0]);
 
             success = true;
             return null;
