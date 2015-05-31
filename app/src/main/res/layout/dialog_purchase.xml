@@ -35,19 +35,40 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="6dp" />
 
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/btnFinishAndPay"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_navigation_check"
-                fab:fab_colorNormal="@color/traveler_primary"
-                fab:fab_size="mini"
-                fab:fab_colorPressed="@color/traveler_primary"
-                fab:fab_colorRipple="@color/traveler_primary"
-                fab:fab_label="Proceed" />
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_traveler_x_fab"
+                    fab:fab_colorNormal="@color/quizzy_red_dimmed"
+                    fab:fab_size="mini"
+                    fab:fab_showShadow="false"
+                    fab:fab_colorPressed="@color/quizzy_red_dimmed"
+                    fab:fab_colorRipple="@color/quizzy_red_dimmed"
+                    fab:fab_label="Proceed"
+                    android:layout_marginRight="8dp" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/btnFinishAndPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigation_check"
+                    fab:fab_colorNormal="@color/traveler_primary"
+                    fab:fab_size="mini"
+                    fab:fab_showShadow="false"
+                    fab:fab_colorPressed="@color/traveler_primary"
+                    fab:fab_colorRipple="@color/traveler_primary"
+                    fab:fab_label="Proceed" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +81,8 @@
                 android:textColor="@color/traveler_secondary_text"
                 android:gravity="center"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp" />
+                android:layout_marginRight="6dp"
+                android:layout_marginBottom="12dp" />
         </FrameLayout>
 
         <FrameLayout

@@ -7,6 +7,8 @@
     <color name="traveler_black">#000</color>
     <color name="traveler_transparent">#00000000</color>
 
+    <color name="quizzy_red_dimmed">#fff75959</color>
+
     <color name="traveler_app_background">#ffededed</color>
     <color name="traveler_app_background_50">#7fededed</color>
     <color name="traveler_app_background_25">#40ededed</color>

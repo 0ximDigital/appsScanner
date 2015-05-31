@@ -211,6 +211,7 @@ public class AddDestinationTravelersActivity extends Activity {
             @Override
             public void onCompletion() {
                 exitActivityTransition.exit(AddDestinationTravelersActivity.this);
+                prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, null);
             }
         });
     }

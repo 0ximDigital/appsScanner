@@ -99,8 +99,8 @@
     </FrameLayout>
 
     <view
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         class="tscanner.msquared.hr.travelscanner.customViews.PurchaseDialog"
         android:id="@+id/purchaseDialog"
         android:layout_gravity="center" />
