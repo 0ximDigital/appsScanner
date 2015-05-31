@@ -29,6 +29,12 @@ public class OcrFocusView extends View {
     private int topLeftY;
 
     private Rect focusRect;
+
+    private Rect leftMaskRect;
+    private Rect topMaskRect;
+    private Rect bottomMaskRect;
+    private Rect rightMaskRect;
+
     private Paint paint;
 
     private ImageView previewImage;
@@ -74,7 +80,14 @@ public class OcrFocusView extends View {
         return new Rect(left, top, right, bottom);
     }
 
-    public void setPaint(RectColor color){      // TODO
+    private void initMaskRects(Rect focusRect, Canvas canvas){
+        this.leftMaskRect = new Rect(0, 0, focusRect.left, canvas.getHeight());
+        this.topMaskRect = new Rect(focusRect.left, 0, focusRect.right, focusRect.top);
+        this.bottomMaskRect = new Rect(focusRect.left, focusRect.bottom, focusRect.right, canvas.getHeight());
+        this.rightMaskRect = new Rect(focusRect.right, 0, canvas.getWidth(), canvas.getHeight());
+    }
+
+    public void setPaint(RectColor color){
         switch (color){
             default:
                 this.paint.setColor(this.context.getResources().getColor(R.color.travelScanner_ocr_mask_gray));
@@ -82,7 +95,6 @@ public class OcrFocusView extends View {
     }
 
     public Bitmap cropFocusedBitmap(Bitmap frame){
-        Log.i(TAG, "Cropam");
         int width = frame.getWidth();
         int height = frame.getHeight();
         Bitmap out = Bitmap.createBitmap(frame, (int)(width * 0.1), (int)(height * 0.6), (int)(width * 0.8), (int)(height * 0.3));
@@ -99,8 +111,15 @@ public class OcrFocusView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        this.focusRect = (this.focusRect == null) ? this.getFocusRect(canvas) : this.focusRect;
-        canvas.drawRect(focusRect.left, focusRect.top, focusRect.right, focusRect.bottom, paint);
+        if(this.focusRect == null){
+            this.focusRect = this.getFocusRect(canvas);
+            this.initMaskRects(this.focusRect, canvas);
+        }
+
+        canvas.drawRect(leftMaskRect.left, leftMaskRect.top, leftMaskRect.right, leftMaskRect.bottom, paint);
+        canvas.drawRect(topMaskRect.left, topMaskRect.top, topMaskRect.right, topMaskRect.bottom, paint);
+        canvas.drawRect(bottomMaskRect.left, bottomMaskRect.top, bottomMaskRect.right, bottomMaskRect.bottom, paint);
+        canvas.drawRect(rightMaskRect.left, rightMaskRect.top, rightMaskRect.right, rightMaskRect.bottom, paint);
 
     }
 

@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -67,6 +68,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
     private OcrFocusView ocrFocusView;
 
+    private MediaPlayer mediaPlayer;
+
     private OcrTextListener ocrTextListener;
     public interface OcrTextListener{
         void onDecodedText(String text);
@@ -98,6 +101,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
     }
 
     private void referenceViews(){
+        this.mediaPlayer = MediaPlayer.create(this.context, R.raw.camera_shutter_click_effect);
+
         this.videoView = (VideoView) findViewById(R.id.videoView);
         this.flashButton = (ImageView) findViewById(R.id.btnFlash);
 
@@ -127,6 +132,8 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             @Override
             public void onClick(View view) {
                 scanImage = true;
+                mediaPlayer.start();
+                scanButton.setVisibility(INVISIBLE);
             }
         });
 
@@ -153,8 +160,9 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
 
                     if(ocrTextListener != null){
                         ocrTextListener.onDecodedText(decodedImageText);
-                        scanButton.setVisibility(VISIBLE);
                     }
+
+                    scanButton.setVisibility(VISIBLE);
                 }
             }
         };
