@@ -5,200 +5,217 @@
     android:layout_height="match_parent"
     android:foreground="@color/travelScanner_ocr_mask_gray">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:id="@+id/whiteBackgroundFrameLayout"
-        android:background="@drawable/shape_background_white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="400dp"
+        <FrameLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_weight="2"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="6"
+            android:id="@+id/whiteBackgroundFrameLayout"
+            android:background="@drawable/shape_background_white">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp">
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Traveler review :"
-                    style="@style/TravelerTitleTextStyle"
-                    android:id="@+id/textView"
-                    android:layout_gravity="top"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="12dp" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/traveler_divider"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ScrollView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp">
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_weight="1"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Traveler review :"
+                        style="@style/TravelerTitleTextStyle"
+                        android:id="@+id/textView"
+                        android:layout_gravity="top"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerSubtitleText"
-                                android:text="Name :"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="20dp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerPargraphText"
-                                android:id="@+id/txtTravelerNameAndSurname"
-                                android:text="Ime Prezime"
-                                android:layout_weight="2"
-                                android:gravity="center_vertical" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:animateLayoutChanges="true"
-                            android:layout_marginTop="4dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerSubtitleText"
-                                android:text="Birth :"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="20dp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerPargraphText"
-                                android:id="@+id/txtTravelerBirthDate"
-                                android:text="19.9.1999"
-                                android:layout_weight="2"
-                                android:gravity="center_vertical" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:animateLayoutChanges="true"
-                            android:layout_marginTop="4dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerSubtitleText"
-                                android:text="Id :"
-                                android:layout_weight="1"
-                                android:layout_marginLeft="20dp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                style="@style/TravelerPargraphText"
-                                android:id="@+id/txtTravelerIdNumber"
-                                android:text="123456789"
-                                android:layout_weight="2"
-                                android:gravity="center_vertical" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </ScrollView>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/traveler_divider"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical">
+                </LinearLayout>
 
                 <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/traveler_divider"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/btnReshootID"
-                    android:layout_width="wrap_content"
+                <FrameLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_traveler_again_icon"
-                    fab:fab_colorNormal="@color/traveler_primary"
-                    fab:fab_colorPressed="@color/traveler_primary"
-                    fab:fab_colorRipple="@color/traveler_primary"
-                    fab:fab_showShadow="false"
-                    fab:fab_label="Proceed"
-                    android:layout_marginRight="8dp"
-                    android:layout_gravity="right" />
+                    android:layout_weight="1">
 
-                <com.github.clans.fab.FloatingActionButton
-                    android:id="@+id/btnConfirmDestinationTravelerData"
-                    android:layout_width="wrap_content"
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerSubtitleText"
+                                    android:text="Name :"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="20dp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerPargraphText"
+                                    android:id="@+id/txtTravelerNameAndSurname"
+                                    android:text="Ime Prezime"
+                                    android:layout_weight="2"
+                                    android:gravity="center_vertical" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:animateLayoutChanges="true"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerSubtitleText"
+                                    android:text="Birth :"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="20dp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerPargraphText"
+                                    android:id="@+id/txtTravelerBirthDate"
+                                    android:text="19.9.1999"
+                                    android:layout_weight="2"
+                                    android:gravity="center_vertical" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:animateLayoutChanges="true"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerSubtitleText"
+                                    android:text="Id :"
+                                    android:layout_weight="1"
+                                    android:layout_marginLeft="20dp" />
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    style="@style/TravelerPargraphText"
+                                    android:id="@+id/txtTravelerIdNumber"
+                                    android:text="123456789"
+                                    android:layout_weight="2"
+                                    android:gravity="center_vertical" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/traveler_divider"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_traveler_check_icon"
-                    fab:fab_colorNormal="@color/traveler_primary"
-                    fab:fab_colorPressed="@color/traveler_primary"
-                    fab:fab_colorRipple="@color/traveler_primary"
-                    fab:fab_showShadow="false"
-                    fab:fab_label="Proceed"
-                    android:layout_marginRight="12dp" />
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/btnReshootID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_traveler_again_icon"
+                        fab:fab_colorNormal="@color/traveler_primary"
+                        fab:fab_colorPressed="@color/traveler_primary"
+                        fab:fab_colorRipple="@color/traveler_primary"
+                        fab:fab_showShadow="false"
+                        fab:fab_label="Proceed"
+                        android:layout_marginRight="8dp"
+                        android:layout_gravity="right" />
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/btnConfirmDestinationTravelerData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_traveler_check_icon"
+                        fab:fab_colorNormal="@color/traveler_primary"
+                        fab:fab_colorPressed="@color/traveler_primary"
+                        fab:fab_colorRipple="@color/traveler_primary"
+                        fab:fab_showShadow="false"
+                        fab:fab_label="Proceed"
+                        android:layout_marginRight="12dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
 
 </FrameLayout>
