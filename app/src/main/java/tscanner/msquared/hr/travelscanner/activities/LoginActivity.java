@@ -18,6 +18,7 @@ import net.steamcrafted.loadtoast.LoadToast;
 
 import java.util.List;
 
+import tscanner.msquared.hr.travelscanner.InternetConnectionCheck;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
@@ -40,6 +41,7 @@ public class LoginActivity extends Activity {
     private ImageView destinationImagePreviewView;
 
     private Button testButton;
+    private Button testConnection;
 
     private String imagePath;
 
@@ -56,13 +58,14 @@ public class LoginActivity extends Activity {
         this.referenceViews();
     }
 
-    private void referenceViews(){
-        this.login = (Button)findViewById(R.id.login);
-        this.username = (EditText)findViewById(R.id.editUsername);
-        this.password = (EditText)findViewById(R.id.editPassword);
-        this.loginAnonymous=(TextView)findViewById(R.id.loginAnonymous);
+    private void referenceViews() {
+        this.login = (Button) findViewById(R.id.login);
+        this.username = (EditText) findViewById(R.id.editUsername);
+        this.password = (EditText) findViewById(R.id.editPassword);
+        this.loginAnonymous = (TextView) findViewById(R.id.loginAnonymous);
 
         this.testButton = (Button) findViewById(R.id.btnTest);
+        this.testConnection = (Button) findViewById(R.id.btnTestConnection);
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
@@ -80,6 +83,14 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, ScanActivity.class));
+            }
+        });
+
+        this.testConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InternetConnectionCheck icc=new InternetConnectionCheck(LoginActivity.this);
+                icc.checkConnection();
             }
         });
     }
