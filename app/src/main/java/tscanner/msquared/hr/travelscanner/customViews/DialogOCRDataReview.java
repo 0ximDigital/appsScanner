@@ -34,6 +34,8 @@ public class DialogOCRDataReview extends FrameLayout {
     private ProgressBar progressSpinnerClockwise;
     private ProgressBar progressSpinnerAnticlockwise;
 
+    private TravelerDataValues values;
+
     public DialogOCRDataReview(Context context) {
         super(context);
         this.init(context);
@@ -75,9 +77,20 @@ public class DialogOCRDataReview extends FrameLayout {
             }
         });
         this.acceptButton = (FloatingActionButton) findViewById(R.id.btnConfirmDestinationTravelerData);
+        this.acceptButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO return result
+            }
+        });
     }
 
     public void showData(TravelerDataValues values, boolean warning){
+        this.values = values;
+        this.editName.setText( values.getName() + " " + values.getSurname() );
+        this.editBirth.setText(values.getDateOfBirth());
+        this.editCardId.setText(values.getIdNumber());
+
         this.progressSpinnerClockwise.setVisibility(INVISIBLE);
         this.progressSpinnerAnticlockwise.setVisibility(INVISIBLE);
         this.spinnerContainer.setVisibility(INVISIBLE);

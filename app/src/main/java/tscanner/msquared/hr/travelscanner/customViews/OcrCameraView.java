@@ -530,6 +530,5 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
             return input.replaceAll("O", "0").replaceAll("[I\\|l]", "1").replaceAll("B", "8").replaceAll("A", "4").replaceAll("S", "5").replaceAll("G", "6");
         }
 
-        private class TravelerDataCL
     }
 }
