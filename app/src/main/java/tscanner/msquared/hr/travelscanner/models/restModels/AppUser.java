@@ -84,6 +84,10 @@ public class AppUser {
         this.password = password;
     }
 
+    public boolean evaluatePassword(String password){
+        return (this.password == null) ? false : (this.password.equals(password));
+    }
+
     @Override
     public String toString() {
         return "id: " + id + ", " + username + ", " + email + ", isSalesman: " + isSalesman + ", travelPoints: " + travelPoints;
