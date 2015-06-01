@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -15,6 +16,12 @@ import java.util.Random;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.activities.MainActivity;
 import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
+import tscanner.msquared.hr.travelscanner.helpers.Rest.PutRestService;
+import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
+import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
+import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
+import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
+import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 /**
  * Created by Mihael on 31.5.2015..
@@ -29,6 +36,16 @@ public class PurchaseDialog extends FrameLayout {
     private boolean exitPurchase;
 
     private PrefsHelper prefsHelper;
+
+    private OnPurchaseListener onPurchaseListener;
+
+    public interface OnPurchaseListener {
+        void onPurchase();
+    }
+
+    public void setOnPurchaseListener(OnPurchaseListener onPurchaseListener) {
+        this.onPurchaseListener = onPurchaseListener;
+    }
 
     public PurchaseDialog(Context context) {
         super(context);
@@ -60,10 +77,15 @@ public class PurchaseDialog extends FrameLayout {
             public void onClick(View view) {
                 if (exitPurchase) {
                     prefsHelper.putStringSet(PrefsHelper.TRAVELERS_DATA, null);
-                    updateDatabase();
-                    Intent resetintent = new Intent(context, MainActivity.class);
-                    resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(resetintent);
+                    if(onPurchaseListener != null){
+                        setVisibility(GONE);
+                        onPurchaseListener.onPurchase();
+                    }
+                    else {
+                        Intent resetintent = new Intent(context, MainActivity.class);
+                        resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(resetintent);
+                    }
                 } else {
                     setVisibility(GONE);
                 }
@@ -89,21 +111,4 @@ public class PurchaseDialog extends FrameLayout {
         }
     }
 
-    private void updateDatabase(){
-        String purchaseSignatureCheck = this.generatePurchaseSignature()
-    }
-
-
-
-
-    private String generatePurchaseSignature(){
-        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 24; i++) {
-            char c = chars[random.nextInt(chars.length)];
-            sb.append(c);
-        }
-        return sb.toString();
-    }
 }

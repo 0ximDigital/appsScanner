@@ -21,6 +21,7 @@ import com.kogitune.activity_transition.ExitActivityTransition;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,11 @@ import tscanner.msquared.hr.travelscanner.customViews.CustomDestinationInfoView;
 import tscanner.msquared.hr.travelscanner.customViews.PurchaseDialog;
 import tscanner.msquared.hr.travelscanner.customViews.TravelerView;
 import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
+import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.TravelerDataValues;
+import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
+import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
+import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
@@ -60,6 +65,9 @@ public class AddDestinationTravelersActivity extends Activity {
     private ImageView destinationBottomImage;
     private TextView firstTravelerText;
 
+    private List<Traveler> travelersList;
+    private Traveler[] travelerArray;
+
     // this needs to be hidden first - GONE
     private FloatingActionButton addTravelerButton;
     private FloatingActionButton purchaseButton;
@@ -67,11 +75,13 @@ public class AddDestinationTravelersActivity extends Activity {
 
     private PurchaseDialog purchaseDialog;
 
+    private AppUser appUser;
+    private TravelDestination travelDestination;
+    private ServerManager serverManager;
+
     PrefsHelper prefsHelper;
 
     private Gson gson;
-
-    private TravelDestination travelDestination;
 
     private ActivityTransition entryAnimation;
     private ExitActivityTransition exitActivityTransition;
@@ -121,6 +131,14 @@ public class AddDestinationTravelersActivity extends Activity {
             Picasso.with(this).load(travelDestination.getPicture()).into(this.destinationBottomImage);
         }
 
+        String currentUserData = prefsHelper.getString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, null);
+        if(currentUserData != null){
+            appUser = gson.fromJson(currentUserData, AppUser.class);
+        }
+        else{
+            appUser = null;
+        }
+
         this.firstTravelerText = (TextView) findViewById(R.id.txtAddFirstTraveler);
 
         this.addTravelerButton.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +150,12 @@ public class AddDestinationTravelersActivity extends Activity {
         });
 
         this.purchaseDialog = (PurchaseDialog) findViewById(R.id.purchaseDialog);
+        this.purchaseDialog.setOnPurchaseListener(new PurchaseDialog.OnPurchaseListener() {
+            @Override
+            public void onPurchase() {
+                updateDatabase();
+            }
+        });
         this.purchaseDialog.setVisibility(View.GONE);
 
         this.purchaseButton = (FloatingActionButton) findViewById(R.id.btnFinishAndPay);
@@ -146,6 +170,114 @@ public class AddDestinationTravelersActivity extends Activity {
 
     private interface ViewsHideListener{
         void onCompletion();
+    }
+
+    private void updateDatabase(){
+        Log.i(TAG, "Updating database");
+        if(appUser != null) {
+            Log.i(TAG, "Updating database - app user is not null");
+            String purchaseSignatureCheck = this.generatePurchaseSignature();
+            Purchase purchase = new Purchase(travelDestination.getId(), null, null, appUser.getId(), purchaseSignatureCheck);
+            travelersList = new ArrayList<Traveler>();
+            this.addNewPurchase(purchase);
+        }
+        else{
+            this.finishActivity();
+        }
+    }
+
+    private void addNewPurchase(final Purchase purchase){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        purchase.setPurchaseDate(null);
+        Log.i(TAG, "Updating new purchase");
+        serverManager.addNewPurchase(purchase, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    fetchPurchaseWithSignature(purchase.getPurchaseSignature());
+                } else {
+                    Log.w(TAG, "Error POST-ing purchase -> " + responseMessage.getError());
+                    finishActivity();
+                }
+            }
+        });
+    }
+
+    private void fetchPurchaseWithSignature(String signature){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        serverManager.getPurchaseWithSignature(signature, new ServerManager.Callback<Purchase>() {
+            @Override
+            public void requestResult(Purchase purchase) {
+                if (purchase != null) {
+                    Log.i(TAG, "fetched purchase with signature " + purchase.getPurchaseSignature());
+                    int travelerCount = containerLinearLayout.getChildCount();
+                    TravelerView travelerView;
+                    TravelerDataValues travelerDataValues;
+                    for (int i = 0; i < travelerCount; i++) {
+                        travelerView = (TravelerView) containerLinearLayout.getChildAt(i);
+                        travelerDataValues = travelerView.getData();
+                        Traveler traveler = new Traveler(travelerDataValues.getAge(), "M", null, travelerDataValues.getName(), purchase.getId(), travelerDataValues.getSurname());
+                        travelersList.add(traveler);
+                    }
+                    postAllTravelers();
+                } else {
+                    finishActivity();
+                }
+            }
+        });
+    }
+
+    private void postAllTravelers(){
+        this.travelerArray = travelersList.toArray(new Traveler[travelersList.size()]);
+        postTravelerAtIndex(-1);
+    }
+
+    private void postTravelerAtIndex(int i){
+        i++;
+        Log.i(TAG, "Posting traveler " + i);
+        if(this.travelerArray.length > i){
+            addNewTraveler(this.travelerArray[i], i);
+        }
+        else{
+            this.finishActivity();
+        }
+    }
+
+    private void addNewTraveler(Traveler traveler,final int depth){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        serverManager.addNewTraveler(traveler, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    postTravelerAtIndex(depth);
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                }
+            }
+        });
+    }
+
+    private String generatePurchaseSignature(){
+        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 24; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    private void finishActivity(){
+        Intent resetintent = new Intent(this, MainActivity.class);
+        resetintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(resetintent);
     }
 
     private void hideAllViewsForTransition(final ViewsHideListener viewsHideListener){

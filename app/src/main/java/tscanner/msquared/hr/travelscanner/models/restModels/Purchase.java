@@ -12,7 +12,7 @@ public class Purchase {
     @Expose
     private Integer userId;
     @SerializedName("purchase_date")
-    @Expose
+    @Expose (serialize = false)
     private String purchaseDate;
     @SerializedName("destination_id")
     @Expose
