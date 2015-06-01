@@ -80,11 +80,6 @@ public class InputFieldsCheck {
 
     }
 
-
-
-
-
-
     public void validateUsername(final String username, final FieldCheckCallback callback) {
         if(!( username.length() >= MIN_USERNAME_LENGTH)){
            setErrorMessage("Username too short.(Min. 5 characters)");
