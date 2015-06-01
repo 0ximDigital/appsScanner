@@ -208,11 +208,24 @@ public class OcrCameraView extends FrameLayout implements SurfaceHolder.Callback
         }
 
         if(camParams.getSupportedFocusModes().contains(
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+            Log.i(TAG, "FOCUS_MODE_CONTINUOUS_VIDEO is supported");
+            camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            this.focusButton.setVisibility(VISIBLE);
+        }
+        else if(camParams.getSupportedFocusModes().contains(
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)){
+            Log.i(TAG, "FOCUS_MODE_CONTINUOUS_PICTURE is supported");
+            camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            this.focusButton.setVisibility(VISIBLE);
+        }
+        else if(camParams.getSupportedFocusModes().contains(
                 Camera.Parameters.FOCUS_MODE_AUTO)){
             Log.i(TAG, "FOCUS_MODE_AUTO is supported");
             camParams.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
             this.focusButton.setVisibility(VISIBLE);
         }
+
         if(camParams.getSupportedWhiteBalance().contains(
                 Camera.Parameters.WHITE_BALANCE_AUTO)){
             Log.i(TAG, "WHITE_MODE_AUTO is supported");
