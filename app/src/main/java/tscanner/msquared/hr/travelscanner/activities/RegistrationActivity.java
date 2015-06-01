@@ -180,8 +180,8 @@ public class RegistrationActivity extends Activity {
                 if(isItValid){
                    //sve je oke
                     Log.d("Sve je oke kod usera","Ne postoji");
-
                 }
+
                 else{
                     mUsernameView.setError( ifc.getErrorMessage());
                     focusView[0] = mUsernameView;
