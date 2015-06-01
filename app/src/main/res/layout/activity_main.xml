@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/traveler_primary">
+        android:background="@color/traveler_black">
 
         <LinearLayout
             android:layout_width="wrap_content"

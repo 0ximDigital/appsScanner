@@ -71,13 +71,6 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
-        this.settingsImage = (ImageView) findViewById(R.id.imgSettings);
-        this.settingsImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            }
-        });
     }
 
     private void fetchAllTravelDestinations(){
