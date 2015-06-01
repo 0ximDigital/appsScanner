@@ -154,7 +154,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
                     focusView[0] = mEmailView;
                     cancel[0] = true;
                 }
-                proceedToFinalValidation();
+                proccedToUsernameValidation();
             }
         });
     }

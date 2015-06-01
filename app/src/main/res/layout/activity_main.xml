@@ -67,8 +67,7 @@
             style="@style/TravelerTitleTextStyle"
             android:text="Pocket Traveler"
             android:id="@+id/textView2"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="8dp"
+            android:layout_gravity="center"
             android:textSize="28sp" />
 
     </FrameLayout>
