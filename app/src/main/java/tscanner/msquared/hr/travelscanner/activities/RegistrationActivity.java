@@ -13,6 +13,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.InputFieldsCheck;
@@ -30,6 +32,8 @@ public class RegistrationActivity extends Activity {
     private EditText mPasswordRepView;
     private EditText mUsernameView;
     private View mProgressView;
+
+    private FloatingActionButton registerButton;
 
     private InputFieldsCheck ifc=new InputFieldsCheck();
 
@@ -67,8 +71,8 @@ public class RegistrationActivity extends Activity {
             }
         });*/
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        registerButton = (FloatingActionButton) findViewById(R.id.email_sign_in_button);
+        registerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
