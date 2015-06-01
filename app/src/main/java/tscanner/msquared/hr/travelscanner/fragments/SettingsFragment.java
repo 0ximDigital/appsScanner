@@ -81,53 +81,37 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         boolean cancel = false;
         View focusView = null;
 
-        //Check for a valid repedated password,if the user entered one
-        if (TextUtils.isEmpty(passwordR)) {
-            mPasswordRepView.setError(getString(R.string.error_field_required));
+        if(!ifc.isPasswordValid(passwordR)){
+            mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
             focusView = mPasswordRepView;
             cancel = true;
-        } else if (!ifc.isPasswordValid(passwordR)) {
-            mPasswordRepView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordRepView;
-            cancel = true;
-        } else if (!(passwordR.equals(password))) {
-            mPasswordRepView.setError(getString(R.string.error_password_match));
+        }else if(!ifc.isPasswordsEqual(password,passwordR)){
+            mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
             focusView = mPasswordRepView;
             cancel = true;
         }
 
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        } else if (!ifc.isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+
+        if(!ifc.isPasswordValid(password)) {
+            mPasswordView.setError((CharSequence) ifc.getErrorMessage());
             focusView = mPasswordView;
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!ifc.isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+
+        if(!ifc.isEmailValid(email)){
+            mEmailView.setError((CharSequence) ifc.getErrorMessage());
             focusView = mEmailView;
             cancel = true;
         }
 
-        // Check for a valid username.
-        if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
-            cancel = true;
-        } else if (!ifc.isUsernameValid(username)) {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
+
+        if(!ifc.isUsernameValid(username)){
+            mUsernameView.setError((CharSequence) ifc.getErrorMessage());
             focusView = mUsernameView;
             cancel = true;
         }
+
 
         if (cancel) {
             Log.d(TAG, "invalid change settings");
@@ -135,7 +119,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            //TODO send data to UserRegistrationTaskClass
+            //TODO change data in base
             startActivity(new Intent(getActivity(), SettingsActivity.class));
         }
     }

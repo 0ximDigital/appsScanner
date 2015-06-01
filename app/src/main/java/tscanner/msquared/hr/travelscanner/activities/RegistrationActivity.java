@@ -101,7 +101,7 @@ public class RegistrationActivity extends Activity {
         boolean cancel = false;
         View focusView = null;
 
-        //Check for a valid repedated password,if the user entered one
+        /*//Check for a valid repedated password,if the user entered one
         if (TextUtils.isEmpty(passwordR)) {
             mPasswordRepView.setError(getString(R.string.error_field_required));
             focusView = mPasswordRepView;
@@ -114,9 +114,20 @@ public class RegistrationActivity extends Activity {
             mPasswordRepView.setError(getString(R.string.error_password_match));
             focusView = mPasswordRepView;
             cancel = true;
+        }*/
+
+        if(!ifc.isPasswordValid(passwordR)){
+            mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
+            focusView = mPasswordRepView;
+            cancel = true;
+        }else if(!ifc.isPasswordsEqual(password,passwordR)){
+            mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
+            focusView = mPasswordRepView;
+            cancel = true;
         }
 
-        // Check for a valid password, if the user entered one.
+
+      /*  // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
@@ -125,10 +136,16 @@ public class RegistrationActivity extends Activity {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
+        }*/
+
+        if(!ifc.isPasswordValid(password)) {
+            mPasswordView.setError((CharSequence) ifc.getErrorMessage());
+            focusView = mPasswordView;
+            cancel = true;
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+       /* if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
@@ -136,16 +153,17 @@ public class RegistrationActivity extends Activity {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
-        }
+        }*/
 
-        if(!ifc.isUsernameValid(username)){
-            String error="";
-            mUsernameView.setError(error);
-            focusView = mUsernameView;
+        if(!ifc.isEmailValid(email)){
+            mEmailView.setError((CharSequence) ifc.getErrorMessage());
+            focusView = mEmailView;
             cancel = true;
         }
 
-        // Check for a valid username.
+
+
+        /*// Check for a valid username.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
@@ -154,7 +172,14 @@ public class RegistrationActivity extends Activity {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
+        }*/
+
+        if(!ifc.isUsernameValid(username)){
+            mUsernameView.setError((CharSequence) ifc.getErrorMessage());
+            focusView = mUsernameView;
+            cancel = true;
         }
+
 
         if (cancel) {
             Log.d(TAG, "invalid change settings");

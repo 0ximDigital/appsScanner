@@ -20,7 +20,7 @@ public class InputFieldsCheck {
     private int MIN_USERNAME_LENGTH=5;
 
     private String errorMessage="";
-    private boolean valid_check=false;
+
 
     public String getErrorMessage() {
         return errorMessage;
@@ -30,69 +30,62 @@ public class InputFieldsCheck {
         this.errorMessage = errorMessage;
     }
 
-    public boolean isValid_check() {
-        return valid_check;
-    }
 
-    public void setValid_check(boolean valid_check) {
-        this.valid_check = valid_check;
-    }
-
-
-
-
-/*
     public boolean isEmailValid(String email) {
+        boolean valid_email=true;
+
         if(!email.contains("@")){
-                setValid_check(false);
-        }else if() {
-
-
-            if (serverManager == null) {
-                serverManager = new ServerManager();
-            }
-            serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
-                @Override
-                public void requestResult(List<AppUser> appUsers) {
-                    if (appUsers != null) {
-                        for (AppUser user : appUsers) {
-                            Log.i(TAG, "User -> " + user);
-                        }
-
-                    }
-                }
-            });
+            valid_email=false;
+            setErrorMessage("Invalid e-mail");
+        }else  if (TextUtils.isEmpty(email)) {
+            valid_email=false;
+            setErrorMessage("E-mail field required");
+        }else{
+          //ako postoj
         }
 
-
-    return valid_mail;
-    }*/
+    return    valid_email;
+    }
 
 
 
     public boolean isUsernameValid(String username) {
-        boolean valid_username=false;
-
+        boolean valid_username=true;
         if(!( username.length() > MIN_USERNAME_LENGTH)){
-           setErrorMessage("Prekratak tekst.Min 5 znakova.");
-            return;
+           setErrorMessage("Prekratak tekst.Min 6 znakova.");
+            valid_username=false;
         }else if (TextUtils.isEmpty(username)) {
             setErrorMessage(Resources.getSystem().getString(R.string.error_field_required));
+            valid_username=false;
         }else{
 
            //ako postoji error
 
         }
-        return isValid_check();
+        return   valid_username;
     }
 
 
     public boolean isPasswordValid(String password) {
-        boolean valid_passsword=false;
-        if((password.length() > MIN_PASSWORD_LENGTH)){
-            valid_passsword=true;
+        boolean valid_password=true;
+
+        if (TextUtils.isEmpty(password)) {
+            valid_password=false;
+            setErrorMessage("Password field required");
+        }else if(!(password.length() > MIN_PASSWORD_LENGTH)){
+            valid_password=false;
+            setErrorMessage("Password too short");
         }
-        return valid_passsword;
+        return  valid_password;
+    }
+
+    public boolean isPasswordsEqual(String password1,String password2) {
+        boolean valid_password=true;
+        if(!(password1.equals(password2))){
+            valid_password=false;
+            setErrorMessage("Passwords are not equal");
+        }
+        return valid_password;
     }
 
 }
