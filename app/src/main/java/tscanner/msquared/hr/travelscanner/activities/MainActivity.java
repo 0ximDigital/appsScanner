@@ -16,6 +16,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import net.steamcrafted.loadtoast.LoadToast;
 
 import java.util.Collections;
@@ -25,7 +27,9 @@ import tscanner.msquared.hr.travelscanner.InternetConnectionCheck;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.adapters.TravelDestinationsAdapter;
 import tscanner.msquared.hr.travelscanner.fragments.SettingsFragment;
+import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
+import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
 public class MainActivity extends Activity {
@@ -41,10 +45,17 @@ public class MainActivity extends Activity {
     private ImageView settingsImage;
     private FrameLayout travelPointsView;
 
+    private PrefsHelper prefsHelper;
+    private Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.prefsHelper = new PrefsHelper(this);
+        this.gson = new Gson();
+        this.travelPointsLabel = (TextView) findViewById(R.id.txtTravelerPoints);
 
         InternetConnectionCheck check = new InternetConnectionCheck(this);
         check.setCheckCallback(new InternetConnectionCheck.OnCheckCallback() {
@@ -57,13 +68,24 @@ public class MainActivity extends Activity {
         check.checkConnection();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(this.travelPointsLabel != null) {
+            String appUserData = prefsHelper.getString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, null);
+            if (appUserData != null) {
+                AppUser appUser = gson.fromJson(appUserData, AppUser.class);
+                this.travelPointsLabel.setText("" + appUser.getTravelPoints());
+            }
+        }
+    }
+
     private void referenceViews(){
         this.recyclerView = (RecyclerView) findViewById(R.id.recycler);
         this.recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         this.recyclerView.setLayoutManager(manager);
 
-        this.travelPointsLabel = (TextView) findViewById(R.id.txtTravelerPoints);
         this.travelPointsView = (FrameLayout) findViewById(R.id.framePoints);
         this.travelPointsView.setOnClickListener(new View.OnClickListener() {
             @Override
