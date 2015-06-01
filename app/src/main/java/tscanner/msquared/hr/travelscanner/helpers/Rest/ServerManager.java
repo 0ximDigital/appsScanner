@@ -54,7 +54,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                 //   Log.i(TAG, response);
                     if(response == null){
                         appUsersCallback.requestResult(null);
                     }

@@ -30,8 +30,7 @@ public class RegistrationActivity extends Activity {
     private EditText mPasswordRepView;
     private EditText mUsernameView;
     private View mProgressView;
-    public static int MIN_PASSWORD_LENGTH=5;
-    public static int MIN_USERNAME_LENGTH=5;
+
     private InputFieldsCheck ifc=new InputFieldsCheck();
 
     @Override
@@ -98,8 +97,8 @@ public class RegistrationActivity extends Activity {
         String passwordR= mPasswordRepView.getText().toString();
         String username = mUsernameView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+        final boolean[] cancel = {false};
+        final View[] focusView = {null};
 
         /*//Check for a valid repedated password,if the user entered one
         if (TextUtils.isEmpty(passwordR)) {
@@ -118,12 +117,12 @@ public class RegistrationActivity extends Activity {
 
         if(!ifc.isPasswordValid(passwordR)){
             mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordRepView;
-            cancel = true;
+            focusView[0] = mPasswordRepView;
+            cancel[0] = true;
         }else if(!ifc.isPasswordsEqual(password,passwordR)){
             mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordRepView;
-            cancel = true;
+            focusView[0] = mPasswordRepView;
+            cancel[0] = true;
         }
 
 
@@ -140,8 +139,8 @@ public class RegistrationActivity extends Activity {
 
         if(!ifc.isPasswordValid(password)) {
             mPasswordView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordView;
-            cancel = true;
+            focusView[0] = mPasswordView;
+            cancel[0] = true;
         }
 
         // Check for a valid email address.
@@ -155,35 +154,48 @@ public class RegistrationActivity extends Activity {
             cancel = true;
         }*/
 
-        if(!ifc.isEmailValid(email)){
-            mEmailView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mEmailView;
-            cancel = true;
-        }
+        ifc.validadeEmail(email, new InputFieldsCheck.FieldCheckCallback() {
+            @Override
+            public void checkedField(boolean isItValid) {
+                if(isItValid){
+                    //sve je oke
+                    Log.d("Sve je oke kod maila","Ne postoji");
+
+
+                }
+                else{
+                    Log.d("ERROR","Vec postoji mail");
+                    mEmailView.setError(ifc.getErrorMessage());
+                    focusView[0] = mEmailView;
+                    cancel[0] = true;
+                }
+            }
+
+
+        });
+
+        ifc.validateUsername(username, new InputFieldsCheck.FieldCheckCallback() {
+            @Override
+            public void checkedField(boolean isItValid) {
+                if(isItValid){
+                   //sve je oke
+                    Log.d("Sve je oke kod usera","Ne postoji");
+
+                }
+                else{
+                    mUsernameView.setError( ifc.getErrorMessage());
+                    focusView[0] = mUsernameView;
+                    cancel[0] = true;
+                }
+            }
+        });
 
 
 
-        /*// Check for a valid username.
-        if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
-            cancel = true;
-        } else if (!ifc.isUsernameValid(username)) {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
-            focusView = mUsernameView;
-            cancel = true;
-        }*/
 
-        if(!ifc.isUsernameValid(username)){
-            mUsernameView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mUsernameView;
-            cancel = true;
-        }
-
-
-        if (cancel) {
-            Log.d(TAG, "invalid change settings");
-            focusView.requestFocus();
+        if (cancel[0]) {
+            Log.d(TAG, "invalid change registration");
+            focusView[0].requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
