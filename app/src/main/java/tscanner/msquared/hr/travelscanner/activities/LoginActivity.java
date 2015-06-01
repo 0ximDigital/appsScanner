@@ -85,7 +85,7 @@ public class LoginActivity extends Activity {
         this.testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, ScanActivity.class));
+                fetchUserWithPassword("123456");
             }
         });
 
@@ -137,6 +137,26 @@ public class LoginActivity extends Activity {
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void fetchUserWithPassword(String password){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Logging in..").show();
+        serverManager.getAppUsersWithPassword(password, new ServerManager.Callback<List<AppUser>>() {
+            @Override
+            public void requestResult(List<AppUser> appUsers) {
+                if (appUsers != null) {     // TODO - ovaj tu dio koda se izvodi kad server vrati usere - oni se nalaze u appUsers listi
+                    loadToast.success();
+                    for (AppUser user : appUsers) {
+                        Log.i(TAG, "User -> " + user);
+                    }
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
     }
 
     private void fetchAllUsers(){

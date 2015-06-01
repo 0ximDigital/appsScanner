@@ -70,6 +70,32 @@ public class ServerManager {
         }
     }
 
+    public void getAppUsersWithPassword(String password, final Callback<List<AppUser>> appUsersCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithStringParameter(ApiConstants.dohvatUseraSaPassom, password));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        appUsersCallback.requestResult(null);
+                    }
+                    AppUser[] appUsers = gson.fromJson(response, AppUser[].class);
+                    appUsersCallback.requestResult(Arrays.asList(appUsers));
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            appUsersCallback.requestResult(null);
+        }
+    }
+
     public void getAppUserById(Integer id, final Callback<AppUser> appUserCallback){
         String response = null;
         if(this.getRestService == null){
@@ -518,6 +544,10 @@ public class ServerManager {
 
     private String getURLRequestWithIdParameter(String request, int id){
         return ApiConstants.serverPrefix + request + id + ApiConstants.returnFormat;
+    }
+
+    private String getURLRequestWithStringParameter(String request, String parameter){
+        return ApiConstants.serverPrefix + request + parameter + ApiConstants.returnFormat;
     }
 
 }
