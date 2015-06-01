@@ -198,6 +198,8 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             public void requestResult(ResponseMessage responseMessage) {
                 if (responseMessage.getError() == null) {
                     loadToast.success();
+                    String userData = gson.toJson(user);
+                    prefsHelper.putString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, (userData != null) ? gson.toJson(userData) : null);
                     startActivity(new Intent(context, SettingsActivity.class));
                 } else {
                     Log.e(TAG, responseMessage.getError());
