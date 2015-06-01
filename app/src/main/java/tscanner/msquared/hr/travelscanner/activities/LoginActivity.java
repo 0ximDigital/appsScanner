@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.InternetConnectionCheck;
 import tscanner.msquared.hr.travelscanner.R;
+import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
 import tscanner.msquared.hr.travelscanner.models.restModels.Purchase;
@@ -48,10 +50,16 @@ public class LoginActivity extends Activity {
     private ServerManager serverManager;
     private LoadToast loadToast;
 
+    private PrefsHelper prefsHelper;
+    private Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        this.prefsHelper = new PrefsHelper(this);
+        this.gson = new Gson();
 
         InternetConnectionCheck check = new InternetConnectionCheck(this);
         check.setCheckCallback(new InternetConnectionCheck.OnCheckCallback() {
@@ -124,9 +132,10 @@ public class LoginActivity extends Activity {
                     for(AppUser user : appUsers){
                         if(emailToEvaluate.equals(user.getEmail())){
                             loadToast.success();
-                            AcceptedLogin();
+                            AcceptedLogin(user);
                             return;
-                        }                    }
+                        }
+                    }
                     loadToast.error();
                 } else {
                     loadToast.error();
@@ -138,7 +147,7 @@ public class LoginActivity extends Activity {
     public void anonymousOnClick(View view){
         Log.d("Login:","Anonymous");
         if(GLOBAL_FAST_ENTRY){
-            AcceptedLogin();
+            AcceptedLogin(null);
         }
     }
 
@@ -148,7 +157,8 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    public void AcceptedLogin(){
+    public void AcceptedLogin(AppUser loggingInUser){
+        this.prefsHelper.putString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, (loggingInUser != null) ? gson.toJson(loggingInUser) : null);
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
@@ -162,7 +172,7 @@ public class LoginActivity extends Activity {
         serverManager.getAppUsersWithPassword(password, new ServerManager.Callback<List<AppUser>>() {
             @Override
             public void requestResult(List<AppUser> appUsers) {
-                if (appUsers != null) {     // TODO - ovaj tu dio koda se izvodi kad server vrati usere - oni se nalaze u appUsers listi
+                if (appUsers != null) {
                     loadToast.success();
                     for (AppUser user : appUsers) {
                         Log.i(TAG, "User -> " + user);

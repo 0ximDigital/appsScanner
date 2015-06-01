@@ -19,6 +19,8 @@ public class PrefsHelper {
 
     public static final String TRAVELERS_DATA = "travleres_data";
 
+    public static final String LOGGED_IN_USER_APPUSER_DATA = "loged_in_user_appuser_data";
+
     private Context context;
 
     private SharedPreferences sharedPreferences;
