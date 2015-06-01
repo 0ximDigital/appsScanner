@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import tscanner.msquared.hr.travelscanner.InputFieldsCheck;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.activities.RegistrationActivity;
 import tscanner.msquared.hr.travelscanner.activities.ScanActivity;
@@ -29,6 +30,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
     private EditText mEmailView;
     private Button btsSave;
 
+    private InputFieldsCheck ifc=new InputFieldsCheck();
 
     public static final String TITLE = "Setting";
 
@@ -84,7 +86,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             mPasswordRepView.setError(getString(R.string.error_field_required));
             focusView = mPasswordRepView;
             cancel = true;
-        } else if (!isPasswordValid(passwordR)) {
+        } else if (!ifc.isPasswordValid(passwordR)) {
             mPasswordRepView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordRepView;
             cancel = true;
@@ -99,7 +101,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        } else if (!isPasswordValid(password)) {
+        } else if (!ifc.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -110,7 +112,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!ifc.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
@@ -121,7 +123,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else if (!isUsernameValid(username)) {
+        } else if (!ifc.isUsernameValid(username)) {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
@@ -138,17 +140,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         }
     }
 
-        private boolean isEmailValid(String email) {
-            return email.contains("@");
-        }
 
-        private boolean isPasswordValid(String password) {
-            //TODO check if already exist
-            return password.length() > RegistrationActivity.MIN_PASSWORD_LENGTH;
-        }
-        private boolean isUsernameValid(String username) {
-            return username.length() > RegistrationActivity.MIN_USERNAME_LENGTH;
-        }
 
 
  }

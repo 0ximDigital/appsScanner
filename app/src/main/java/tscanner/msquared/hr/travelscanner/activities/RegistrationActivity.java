@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import java.util.List;
 
+import tscanner.msquared.hr.travelscanner.InputFieldsCheck;
 import tscanner.msquared.hr.travelscanner.R;
 
 
@@ -31,6 +32,7 @@ public class RegistrationActivity extends Activity {
     private View mProgressView;
     public static int MIN_PASSWORD_LENGTH=5;
     public static int MIN_USERNAME_LENGTH=5;
+    private InputFieldsCheck ifc=new InputFieldsCheck();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,7 @@ public class RegistrationActivity extends Activity {
             mPasswordRepView.setError(getString(R.string.error_field_required));
             focusView = mPasswordRepView;
             cancel = true;
-        }else if (!isPasswordValid(passwordR)) {
+        }else if (!ifc.isPasswordValid(passwordR)) {
             mPasswordRepView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordRepView;
             cancel = true;
@@ -119,7 +121,7 @@ public class RegistrationActivity extends Activity {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        }else if(!isPasswordValid(password)){
+        }else if(!ifc.isPasswordValid(password)){
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -130,9 +132,16 @@ public class RegistrationActivity extends Activity {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!ifc.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
+            cancel = true;
+        }
+
+        if(!ifc.isUsernameValid(username)){
+            String error="";
+            mUsernameView.setError(error);
+            focusView = mUsernameView;
             cancel = true;
         }
 
@@ -141,7 +150,7 @@ public class RegistrationActivity extends Activity {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else if (!isUsernameValid(username)) {
+        } else if (!ifc.isUsernameValid(username)) {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
@@ -162,20 +171,7 @@ public class RegistrationActivity extends Activity {
     }
 
 
-
-    private boolean isEmailValid(String email) {
-
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO check if already exist
-        return password.length() > MIN_PASSWORD_LENGTH;
-    }
-    private boolean isUsernameValid(String username) {
-        return username.length() > MIN_USERNAME_LENGTH;
-    }
-
+    //not implemented yet
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
