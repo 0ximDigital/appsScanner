@@ -153,7 +153,7 @@ public class LoginActivity extends Activity {
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();
+       // finish();
     }
 
     private void fetchUserWithPassword(String password){

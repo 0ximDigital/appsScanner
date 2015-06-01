@@ -21,6 +21,11 @@
     <string name="title_activity_temp_start">TempStartActivity</string>
 
 
+    <!-- registration and settings-->
+    <string name="Email">Email </string>
+    <string name="Password">Password</string>
+    <string name="Username">Username</string>
+
 
 
 

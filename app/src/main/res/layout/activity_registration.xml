@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         style="@style/TravelerSubtitleText"
                         android:layout_marginTop="20dp"
-                        android:text="Username"
+                        android:text="@string/Username"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TravelerSubtitleText"
-                        android:text="Email"
+                        android:text="@string/Email"
                         android:layout_marginTop="12dp"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TravelerSubtitleText"
-                        android:text="Password"
+                        android:text="@string/Password"
                         android:layout_marginTop="12dp"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 

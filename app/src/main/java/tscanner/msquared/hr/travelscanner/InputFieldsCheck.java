@@ -16,8 +16,8 @@ public class InputFieldsCheck {
     String TAG=getClass().getName();
     private ServerManager serverManager;
 
-    private int MIN_PASSWORD_LENGTH=5;
-    private int MIN_USERNAME_LENGTH=5;
+    private int MIN_PASSWORD_LENGTH=4;
+    private int MIN_USERNAME_LENGTH=4;
 
     private String errorMessage="";
 
@@ -82,7 +82,7 @@ public class InputFieldsCheck {
 
     public void validateUsername(final String username, final FieldCheckCallback callback) {
         if(!( username.length() >= MIN_USERNAME_LENGTH)){
-           setErrorMessage("Username too short.(Min. 5 characters)");
+           setErrorMessage("Username too short.(Min. "+ MIN_USERNAME_LENGTH+" characters)");
             callback.checkedField(false);
         }else if (TextUtils.isEmpty(username)) {
             setErrorMessage(Resources.getSystem().getString(R.string.error_field_required));
@@ -130,7 +130,7 @@ public class InputFieldsCheck {
             setErrorMessage("Password field required");
         }else if(!(password.length() >= MIN_PASSWORD_LENGTH)){
             valid_password=false;
-            setErrorMessage("Password too short.(Min. 5 characters)");
+            setErrorMessage("Password too short.(Min. +"+ MIN_PASSWORD_LENGTH+" characters)");
         }
         return  valid_password;
     }
