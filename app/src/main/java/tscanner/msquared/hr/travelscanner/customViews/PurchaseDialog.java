@@ -90,7 +90,7 @@ public class PurchaseDialog extends FrameLayout {
     }
 
     private void updateDatabase(){
-        String purchaseSignatureCheck = this.generatePurchaseSignature()
+        String purchaseSignatureCheck = this.generatePurchaseSignature();
     }
 
 

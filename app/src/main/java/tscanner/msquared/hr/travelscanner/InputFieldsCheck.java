@@ -31,38 +31,85 @@ public class InputFieldsCheck {
     }
 
 
-    public boolean isEmailValid(String email) {
-        boolean valid_email=true;
+    public boolean isEmailValid(final String email) {
+        final boolean[] valid_email = {true};
 
         if(!email.contains("@")){
-            valid_email=false;
+            valid_email[0] =false;
             setErrorMessage("Invalid e-mail");
         }else  if (TextUtils.isEmpty(email)) {
-            valid_email=false;
+            valid_email[0] =false;
             setErrorMessage("E-mail field required");
         }else{
-          //ako postoj
+            if(serverManager == null){
+                serverManager = new ServerManager();
+            }
+
+            serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
+                @Override
+                public void requestResult(List<AppUser> appUsers) {
+                    if (appUsers != null) {
+
+
+                        for (AppUser user : appUsers) {
+                           /* Log.d("IFC","dohvatio usera "+user.getEmail());
+                            Log.d("IFC","upisao "+email);*/
+                            if((user.getEmail()).equals(email)) {
+                                valid_email[0] = false;
+                                setErrorMessage("E-mail already exists");
+
+                            }
+                        }
+                    }
+                }
+            });
+
         }
 
-    return    valid_email;
+
+        return valid_email[0];
     }
 
 
 
-    public boolean isUsernameValid(String username) {
-        boolean valid_username=true;
+
+
+
+    public boolean isUsernameValid(final String username) {
+        final boolean[] valid_username = {true};
         if(!( username.length() > MIN_USERNAME_LENGTH)){
            setErrorMessage("Prekratak tekst.Min 6 znakova.");
-            valid_username=false;
+            valid_username[0] =false;
         }else if (TextUtils.isEmpty(username)) {
             setErrorMessage(Resources.getSystem().getString(R.string.error_field_required));
-            valid_username=false;
+            valid_username[0] =false;
         }else{
 
-           //ako postoji error
+            if(serverManager == null){
+                serverManager = new ServerManager();
+            }
+
+            serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
+                @Override
+                public void requestResult(List<AppUser> appUsers) {
+                    if (appUsers != null) {
+
+
+                        for (AppUser user : appUsers) {
+                           /* Log.d("IFC","dohvatio usera "+user.getEmail());
+                            Log.d("IFC","upisao "+email);*/
+                            if((user.getUsername()).equals(username)) {
+                                valid_username[0] = false;
+                                setErrorMessage("E-mail already exists");
+
+                            }
+                        }
+                    }
+                }
+            });
 
         }
-        return   valid_username;
+        return valid_username[0];
     }
 
 
