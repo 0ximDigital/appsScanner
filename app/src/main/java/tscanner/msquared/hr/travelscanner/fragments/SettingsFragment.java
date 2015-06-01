@@ -78,44 +78,59 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         String passwordR = mPasswordRepView.getText().toString();
         String username = mUsernameView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+        final boolean[] cancel = {false};
+        final View[] focusView = {null};
 
         if(!ifc.isPasswordValid(passwordR)){
             mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordRepView;
-            cancel = true;
+            focusView[0] = mPasswordRepView;
+            cancel[0] = true;
         }else if(!ifc.isPasswordsEqual(password,passwordR)){
             mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordRepView;
-            cancel = true;
+            focusView[0] = mPasswordRepView;
+            cancel[0] = true;
         }
 
 
         if(!ifc.isPasswordValid(password)) {
             mPasswordView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mPasswordView;
-            cancel = true;
+            focusView[0] = mPasswordView;
+            cancel[0] = true;
         }
 
 
-        if(!ifc.isEmailValid(email)){
-            mEmailView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mEmailView;
-            cancel = true;
-        }
+        ifc.validadeEmail(email, new InputFieldsCheck.FieldCheckCallback() {
+            @Override
+            public void checkedField(boolean isItValid) {
+                if(isItValid){
+                    //sve je oke
+                }
+                else{
+                    mEmailView.setError((CharSequence) ifc.getErrorMessage());
+                    focusView[0] = mEmailView;
+                    cancel[0] = true;
+                }
+            }
+        });
+
+        ifc.validateUsername(username, new InputFieldsCheck.FieldCheckCallback() {
+            @Override
+            public void checkedField(boolean isItValid) {
+                if(isItValid){
+                    //sve je oke
+                }
+                else{
+                    mUsernameView.setError((CharSequence) ifc.getErrorMessage());
+                    focusView[0] = mUsernameView;
+                    cancel[0] = true;
+                }
+            }
+        });
 
 
-        if(!ifc.isUsernameValid(username)){
-            mUsernameView.setError((CharSequence) ifc.getErrorMessage());
-            focusView = mUsernameView;
-            cancel = true;
-        }
-
-
-        if (cancel) {
+        if (cancel[0]) {
             Log.d(TAG, "invalid change settings");
-            focusView.requestFocus();
+            focusView[0].requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.

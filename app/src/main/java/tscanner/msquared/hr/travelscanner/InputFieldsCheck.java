@@ -31,43 +31,53 @@ public class InputFieldsCheck {
     }
 
 
-    public boolean isEmailValid(final String email) {
-        final boolean[] valid_email = {true};
+    public interface FieldCheckCallback{
+        void checkedField(boolean isItValid);
+    }
 
-        if(!email.contains("@")){
-            valid_email[0] =false;
+    public void validadeEmail(final String email, final FieldCheckCallback callback) {
+         if(!email.contains("@")){
             setErrorMessage("Invalid e-mail");
-        }else  if (TextUtils.isEmpty(email)) {
-            valid_email[0] =false;
-            setErrorMessage("E-mail field required");
-        }else{
-            if(serverManager == null){
-                serverManager = new ServerManager();
-            }
+            callback.checkedField(false);
+        }else {
+            if (TextUtils.isEmpty(email)) {
+                setErrorMessage("E-mail field required");
+                callback.checkedField(false);
+            } else {
+                if (serverManager == null) {
+                    serverManager = new ServerManager();
+                }
 
-            serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
-                @Override
-                public void requestResult(List<AppUser> appUsers) {
-                    if (appUsers != null) {
-
-
-                        for (AppUser user : appUsers) {
+                serverManager.getAllAppUsers(new ServerManager.Callback<List<AppUser>>() {
+                    @Override
+                    public void requestResult(List<AppUser> appUsers) {
+                        if (appUsers != null) {
+                            for (AppUser user : appUsers) {
                            /* Log.d("IFC","dohvatio usera "+user.getEmail());
                             Log.d("IFC","upisao "+email);*/
-                            if((user.getEmail()).equals(email)) {
-                                valid_email[0] = false;
-                                setErrorMessage("E-mail already exists");
+                                if ((user.getEmail()).equals(email)) {
+                                    if (callback != null) {
+                                        setErrorMessage("E-mail already exists");
+                                        callback.checkedField(false);
+                                        return;
+                                    }
+                                }
+                            }
+                            if (callback != null) {
+                                callback.checkedField(true);
+                            }
 
+                        } else {
+                            if (callback != null) {
+                                callback.checkedField(true);
                             }
                         }
                     }
-                }
-            });
+                });
 
+            }
         }
 
-
-        return valid_email[0];
     }
 
 
@@ -75,16 +85,14 @@ public class InputFieldsCheck {
 
 
 
-    public boolean isUsernameValid(final String username) {
-        final boolean[] valid_username = {true};
-        if(!( username.length() > MIN_USERNAME_LENGTH)){
-           setErrorMessage("Prekratak tekst.Min 6 znakova.");
-            valid_username[0] =false;
+    public void validateUsername(final String username, final FieldCheckCallback callback) {
+        if(!( username.length() >= MIN_USERNAME_LENGTH)){
+           setErrorMessage("Username too short.(Min. 5 characters)");
+            callback.checkedField(false);
         }else if (TextUtils.isEmpty(username)) {
             setErrorMessage(Resources.getSystem().getString(R.string.error_field_required));
-            valid_username[0] =false;
+            callback.checkedField(false);
         }else{
-
             if(serverManager == null){
                 serverManager = new ServerManager();
             }
@@ -93,24 +101,30 @@ public class InputFieldsCheck {
                 @Override
                 public void requestResult(List<AppUser> appUsers) {
                     if (appUsers != null) {
-
-
                         for (AppUser user : appUsers) {
-                           /* Log.d("IFC","dohvatio usera "+user.getEmail());
-                            Log.d("IFC","upisao "+email);*/
-                            if((user.getUsername()).equals(username)) {
-                                valid_username[0] = false;
-                                setErrorMessage("E-mail already exists");
-
+                            if((user.getUsername()).equals(username)){
+                                if(callback != null){
+                                    setErrorMessage("Username already exists");
+                                    callback.checkedField(false);
+                                    return;
+                                }
                             }
+                        }
+                        if(callback != null){
+                            callback.checkedField(true);
+                        }
+                    }
+                    else{
+                        if(callback != null){
+                            callback.checkedField(true);
                         }
                     }
                 }
             });
-
         }
-        return valid_username[0];
     }
+
+
 
 
     public boolean isPasswordValid(String password) {
@@ -119,9 +133,9 @@ public class InputFieldsCheck {
         if (TextUtils.isEmpty(password)) {
             valid_password=false;
             setErrorMessage("Password field required");
-        }else if(!(password.length() > MIN_PASSWORD_LENGTH)){
+        }else if(!(password.length() >= MIN_PASSWORD_LENGTH)){
             valid_password=false;
-            setErrorMessage("Password too short");
+            setErrorMessage("Password too short.(Min. 5 characters)");
         }
         return  valid_password;
     }
