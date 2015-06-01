@@ -1,21 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="262dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="USER POINTS"
-        android:id="@+id/textView6"
-        android:layout_weight="0.15"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="106dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
+                <TextView
+                    android:id="@+id/txtPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerTitleTextStyle"
+                    android:text="Travel points : " />
 
-</RelativeLayout>
+                <FrameLayout
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/framePoints"
+                        android:layout_weight="0"
+                        android:layout_marginLeft="36dp"
+                        android:layout_marginTop="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_circle_background"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:id="@+id/imgTravelByIcon"
+                                android:layout_gravity="center"
+                                android:background="@drawable/ic_traveler_logo_white_icon"
+                                android:layout_margin="8dp"
+                                android:adjustViewBounds="false" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="right|bottom"
+                            android:background="@drawable/shape_circle_background">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="@color/traveler_white"
+                                android:textStyle="bold"
+                                android:text="##"
+                                android:id="@+id/txtTravelerPoints"
+                                android:layout_gravity="center" />
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                <TextView
+                    android:id="@+id/txtNumTravela"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerTitleTextStyle"
+                    android:text="Number of travels : "
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/txtTravelsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerSubtitleText"
+                    android:text="Undefined"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/txtNumTravelera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerTitleTextStyle"
+                    android:text="Number of travelers : "
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/txtTravelersNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TravelerSubtitleText"
+                    android:text="Undefined"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="36dp" />
+
+                <TextView
+                    style="@style/TravelerTitleTextStyle"
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Travels :"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="16dp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myDestinationsFrame"
+                    android:layout_marginTop="8dp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recycler"
+                        android:layout_gravity="center_horizontal"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+
+</LinearLayout>
