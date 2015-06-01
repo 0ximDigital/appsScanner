@@ -14,11 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.gson.Gson;
+
+import net.steamcrafted.loadtoast.LoadToast;
 
 import java.util.List;
 
 import tscanner.msquared.hr.travelscanner.InputFieldsCheck;
 import tscanner.msquared.hr.travelscanner.R;
+import tscanner.msquared.hr.travelscanner.helpers.PrefsHelper;
+import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
+import tscanner.msquared.hr.travelscanner.models.restModels.AppUser;
+import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
 
 
 public class RegistrationActivity extends Activity {
@@ -35,14 +42,33 @@ public class RegistrationActivity extends Activity {
 
     private FloatingActionButton registerButton;
 
+    private PrefsHelper prefsHelper;
+    private Gson gson;
+
+    private ServerManager serverManager;
+    private LoadToast loadToast;
+
     private InputFieldsCheck ifc=new InputFieldsCheck();
+
+    boolean[] cancel = {false};
+    View[] focusView = {null};
+
+    String email;
+    String password;
+    String passwordR;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        // Set up the login form.
+        prefsHelper = new PrefsHelper(this);
+        gson = new Gson();
+
+        this.loadToast = new LoadToast(this);
+        this.loadToast.setTranslationY(300);
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.emailS);
         mPasswordView = (EditText) findViewById(R.id.passwordS);
         mPasswordRepView =(EditText) findViewById(R.id.passwordRepeatS);
@@ -95,29 +121,15 @@ public class RegistrationActivity extends Activity {
         mPasswordRepView.setError(null);
         mUsernameView.setError(null);
 
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String passwordR= mPasswordRepView.getText().toString();
-        String username = mUsernameView.getText().toString();
+        loadToast.setText("Registering..").show();
 
-        final boolean[] cancel = {false};
-        final View[] focusView = {null};
+        cancel = new boolean[]{false};
+        focusView = new View[]{null};
 
-        /*//Check for a valid repedated password,if the user entered one
-        if (TextUtils.isEmpty(passwordR)) {
-            mPasswordRepView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordRepView;
-            cancel = true;
-        }else if (!ifc.isPasswordValid(passwordR)) {
-            mPasswordRepView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordRepView;
-            cancel = true;
-        }else if(!(passwordR.equals(password))){
-            mPasswordRepView.setError(getString(R.string.error_password_match));
-            focusView = mPasswordRepView;
-            cancel = true;
-        }*/
+        email = mEmailView.getText().toString();
+        password = mPasswordView.getText().toString();
+        passwordR= mPasswordRepView.getText().toString();
+        username = mUsernameView.getText().toString();
 
         if(!ifc.isPasswordValid(passwordR)){
             mPasswordRepView.setError((CharSequence) ifc.getErrorMessage());
@@ -129,85 +141,58 @@ public class RegistrationActivity extends Activity {
             cancel[0] = true;
         }
 
-
-      /*  // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        }else if(!ifc.isPasswordValid(password)){
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }*/
-
         if(!ifc.isPasswordValid(password)) {
             mPasswordView.setError((CharSequence) ifc.getErrorMessage());
             focusView[0] = mPasswordView;
             cancel[0] = true;
         }
 
-        // Check for a valid email address.
-       /* if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!ifc.isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }*/
-
         ifc.validadeEmail(email, new InputFieldsCheck.FieldCheckCallback() {
             @Override
             public void checkedField(boolean isItValid) {
-                if(isItValid){
-                    //sve je oke
-                    Log.d("Sve je oke kod maila","Ne postoji");
-
-
-                }
-                else{
-                    Log.d("ERROR","Vec postoji mail");
+                if (isItValid) {
+                    Log.d("Sve je oke kod maila", "Ne postoji");
+                } else {
+                    Log.d("ERROR", "Vec postoji mail");
                     mEmailView.setError(ifc.getErrorMessage());
                     focusView[0] = mEmailView;
                     cancel[0] = true;
                 }
+                continueToUsernameValidation();
             }
-
-
         });
+    }
 
+    private void continueToUsernameValidation(){
         ifc.validateUsername(username, new InputFieldsCheck.FieldCheckCallback() {
             @Override
             public void checkedField(boolean isItValid) {
-                if(isItValid){
-                   //sve je oke
-                    Log.d("Sve je oke kod usera","Ne postoji");
-
-                }
-                else{
-                    mUsernameView.setError( ifc.getErrorMessage());
+                if (isItValid) {
+                    Log.d("Sve je oke kod usera", "Ne postoji");
+                } else {
+                    mUsernameView.setError(ifc.getErrorMessage());
                     focusView[0] = mUsernameView;
                     cancel[0] = true;
                 }
+                continueToFinalValidation();
             }
         });
+    }
 
-
-
-
+    private void continueToFinalValidation(){
         if (cancel[0]) {
             Log.d(TAG, "invalid change registration");
             focusView[0].requestFocus();
+            loadToast.error();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //TODO send data to UserRegistrationTaskClass
-            Intent intent;
-            intent = new Intent(RegistrationActivity.this, MainActivity.class);
-            startActivity(intent);
+            loadToast.success();
+            AppUser loggingInUser = new AppUser(email, null, false, password, 0, username);
 
+            this.prefsHelper.putString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, (loggingInUser != null) ? gson.toJson(loggingInUser) : null);
+            this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TAKING_PHOTO_HINT, true);
+            this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TRAVELPOINTS_HINT, true);
+
+            this.addNewAppUser(loggingInUser);
         }
     }
 
@@ -220,6 +205,26 @@ public class RegistrationActivity extends Activity {
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    private void addNewAppUser(AppUser appUser){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        serverManager.addNewAppUser(appUser, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                }
+                Intent intent;
+                intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 
