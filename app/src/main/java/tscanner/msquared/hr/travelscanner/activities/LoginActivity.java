@@ -40,8 +40,6 @@ public class LoginActivity extends Activity {
     private TextView loginAnonymous;
     private boolean GLOBAL_FAST_ENTRY=true;
 
-    private ImageView destinationImagePreviewView;
-
     private Button testButton;
     private Button settings;
 
@@ -88,16 +86,6 @@ public class LoginActivity extends Activity {
 
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
-
-        this.destinationImagePreviewView = (ImageView) findViewById(R.id.imgDestinationPreview);
-        this.destinationImagePreviewView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
-                intent.putExtra("imgURL", imagePath);
-                ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
-            }
-        });
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,7 +286,6 @@ public class LoginActivity extends Activity {
                 if (travelDestination != null) {
                     loadToast.success();
                     Log.i(TAG, travelDestination.toString());
-                    Picasso.with(LoginActivity.this).load(travelDestination.getPicture()).into(destinationImagePreviewView);
                     imagePath = travelDestination.getPicture();
                 } else {
                     loadToast.error();

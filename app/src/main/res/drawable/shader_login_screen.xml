@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+
+    <solid android:color="@color/traveler_primary_trans"/>
+
+    <gradient android:startColor="@color/traveler_primary_trans"
+        android:endColor="@color/traveler_accent_trans"
+
+        android:type="linear"
+        android:angle="225"/>
+
+</shape>

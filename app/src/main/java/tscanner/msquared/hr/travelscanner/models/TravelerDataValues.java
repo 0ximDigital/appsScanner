@@ -1,5 +1,7 @@
 package tscanner.msquared.hr.travelscanner.models;
 
+import java.security.spec.ECField;
+
 /**
  * Created by Mihael on 31.5.2015..
  */
@@ -43,6 +45,20 @@ public class TravelerDataValues {
         return surname;
     }
 
+    public int getAge(){
+        if(this.dateOfBirth != null){
+            try{
+                String[] data = this.dateOfBirth.split("\\.");
+                int birthYear = Integer.parseInt(data[2]);
+                return 2015 - birthYear;
+            }
+            catch (Exception e){
+                return 20;
+            }
+        }
+        return 20;
+    }
+
     public static String parseInputDate(String inDate){
         if(inDate == null || inDate.length() != 6){
             return "Undefined";
@@ -50,7 +66,6 @@ public class TravelerDataValues {
         String year = inDate.substring(0, 2);
         String month = inDate.substring(2, 4);
         String day = inDate.substring(4,6);
-
         try{
             int intYear = Integer.parseInt(year);
             String yearPrefix = (intYear < 15) ? "20" : "19";

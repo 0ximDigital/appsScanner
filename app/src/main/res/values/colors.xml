@@ -13,6 +13,11 @@
     <color name="traveler_app_background_50">#7fededed</color>
     <color name="traveler_app_background_25">#40ededed</color>
 
+    <color name="traveler_primary_trans">#CC009688</color>
+    <color name="traveler_primary_dark_trans">#CC00796B</color>
+    <color name="traveler_primary_light_trans">#CCB2DFDB</color>
+    <color name="traveler_accent_trans">#CC00BCD4</color>
+
     <color name="traveler_primary">#009688</color>
     <color name="traveler_primary_dark">#00796B</color>
     <color name="traveler_primary_light">#B2DFDB</color>
