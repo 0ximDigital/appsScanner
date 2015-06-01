@@ -101,6 +101,7 @@ public class InfoFragment extends android.support.v4.app.Fragment {
     }
 
     private void crunchUserData(){
+        this.loadToast.setText("Crunching..").show();
         fetchPurchasesMadeByUserWithId(this.appUser.getId());
     }
 
@@ -129,8 +130,11 @@ public class InfoFragment extends android.support.v4.app.Fragment {
         else{
             this.userNumberOfTravels.setText("" + this.usersPurchases.length);
             this.userNumberOfTravelers.setText("" + this.usersTravelers.size());
-            recyclerView.setAdapter(new TravelDestinationsAdapter(getActivity(), this.usersDestinations.toArray(new TravelDestination[usersDestinations.size()])));
+            TravelDestination[] travels = this.usersDestinations.toArray(new TravelDestination[usersDestinations.size()]);
+            Log.i("SIZE", "" + travels.length);
+            recyclerView.setAdapter(new TravelDestinationsAdapter(getActivity(), travels));
             recyclerView.getAdapter().notifyDataSetChanged();
+            loadToast.success();
         }
     }
 
@@ -143,8 +147,9 @@ public class InfoFragment extends android.support.v4.app.Fragment {
             public void requestResult(TravelDestination travelDestination) {
                 if (travelDestination != null) {
                     usersDestinations.add(travelDestination);
-
+                    Log.w("ADD", "Adding");
                 } else {
+                    Log.w("ADD", "notAdding");
                 }
                 fetchTravelersWitchPurchaseId(usersPurchases[depth].getId(), depth);
             }

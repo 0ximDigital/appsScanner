@@ -114,19 +114,14 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="16dp" />
 
-                <FrameLayout
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myDestinationsFrame"
-                    android:layout_marginTop="8dp">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/recycler"
-                        android:layout_gravity="center_horizontal"/>
-
-                </FrameLayout>
+                    android:id="@+id/recycler"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TravelerSubtitleText"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="2.29" />
 
             </LinearLayout>
 
