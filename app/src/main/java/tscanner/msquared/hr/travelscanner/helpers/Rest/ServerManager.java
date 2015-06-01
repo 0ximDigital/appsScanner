@@ -80,7 +80,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         appUsersCallback.requestResult(null);
                     }
@@ -106,7 +106,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         appUserCallback.requestResult(null);
                     }
@@ -133,7 +133,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //   Log.i(TAG, response);
                     if(response == null){
                         appUsersCallback.requestResult(null);
                     }
@@ -159,7 +159,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //   Log.i(TAG, response);
                     if(response == null){
                         appUsersCallback.requestResult(null);
                     }
@@ -186,7 +186,7 @@ public class ServerManager {
             this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
@@ -212,7 +212,7 @@ public class ServerManager {
             this.deleteRestService.setDeleteRestServiceListener(new DeleteRestService.DeleteRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
@@ -238,7 +238,7 @@ public class ServerManager {
             this.putRestService.setPutRestServiceListener(new PutRestService.PutRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
@@ -269,7 +269,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         travelDestinationsCallback.requestResult(null);
                     }
@@ -295,7 +295,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         travelDestinationCallback.requestResult(null);
                     }
@@ -324,7 +324,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //   Log.i(TAG, response);
                     if(response == null){
                         purchasesCallback.requestResult(null);
                     }
@@ -350,7 +350,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         purchaseCallback.requestResult(null);
                     }
@@ -377,7 +377,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //   Log.i(TAG, response);
                     if(response == null){
                         purchaseCallback.requestResult(null);
                     }
@@ -411,7 +411,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         purchasesCallback.requestResult(null);
                     }
@@ -437,7 +437,7 @@ public class ServerManager {
             this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    // Log.i(TAG, response);
                     if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }
@@ -465,7 +465,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         travelersCallback.requestResult(null);
                     }
@@ -491,7 +491,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         travelerCallback.requestResult(null);
                     }
@@ -523,7 +523,7 @@ public class ServerManager {
             this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    //  Log.i(TAG, response);
                     if(response == null){
                         travelersCallback.requestResult(null);
                     }
@@ -549,7 +549,7 @@ public class ServerManager {
             this.postRestService.setPostRestServicelistener(new PostRestService.PostRestServicelistener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.i(TAG, response);
+                    // Log.i(TAG, response);
                     if (response == null) {
                         messageCallback.requestResult(new ResponseMessage("Response is null"));
                     }

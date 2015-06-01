@@ -130,7 +130,7 @@ public class InputFieldsCheck {
             setErrorMessage("Password field required");
         }else if(!(password.length() >= MIN_PASSWORD_LENGTH)){
             valid_password=false;
-            setErrorMessage("Password too short.(Min. +" MIN_PASSWORD_LENGTH+" characters)");
+            setErrorMessage("Password too short.(Min. +"+ MIN_PASSWORD_LENGTH+" characters)");
         }
         return  valid_password;
     }
