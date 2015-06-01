@@ -107,10 +107,9 @@ public class LoginActivity extends Activity {
     private void tryRememberMeLogin(){
         if(prefsHelper.getBoolean(PrefsHelper.REMEMBER_USER_LOGIN_SKIP, false)){
             if(prefsHelper.getString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, null) != null){
-                Intent intent;
-                intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                AppUser user = gson.fromJson(prefsHelper.getString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, null), AppUser.class);
+                this.username.setText(user.getEmail());
+                this.rememberMeCheckbox.setChecked(true);
             }
         }
     }
