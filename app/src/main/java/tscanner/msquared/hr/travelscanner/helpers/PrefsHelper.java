@@ -23,7 +23,7 @@ public class PrefsHelper {
 
     public static final String FIRST_TIME_TAKING_PHOTO_HINT = "first_time_taking_photo_hint";
     public static final String FIRST_TIME_TRAVELPOINTS_HINT = "first_time_travel_points_hint";
-
+    public static final String REMEMBER_USER_LOGIN_SKIP = "remember_user_login_skip";
 
     private Context context;
 

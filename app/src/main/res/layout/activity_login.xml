@@ -61,6 +61,8 @@
                         android:layout_height="wrap_content"
                         style="@style/TravelerEditTextStyle"
                         android:inputType="text|textCapCharacters"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:hint="email" />
 
                     <TextView
@@ -77,6 +79,8 @@
                         android:inputType="text|textCapCharacters"
                         style="@style/TravelerEditTextStyle"
                         android:hint="password"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:password="true"/>
 
                     <CheckBox
