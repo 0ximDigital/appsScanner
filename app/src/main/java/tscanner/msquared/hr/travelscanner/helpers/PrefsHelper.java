@@ -21,6 +21,10 @@ public class PrefsHelper {
 
     public static final String LOGGED_IN_USER_APPUSER_DATA = "loged_in_user_appuser_data";
 
+    public static final String FIRST_TIME_TAKING_PHOTO_HINT = "first_time_taking_photo_hint";
+    public static final String FIRST_TIME_TRAVELPOINTS_HINT = "first_time_travel_points_hint";
+
+
     private Context context;
 
     private SharedPreferences sharedPreferences;

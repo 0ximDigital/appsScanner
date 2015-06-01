@@ -367,6 +367,33 @@ public class ServerManager {
         }
     }
 
+    public void getPurchaseWithSignature(String signature, final Callback<Purchase> purchaseCallback){
+        String response = null;
+        if(this.getRestService == null){
+            this.getRestService = new GetRestService(null);
+        }
+        this.getRestService.setUrl(this.getURLRequestWithStringParameter(ApiConstants.dohvatPurchaseaSaSignatureom, signature));
+        try{
+            this.getRestService.setGetRestServiceListener(new GetRestService.GetRestServiceListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, response);
+                    if(response == null){
+                        purchaseCallback.requestResult(null);
+                    }
+                    response = response.replaceAll("\\[|\\]", "");
+                    Purchase purchase = gson.fromJson(response, Purchase.class);
+                    purchaseCallback.requestResult(purchase);
+                }
+            });
+            this.getRestService.executeRequest();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            purchaseCallback.requestResult(null);
+        }
+    }
+
     /**
      * Returns all purchases by user..
      * If user is regular.. all his purchases

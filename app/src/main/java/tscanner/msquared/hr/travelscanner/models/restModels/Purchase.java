@@ -19,12 +19,16 @@ public class Purchase {
     private Integer destinationId;
     @Expose
     private Integer id;
+    @SerializedName("purchase_signature")
+    @Expose
+    private String purchaseSignature;
 
-    public Purchase(Integer destinationId, Integer id, String purchaseDate, Integer userId) {
+    public Purchase(Integer destinationId, Integer id, String purchaseDate, Integer userId, String signature) {
         this.destinationId = destinationId;
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.userId = userId;
+        this.purchaseSignature = signature;
     }
 
     public Integer getDestinationId() {
@@ -59,8 +63,16 @@ public class Purchase {
         this.userId = userId;
     }
 
+    public String getPurchaseSignature() {
+        return purchaseSignature;
+    }
+
+    public void setPurchaseSignature(String purchaseSignature) {
+        this.purchaseSignature = purchaseSignature;
+    }
+
     @Override
     public String toString() {
-        return "id: " + id + ", userId - " + userId + ", destiantionId - " + destinationId + ", - " + purchaseDate;
+        return "id: " + id + ", userId - " + userId + ", destiantionId - " + destinationId + ", - " + purchaseDate + ", " + purchaseSignature;
     }
 }
