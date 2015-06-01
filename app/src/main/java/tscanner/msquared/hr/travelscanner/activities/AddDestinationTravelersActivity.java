@@ -42,10 +42,6 @@ import tscanner.msquared.hr.travelscanner.models.restModels.ResponseMessage;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 import tscanner.msquared.hr.travelscanner.models.restModels.Traveler;
 
-/**
- * Created by Matej on 5/29/2015.
- * Done by Mihael xD
- */
 public class AddDestinationTravelersActivity extends Activity {
 
     private final String TAG = this.getClass().getSimpleName();

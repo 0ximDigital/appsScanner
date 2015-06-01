@@ -25,6 +25,7 @@ import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
  */
 public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestinationsAdapter.DestinationViewHolder> {
 
+    String euro="€";
     private TravelDestination[] destinations;
     private Activity activity;
 
@@ -45,7 +46,7 @@ public class TravelDestinationsAdapter extends RecyclerView.Adapter<TravelDestin
     public void onBindViewHolder(final DestinationViewHolder holder, final int position) {
         Picasso.with(activity).load(destinations[position].getPicture()).into(holder.destinationPicture);
         holder.destinationTitle.setText(destinations[position].getName());
-        holder.destinationPrice.setText("E"+destinations[position].getPrice());
+        holder.destinationPrice.setText(euro+destinations[position].getPrice());
         holder.travelPointsView.setTravelPointsText(destinations[position].getTravelPoints());
         holder.travelPointsView.setTravelByIcon(destinations[position].getTravelBy());
 
