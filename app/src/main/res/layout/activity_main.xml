@@ -60,6 +60,17 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TravelerTitleTextStyle"
+            android:text="Pocket Traveler"
+            android:id="@+id/textView2"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="8dp"
+            android:textSize="28sp" />
+
     </FrameLayout>
 
     <RelativeLayout
