@@ -221,6 +221,7 @@ public class RegistrationActivity extends Activity {
                 }
                 Intent intent;
                 intent = new Intent(RegistrationActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }

@@ -82,11 +82,12 @@ public class LoginActivity extends Activity {
         this.password = (EditText) findViewById(R.id.editPassword);
         this.loginAnonymous = (FloatingActionButton) findViewById(R.id.btnSkip);
         this.settings=(Button) findViewById(R.id.btnSetting);
-
-        /// TODO - stavit "zapamti me" -> provjera dal vec postoji, ako ne onda login
+        this.rememberMeCheckbox = (CheckBox) findViewById(R.id.cbRememberMe);
 
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
+
+        this.tryRememberMeLogin();
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +104,17 @@ public class LoginActivity extends Activity {
         });
     }
 
+    private void tryRememberMeLogin(){
+        if(prefsHelper.getBoolean(PrefsHelper.REMEMBER_USER_LOGIN_SKIP, false)){
+            if(prefsHelper.getString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, null) != null){
+                Intent intent;
+                intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }
+
     public void loginTry(){
         if(serverManager == null){
             serverManager = new ServerManager();
@@ -113,8 +125,8 @@ public class LoginActivity extends Activity {
             public void requestResult(List<AppUser> appUsers) {
                 if (appUsers != null) {
                     String emailToEvaluate = username.getText().toString();
-                    for(AppUser user : appUsers){
-                        if(emailToEvaluate.equals(user.getEmail())){
+                    for (AppUser user : appUsers) {
+                        if (emailToEvaluate.equals(user.getEmail())) {
                             loadToast.success();
                             AcceptedLogin(user);
                             return;
@@ -141,10 +153,16 @@ public class LoginActivity extends Activity {
         startActivity(intent);
     }
 
-    public void AcceptedLogin(AppUser loggingInUser){
+    private void AcceptedLogin(AppUser loggingInUser){
         this.prefsHelper.putString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, (loggingInUser != null) ? gson.toJson(loggingInUser) : null);
         this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TAKING_PHOTO_HINT, true);
         this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TRAVELPOINTS_HINT, true);
+        if(this.rememberMeCheckbox.isChecked()){
+            this.prefsHelper.putBoolean(PrefsHelper.REMEMBER_USER_LOGIN_SKIP, true);
+        }
+        else{
+            this.prefsHelper.putBoolean(PrefsHelper.REMEMBER_USER_LOGIN_SKIP, false);
+        }
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
