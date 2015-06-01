@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
         private void init(){
-            Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+          //  Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
 
             ViewPager pager=(ViewPager)findViewById(R.id.vPager);
             SettingsAdapter pagerAdapter=new SettingsAdapter(getSupportFragmentManager());
