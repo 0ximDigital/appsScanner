@@ -30,24 +30,26 @@ import tscanner.msquared.hr.travelscanner.adapters.SettingsAdapter;
 import java.util.List;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends android.support.v4.app.FragmentActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_settings);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         init();
     }
 
-        private void init(){
+    private void init(){
           //  Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
 
             ViewPager pager=(ViewPager)findViewById(R.id.vPager);
-            SettingsAdapter pagerAdapter=new SettingsAdapter(getSupportFragmentManager());
+            SettingsAdapter pagerAdapter = new SettingsAdapter(getSupportFragmentManager());
             pager.setAdapter(pagerAdapter);
 
         }

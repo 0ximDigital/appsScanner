@@ -86,6 +86,8 @@ public class AddDestinationTravelersActivity extends Activity {
     private TimerTask timerTask;
     private final Handler handler = new Handler();
 
+    private Purchase purchase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,13 +175,33 @@ public class AddDestinationTravelersActivity extends Activity {
         if(appUser != null) {
             Log.i(TAG, "Updating database - app user is not null");
             String purchaseSignatureCheck = this.generatePurchaseSignature();
-            Purchase purchase = new Purchase(travelDestination.getId(), null, null, appUser.getId(), purchaseSignatureCheck);
+            purchase = new Purchase(travelDestination.getId(), null, null, appUser.getId(), purchaseSignatureCheck);
             travelersList = new ArrayList<Traveler>();
-            this.addNewPurchase(purchase);
+            appUser.setTravelPoints((appUser.getTravelPoints() != null) ?
+                    (appUser.getTravelPoints() + (travelDestination.getTravelPoints() * containerLinearLayout.getChildCount())) :
+                    (travelDestination.getTravelPoints() * containerLinearLayout.getChildCount()));
+            this.updateUser(appUser);
         }
         else{
             this.finishActivity();
         }
+    }
+
+    private void updateUser(AppUser user){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        serverManager.updateAppUserWithId(user.getId(), user, new ServerManager.Callback<ResponseMessage>() {
+            @Override
+            public void requestResult(ResponseMessage responseMessage) {
+                if (responseMessage.getError() == null) {
+                    addNewPurchase(purchase);
+                } else {
+                    Log.e(TAG, responseMessage.getError());
+                    finishActivity();
+                }
+            }
+        });
     }
 
     private void addNewPurchase(final Purchase purchase){
@@ -404,4 +426,5 @@ public class AddDestinationTravelersActivity extends Activity {
         travelerView.setData(dataValues);
         return travelerView;
     }
+
 }

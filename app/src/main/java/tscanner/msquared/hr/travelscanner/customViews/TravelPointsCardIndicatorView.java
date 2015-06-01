@@ -24,7 +24,6 @@ public class TravelPointsCardIndicatorView extends FrameLayout {
     private final String serverBoatString = "boat";
     private final String serverTrainString = "train";
 
-
     private ImageView travelByIcon;
     private TextView travelPointsText;
 

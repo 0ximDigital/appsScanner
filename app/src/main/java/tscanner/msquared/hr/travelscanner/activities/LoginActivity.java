@@ -42,11 +42,7 @@ public class LoginActivity extends Activity {
     private FloatingActionButton loginAnonymous;
     private boolean GLOBAL_FAST_ENTRY=true;
 
-    private CheckBox rememberMeCheckbox; // TODO
-
-    private Button settings;
-
-    private String imagePath;
+    private CheckBox rememberMeCheckbox;
 
     private ServerManager serverManager;
     private LoadToast loadToast;
@@ -81,7 +77,6 @@ public class LoginActivity extends Activity {
         this.username = (EditText) findViewById(R.id.editUsername);
         this.password = (EditText) findViewById(R.id.editPassword);
         this.loginAnonymous = (FloatingActionButton) findViewById(R.id.btnSkip);
-        this.settings=(Button) findViewById(R.id.btnSetting);
         this.rememberMeCheckbox = (CheckBox) findViewById(R.id.cbRememberMe);
 
         this.loadToast = new LoadToast(this);
@@ -93,13 +88,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 loginTry();
-            }
-        });
-
-        this.settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             }
         });
     }
@@ -297,7 +285,6 @@ public class LoginActivity extends Activity {
                 if (travelDestination != null) {
                     loadToast.success();
                     Log.i(TAG, travelDestination.toString());
-                    imagePath = travelDestination.getPicture();
                 } else {
                     loadToast.error();
                 }

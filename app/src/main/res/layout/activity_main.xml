@@ -6,17 +6,86 @@
     tools:context="tscanner.msquared.hr.travelscanner.activities.MainActivity"
     android:background="@color/traveler_black">
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recycler"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_height="64dp"
+        android:background="@color/traveler_primary">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Odaberi destinaciju"
-        android:id="@+id/button2"
-        android:layout_marginTop="130dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="8dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imgSettings"
+                android:layout_gravity="right|center_vertical"
+                android:src="@drawable/ic_action_settings" />
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_circle_outline"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/framePoints">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/imgTravelByIcon"
+                        android:layout_margin="8dp"
+                        android:src="@drawable/ic_traveler_logo_primary"
+                        android:layout_gravity="center" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right|bottom"
+                    android:background="@drawable/shape_circle_outline">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/traveler_primary"
+                        android:textStyle="bold"
+                        android:text="##"
+                        android:id="@+id/txtTravelerPoints"
+                        android:layout_gravity="center" />
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler"
+            android:layout_gravity="center_horizontal"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shader_layout_shadow"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
