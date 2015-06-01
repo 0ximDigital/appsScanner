@@ -1,6 +1,7 @@
 package tscanner.msquared.hr.travelscanner.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,9 @@ import android.view.MenuItem;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.steamcrafted.loadtoast.LoadToast;
 
@@ -20,6 +24,7 @@ import java.util.List;
 import tscanner.msquared.hr.travelscanner.InternetConnectionCheck;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.adapters.TravelDestinationsAdapter;
+import tscanner.msquared.hr.travelscanner.fragments.SettingsFragment;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
 import tscanner.msquared.hr.travelscanner.models.restModels.TravelDestination;
 
@@ -27,12 +32,14 @@ public class MainActivity extends Activity {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private Button goToDestInfo;
-
     private RecyclerView recyclerView;
 
     private ServerManager serverManager;
     private LoadToast loadToast;
+
+    private TextView travelPointsLabel;
+    private ImageView settingsImage;
+    private FrameLayout travelPointsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +63,19 @@ public class MainActivity extends Activity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         this.recyclerView.setLayoutManager(manager);
 
-        this.goToDestInfo = (Button)findViewById(R.id.button2);
-
-        goToDestInfo.setOnClickListener(new View.OnClickListener() {
+        this.travelPointsLabel = (TextView) findViewById(R.id.txtTravelerPoints);
+        this.travelPointsView = (FrameLayout) findViewById(R.id.framePoints);
+        this.travelPointsView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DestinationInfoActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+        this.settingsImage = (ImageView) findViewById(R.id.imgSettings);
+        this.settingsImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
     }

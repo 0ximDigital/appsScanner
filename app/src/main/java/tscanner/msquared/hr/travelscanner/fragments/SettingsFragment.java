@@ -189,7 +189,7 @@ public class SettingsFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    private void updateUser(AppUser user){
+    private void updateUser(final AppUser user){
         if(serverManager == null){
             serverManager = new ServerManager();
         }
