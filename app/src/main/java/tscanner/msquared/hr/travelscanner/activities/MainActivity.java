@@ -17,6 +17,7 @@ import net.steamcrafted.loadtoast.LoadToast;
 import java.util.Collections;
 import java.util.List;
 
+import tscanner.msquared.hr.travelscanner.InternetConnectionCheck;
 import tscanner.msquared.hr.travelscanner.R;
 import tscanner.msquared.hr.travelscanner.adapters.TravelDestinationsAdapter;
 import tscanner.msquared.hr.travelscanner.helpers.Rest.ServerManager;
@@ -38,9 +39,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.referenceViews();
-
-        this.fetchAllTravelDestinations();
+        InternetConnectionCheck check = new InternetConnectionCheck(this);
+        check.setCheckCallback(new InternetConnectionCheck.OnCheckCallback() {
+            @Override
+            public void onCheck(boolean hasConnection) {
+                referenceViews();
+                fetchAllTravelDestinations();
+            }
+        });
+        check.checkConnection();
     }
 
     private void referenceViews(){

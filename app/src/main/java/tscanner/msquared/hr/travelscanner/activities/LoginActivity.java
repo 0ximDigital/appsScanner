@@ -32,16 +32,15 @@ public class LoginActivity extends Activity {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private Button login;
-    private EditText username=null;
-    private EditText password=null;
+    private Button loginButton;
+    private EditText username;
+    private EditText password;
     private TextView loginAnonymous;
     private boolean GLOBAL_FAST_ENTRY=true;
 
     private ImageView destinationImagePreviewView;
 
     private Button testButton;
-    private Button testConnection;
     private Button settings;
 
     private String imagePath;
@@ -49,24 +48,32 @@ public class LoginActivity extends Activity {
     private ServerManager serverManager;
     private LoadToast loadToast;
 
-    private List<AppUser> appUserList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        this.referenceViews();
+        InternetConnectionCheck check = new InternetConnectionCheck(this);
+        check.setCheckCallback(new InternetConnectionCheck.OnCheckCallback() {
+            @Override
+            public void onCheck(boolean hasConnection) {
+                if (hasConnection) {
+                    referenceViews();
+                } else {
+                    finish();
+                }
+            }
+        });
+        check.checkConnection();
     }
 
     private void referenceViews() {
-        this.login = (Button) findViewById(R.id.login);
+        this.loginButton = (Button) findViewById(R.id.login);
         this.username = (EditText) findViewById(R.id.editUsername);
         this.password = (EditText) findViewById(R.id.editPassword);
         this.loginAnonymous = (TextView) findViewById(R.id.loginAnonymous);
 
         this.testButton = (Button) findViewById(R.id.btnTest);
-        this.testConnection = (Button) findViewById(R.id.btnTestConnection);
         this.settings=(Button) findViewById(R.id.btnSetting);
 
         this.loadToast = new LoadToast(this);
@@ -79,6 +86,13 @@ public class LoginActivity extends Activity {
                 final Intent intent = new Intent(LoginActivity.this, DestinationInfoActivity.class);
                 intent.putExtra("imgURL", imagePath);
                 ActivityTransitionLauncher.with(LoginActivity.this).from(view).launch(intent);
+            }
+        });
+
+        this.loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginTry();
             }
         });
 
@@ -95,29 +109,30 @@ public class LoginActivity extends Activity {
                 startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             }
         });
-
-        this.testConnection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                InternetConnectionCheck icc=new InternetConnectionCheck(LoginActivity.this);
-                icc.checkConnection();
-            }
-        });
     }
 
-    public void login(View view){
-        if(username.getText().toString().equals("admin") &&
-                password.getText().toString().equals("admin")) {
-            //correcct password
-            //Toast.makeText(getApplicationContext(),"Redirecting..",Toast.LENGTH_SHORT).show();
-            AcceptedLogin();
-
-        }else{
-            //wrong password
-            //TODO  maknuti toast na kraju
-            Toast.makeText(getApplicationContext(),"sve je: \"admin\" ",Toast.LENGTH_LONG).show();
-            Log.d("Login:", "User");
+    public void loginTry(){
+        if(serverManager == null){
+            serverManager = new ServerManager();
         }
+        loadToast.setText("Logging in..").show();
+        serverManager.getAppUsersWithPassword(password.getText().toString(), new ServerManager.Callback<List<AppUser>>() {
+            @Override
+            public void requestResult(List<AppUser> appUsers) {
+                if (appUsers != null) {
+                    String emailToEvaluate = username.getText().toString();
+                    for(AppUser user : appUsers){
+                        if(emailToEvaluate.equals(user.getEmail())){
+                            loadToast.success();
+                            AcceptedLogin();
+                            return;
+                        }                    }
+                    loadToast.error();
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
     }
 
     public void anonymousOnClick(View view){
