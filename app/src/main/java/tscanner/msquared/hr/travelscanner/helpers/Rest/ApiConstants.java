@@ -15,13 +15,13 @@ public final class ApiConstants {
     public static final String dohvatObicnihUsera = "/Traveler/api/data/app_users/is_salesman/false";
     public static final String dohvatUseraSaPassom = "/Traveler/api/data/app_users/login/";    // Za login -> salje se enkriptirani pass dobe useri -> provjera maila
 
-
     public static final String dohvatSvihDestinacija = "/Traveler/api/data/travel_destinations";
     public static final String dohvatDestinacijeSaId = "/Traveler/api/data/travel_destination/id/";
 
     public static final String dohvatiSvePurchase = "/Traveler/api/data/purchases";
     public static final String dohvatPurchaseaSaId = "/Traveler/api/data/purchase/id/";
     public static final String dohvatPurchaseaOdUseraSaId = "/Traveler/api/data/purchases/user_id/";
+    public static final String dohvatPurchaseaSaSignatureom = "/Traveler/api/data//purchase/with_signature/";
 
     public static final String dohvatSvihTravelera = "/Traveler/api/data/travelers";
     public static final String dohvatTraveleraSaId = "/Traveler/api/data/traveler/id/";

@@ -84,6 +84,8 @@ public class LoginActivity extends Activity {
         this.testButton = (Button) findViewById(R.id.btnTest);
         this.settings=(Button) findViewById(R.id.btnSetting);
 
+        /// TODO - stavit "zapamti me" -> provjera dal vec postoji, ako ne onda login
+
         this.loadToast = new LoadToast(this);
         this.loadToast.setTranslationY(300);
 
@@ -145,7 +147,7 @@ public class LoginActivity extends Activity {
     }
 
     public void anonymousOnClick(View view){
-        Log.d("Login:","Anonymous");
+        Log.d("Login:", "Anonymous");
         if(GLOBAL_FAST_ENTRY){
             AcceptedLogin(null);
         }
@@ -159,9 +161,12 @@ public class LoginActivity extends Activity {
 
     public void AcceptedLogin(AppUser loggingInUser){
         this.prefsHelper.putString(PrefsHelper.LOGGED_IN_USER_APPUSER_DATA, (loggingInUser != null) ? gson.toJson(loggingInUser) : null);
+        this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TAKING_PHOTO_HINT, true);
+        this.prefsHelper.putBoolean(PrefsHelper.FIRST_TIME_TRAVELPOINTS_HINT, true);
         Intent intent;
         intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void fetchUserWithPassword(String password){
@@ -328,6 +333,24 @@ public class LoginActivity extends Activity {
         }
         loadToast.setText("Fetching purchase..").show();
         serverManager.getPurchaseById(id, new ServerManager.Callback<Purchase>() {
+            @Override
+            public void requestResult(Purchase purchase) {
+                if (purchase != null) {
+                    loadToast.success();
+                    Log.i(TAG, purchase.toString());
+                } else {
+                    loadToast.error();
+                }
+            }
+        });
+    }
+
+    private void fetchPurchaseWithSignature(String signature){
+        if(serverManager == null){
+            serverManager = new ServerManager();
+        }
+        loadToast.setText("Fetching purchase..").show();
+        serverManager.getPurchaseWithSignature(signature, new ServerManager.Callback<Purchase>() {
             @Override
             public void requestResult(Purchase purchase) {
                 if (purchase != null) {
