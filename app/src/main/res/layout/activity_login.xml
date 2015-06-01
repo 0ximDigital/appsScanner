@@ -1,150 +1,160 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        tools:context=".MainActivity" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:background="@color/traveler_primary_dark">
+        android:layout_height="140dp"
+        android:background="@color/traveler_primary">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/traveler_divider"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="39dp"
-            android:layout_marginBottom="38dp"
-            android:layout_marginLeft="40dp" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:background="@color/traveler_primary"
-            android:layout_margin="40dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/loginMain"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </FrameLayout>
-
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_traveler_logo_primary"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_circle_outline"
+            android:paddingRight="0dp" />
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginTop="50dp"
-        android:text="Email\t\t\t"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/editUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="32dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/textPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="38dp"
-        android:text="@string/password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textPassword"
-        android:layout_alignLeft="@+id/editUsername"
-        android:ems="10"
-        android:inputType="textPassword" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/login" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shader_layout_shadow"/>
 
-        <TextView
-        android:id="@+id/loginAnonymous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/loginAnonymous"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/login"
-        android:onClick="anonymousOnClick"
-        android:layout_gravity="left"
-        android:clickable="true"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp">
 
-        <TextView
-            android:id="@+id/registration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Registration"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_below="@+id/loginAnonymous"
-            android:onClick="registrationOnClick"
-            android:layout_gravity="left"
-            android:clickable="true"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Test"
-            android:id="@+id/btnTest"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/tvTitle"
-            android:layout_toEndOf="@+id/tvTitle" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:id="@+id/btnSetting"
-            />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TravelerSubtitleText"
+                        android:text="Email :"
+                        android:layout_marginTop="20dp" />
 
-</RelativeLayout>
+                    <EditText
+                        android:id="@+id/editUsername"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TravelerEditTextStyle"
+                        android:inputType="text|textCapCharacters"
+                        android:hint="email" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TravelerSubtitleText"
+                        android:text="Password :"
+                        android:layout_marginTop="12dp" />
+
+                    <EditText
+                        android:id="@+id/editPassword"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textCapCharacters"
+                        style="@style/TravelerEditTextStyle"
+                        android:hint="password"
+                        android:password="true"/>
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remember me"
+                        android:id="@+id/cbRememberMe"
+                        android:layout_marginTop="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal|right"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="28dp">
+
+                        <com.github.clans.fab.FloatingActionButton
+                            android:id="@+id/btnSkip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            fab:fab_showShadow="false"
+                            android:src="@drawable/ic_traveler_skip"
+                            fab:fab_colorNormal="@color/traveler_primary"
+                            fab:fab_colorPressed="@color/traveler_primary"
+                            fab:fab_colorRipple="@color/traveler_primary"
+                            fab:fab_label="Anonymous login"
+                            android:onClick="anonymousOnClick"/>
+
+                        <com.github.clans.fab.FloatingActionButton
+                            android:id="@+id/btnRegister"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            fab:fab_showShadow="false"
+                            android:src="@drawable/ic_add_traveler_icon"
+                            fab:fab_colorNormal="@color/traveler_primary"
+                            fab:fab_colorPressed="@color/traveler_primary"
+                            fab:fab_colorRipple="@color/traveler_primary"
+                            fab:fab_label="Register"
+                            android:onClick="registrationOnClick" />
+
+                        <com.github.clans.fab.FloatingActionButton
+                            android:id="@+id/btnLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"
+                            fab:fab_showShadow="false"
+                            android:src="@drawable/ic_navigation_check"
+                            fab:fab_colorNormal="@color/traveler_primary"
+                            fab:fab_colorPressed="@color/traveler_primary"
+                            fab:fab_colorRipple="@color/traveler_primary"
+                            fab:fab_label="Login" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Settings"
+                        android:id="@+id/btnSetting"
+                        />
+
+                </LinearLayout>
+            </ScrollView>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

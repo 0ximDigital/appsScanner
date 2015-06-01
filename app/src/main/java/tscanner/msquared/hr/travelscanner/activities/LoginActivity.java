@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
 import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.squareup.picasso.Picasso;
@@ -34,13 +36,14 @@ public class LoginActivity extends Activity {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    private Button loginButton;
+    private FloatingActionButton loginButton;
     private EditText username;
     private EditText password;
-    private TextView loginAnonymous;
+    private FloatingActionButton loginAnonymous;
     private boolean GLOBAL_FAST_ENTRY=true;
 
-    private Button testButton;
+    private CheckBox rememberMeCheckbox; // TODO
+
     private Button settings;
 
     private String imagePath;
@@ -74,12 +77,10 @@ public class LoginActivity extends Activity {
     }
 
     private void referenceViews() {
-        this.loginButton = (Button) findViewById(R.id.login);
+        this.loginButton = (FloatingActionButton) findViewById(R.id.btnLogin);
         this.username = (EditText) findViewById(R.id.editUsername);
         this.password = (EditText) findViewById(R.id.editPassword);
-        this.loginAnonymous = (TextView) findViewById(R.id.loginAnonymous);
-
-        this.testButton = (Button) findViewById(R.id.btnTest);
+        this.loginAnonymous = (FloatingActionButton) findViewById(R.id.btnSkip);
         this.settings=(Button) findViewById(R.id.btnSetting);
 
         /// TODO - stavit "zapamti me" -> provjera dal vec postoji, ako ne onda login
@@ -91,13 +92,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 loginTry();
-            }
-        });
-
-        this.testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fetchUserWithPassword("123456");
             }
         });
 
